@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "371370986724",
+    "firebase_url": "https://fdsmps-android.firebaseio.com",
+    "project_id": "fdsmps-android",
+    "storage_bucket": "fdsmps-android.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:371370986724:android:2a55ebbb610b6d973ff0f1",
+        "android_client_info": {
+          "package_name": "ca.ualberta.dorsa.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "371370986724-p0vb4skibmijcuee44529v77h9nn7b2d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ca.ualberta.dorsa.myapplication",
+            "certificate_hash": "0cbd03a77031fb39ccb22c1577bcd390281b3d19"
+          }
+        },
+        {
+          "client_id": "371370986724-gu3242in8ncsf4p2h1sbgpcmpem8cv1c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvM-QujeeC4siLENEyX94H8UGUoEmU_yE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "371370986724-gu3242in8ncsf4p2h1sbgpcmpem8cv1c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
