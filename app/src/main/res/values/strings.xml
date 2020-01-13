@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">My Application</string>
     <string name="open_camera">Open Camera</string>
+    <string name="auth_failed">Authentication Failed</string>
+    <string name="emailpassword_status_fmt">Status</string>
+    <string name="firebase_status_fmt">Status</string>
+    <string name="signed_out">Signed out</string>
+    <string name="sign_in">Sign In</string>
+    <string name="create_account">Create account</string>
 </resources>
