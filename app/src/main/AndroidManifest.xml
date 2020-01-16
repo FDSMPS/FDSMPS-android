@@ -11,8 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="ca.ualberta.dorsa.seccam.LogActivity"
-            android:label="@string/title_activity_log"></activity>
+            android:name="ca.ualberta.dorsa.seccam.LogActivity"></activity>
         <activity android:name="ca.ualberta.dorsa.seccam.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,7 +1,9 @@
 package ca.ualberta.dorsa.seccam;
 
 import android.os.Bundle;
-import android.support.design.widget.BottomNavigationView;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.navigation.NavController;
