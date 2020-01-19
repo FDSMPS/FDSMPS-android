@@ -1,17 +1,16 @@
-package ca.ualberta.dorsa.seccam.ui.dashboard;
-
+package ca.ualberta.dorsa.seccam.ui.nextsteps;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class DashboardViewModel extends ViewModel {
+public class NextStepsViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public DashboardViewModel() {
+    public NextStepsViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is dashboard fragment");
+        mText.setValue("This is next steps fragment");
     }
 
     public LiveData<String> getText() {

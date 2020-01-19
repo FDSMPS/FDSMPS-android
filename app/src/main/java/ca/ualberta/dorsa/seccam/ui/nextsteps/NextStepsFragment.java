@@ -1,4 +1,4 @@
-package ca.ualberta.dorsa.seccam.ui.dashboard;
+package ca.ualberta.dorsa.seccam.ui.nextsteps;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,17 +13,18 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import ca.ualberta.dorsa.myapplication.R;
 
-public class DashboardFragment extends Fragment {
 
-    private DashboardViewModel dashboardViewModel;
+public class NextStepsFragment extends Fragment {
+
+    private NextStepsViewModel nextStepsViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        dashboardViewModel =
-                ViewModelProviders.of(this).get(DashboardViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        final TextView textView = root.findViewById(R.id.text_dashboard);
-        dashboardViewModel.getText().observe(this, new Observer<String>() {
+        nextStepsViewModel =
+                ViewModelProviders.of(this).get(NextStepsViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_next_steps, container, false);
+        final TextView textView = root.findViewById(R.id.text_next_steps);
+        nextStepsViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

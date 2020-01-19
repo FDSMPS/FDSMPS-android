@@ -1,17 +1,17 @@
-package ca.ualberta.dorsa.seccam.ui.home;
+package ca.ualberta.dorsa.seccam.ui.settings;
 
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class HomeViewModel extends ViewModel {
+public class SettingsViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public HomeViewModel() {
+    public SettingsViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
+        mText.setValue("This is settings fragment");
     }
 
     public LiveData<String> getText() {

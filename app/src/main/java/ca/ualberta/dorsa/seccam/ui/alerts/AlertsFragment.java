@@ -1,4 +1,4 @@
-package ca.ualberta.dorsa.seccam.ui.home;
+package ca.ualberta.dorsa.seccam.ui.alerts;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,17 +13,17 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import ca.ualberta.dorsa.myapplication.R;
 
-public class HomeFragment extends Fragment {
+public class AlertsFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
+    private AlertsViewModel alertsViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(this, new Observer<String>() {
+        alertsViewModel =
+                ViewModelProviders.of(this).get(AlertsViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_alerts, container, false);
+        final TextView textView = root.findViewById(R.id.text_alerts);
+        alertsViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
