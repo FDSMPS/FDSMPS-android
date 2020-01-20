@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_alerts"
+        android:icon="@drawable/ic_vibration_black_24dp"
+        android:title="@string/title_alerts" />
+
+    <item
+        android:id="@+id/navigation_feed"
+        android:icon="@drawable/ic_videocam_black_24dp"
+        android:title="@string/title_feed" />
+
+    <item
+        android:id="@+id/navigation_settings"
+        android:icon="@drawable/ic_settings_black_24dp"
+        android:title="@string/title_settings" />
+
+    <item
+        android:id="@+id/navigation_next_steps"
+        android:icon="@drawable/ic_phone_in_talk_black_24dp"
+        android:title="@string/title_next_steps" />
+
+</menu>
