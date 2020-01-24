@@ -48,24 +48,21 @@ public class LoginActivity extends AppCompatActivity {
         password = ((EditText)(findViewById(R.id.passwordLogin))).getText().toString();
         // [START create_user_with_email]
         mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("MYTAG", "signInWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Intent logedInIntent = new Intent(getBaseContext(),   LogActivity.class);
-                            startActivity(logedInIntent);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w("MYTAG", "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-
-                        // ...
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d("MYTAG", "signInWithEmail:success");
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        Intent logedInIntent = new Intent(getBaseContext(),   LogActivity.class);
+                        startActivity(logedInIntent);
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w("MYTAG", "signInWithEmail:failure", task.getException());
+                        Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                Toast.LENGTH_SHORT).show();
                     }
+
+                    // ...
                 });
 
 
