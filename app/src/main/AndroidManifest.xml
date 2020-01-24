@@ -3,6 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="ca.ualberta.dorsa.myapplication">
 
+    <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
+
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,23 +17,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="ca.ualberta.dorsa.seccam.FeedActivity"
-            android:parentActivityName="ca.ualberta.dorsa.seccam.LogActivity"></activity>
-        <activity android:name="ca.ualberta.dorsa.seccam.LogActivity">
+        <activity android:name="ca.ualberta.dorsa.seccam.signUp"></activity>
+        <activity android:name="ca.ualberta.dorsa.seccam.loginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="ca.ualberta.dorsa.seccam.MainActivity"></activity>
+        <activity
+            android:name="ca.ualberta.dorsa.seccam.FeedActivity"
+            android:parentActivityName="ca.ualberta.dorsa.seccam.LogActivity" />
+        <activity android:name="ca.ualberta.dorsa.seccam.LogActivity">
+        </activity>
+        <activity android:name="ca.ualberta.dorsa.seccam.MainActivity" />
     </application>
-
-    <uses-feature android:name="android.hardware.camera" />
-
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-
-    <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
 
 </manifest>
