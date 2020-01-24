@@ -18,6 +18,7 @@ public class SignUp extends AppCompatActivity {
     private String email;
     private String password;
     private String phone;
+    private String confirmPassword;
 
 
     @Override
@@ -40,27 +41,34 @@ public class SignUp extends AppCompatActivity {
         email = ((EditText)(findViewById(R.id.emailSignUp))).getText().toString();
         password = ((EditText)(findViewById(R.id.passwordSignUp))).getText().toString();
         phone = ((EditText)(findViewById(R.id.phoneSignUp))).getText().toString();
+        confirmPassword = ((EditText) (findViewById(R.id.passwordConfirm))).getText().toString();
 
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
-                        // Sign in success, update UI with the signed-in user's information
-                        Log.d("MYTAG", "createUserWithEmail:success");
-                        FirebaseUser user = mAuth.getCurrentUser();
+        if (password.equals(confirmPassword)) {
+
+            mAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, task -> {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d("MYTAG", "createUserWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
 
 
-                        Intent signedUpIntent = new Intent(getBaseContext(),   LogActivity.class);
-                        startActivity(signedUpIntent);
+                            Intent signedUpIntent = new Intent(getBaseContext(), LogActivity.class);
+                            startActivity(signedUpIntent);
 
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Log.w("MYTAG", "createUserWithEmail:failure", task.getException());
-                        Toast.makeText(SignUp.this, "Authentication failed."+task.getException().getMessage(),
-                                Toast.LENGTH_SHORT).show();
-                    }
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w("MYTAG", "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(SignUp.this, "Authentication failed." + task.getException().getMessage(),
+                                    Toast.LENGTH_SHORT).show();
+                        }
 
-                    // ...
-                });
+                        // ...
+                    });
+        } else {
+            Toast.makeText(SignUp.this, "Passwords don't match!", Toast.LENGTH_SHORT).show();
+
+        }
 
 
     }

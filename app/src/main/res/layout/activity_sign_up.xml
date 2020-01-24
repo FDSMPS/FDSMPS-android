@@ -60,7 +60,7 @@
         android:inputType="textPassword" />
 
     <EditText
-        android:id="@+id/PasswordConfirm"
+        android:id="@+id/passwordConfirm"
         android:layout_weight="1"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
