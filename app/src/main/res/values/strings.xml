@@ -9,4 +9,11 @@
     <string name="login">login</string>
     <string name="sign_up">Sign up instead</string>
     <string name="sign_in">Sign In</string>
+    <string name="loginFromSignUp">Have an account? Login</string>
+    <string name="signUpFromLogin">No account? Sign up!</string>
+    <string name="full_name">Full Name</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="email_address">Email Address</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
 </resources>

@@ -44,6 +44,18 @@
         android:layout_width="match_parent"
         android:inputType="textPassword" />
 
+    <TextView
+        android:id="@+id/loginFromSignUp"
+        android:layout_weight="1"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/signUpFromLogin"
+        android:textAlignment="center"
+        android:onClick="signUp"
+        android:layout_marginRight="50dp"
+        android:layout_height="0dp"
+        android:layout_width="match_parent"/>
+
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>
