@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,8 +30,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
-        email = findViewById(R.id.emailLogin).toString();
-        password = findViewById(R.id.passwordLogin).toString();
+
 
     }
 
@@ -44,6 +44,8 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public void login(View view) {
+        email = ((EditText)(findViewById(R.id.emailLogin))).getText().toString();
+        password = ((EditText)(findViewById(R.id.passwordLogin))).getText().toString();
         // [START create_user_with_email]
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -53,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("MYTAG", "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent logedInIntent = new Intent(getBaseContext(),   LoginActivity.class);
+                            Intent logedInIntent = new Intent(getBaseContext(),   LogActivity.class);
                             startActivity(logedInIntent);
                         } else {
                             // If sign in fails, display a message to the user.
