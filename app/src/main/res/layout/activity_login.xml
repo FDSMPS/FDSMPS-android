@@ -34,15 +34,15 @@
         android:inputType="textPassword" />
 
 
-    <androidx.appcompat.widget.AppCompatButton
+    <Button
         android:id="@+id/signInButton"
         android:layout_weight="1"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:layout_height="0dp"
         android:text="@string/sign_in"
-        android:layout_width="match_parent"
-        android:inputType="textPassword" />
+        android:onClick="login"
+        android:layout_width="match_parent"/>
 
     <TextView
         android:id="@+id/loginFromSignUp"
