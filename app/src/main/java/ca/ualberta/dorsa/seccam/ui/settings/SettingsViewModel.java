@@ -1,6 +1,8 @@
 package ca.ualberta.dorsa.seccam.ui.settings;
 
 
+import android.view.View;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -17,4 +19,6 @@ public class SettingsViewModel extends ViewModel {
     public LiveData<String> getText() {
         return mText;
     }
+
+
 }

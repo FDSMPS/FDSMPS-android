@@ -55,6 +55,9 @@ public class LogActivity extends AppCompatActivity {
         new IntentIntegrator(this).initiateScan(); // `this` is the current Activity
 
     }
+    public void forgetMe(View view) {
+
+    }
     // Get the results:
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -70,5 +73,6 @@ public class LogActivity extends AppCompatActivity {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
+
 
 }

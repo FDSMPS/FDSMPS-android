@@ -18,4 +18,5 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="signUp">Sign Up</string>
     <string name="email">Email</string>
+    <string name="forget_me">Forget me</string>
 </resources>
