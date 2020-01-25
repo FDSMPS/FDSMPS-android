@@ -6,6 +6,7 @@
     android:weightSum="10"
     android:orientation="vertical"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient"
     tools:context="ca.ualberta.dorsa.seccam.SignUp">
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -23,7 +24,10 @@
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:hint="@string/full_name"
-        android:layout_width="match_parent" />
+        android:layout_width="match_parent"
+        android:textColor="@color/colorWhite"
+        android:textColorHint="@color/colorWhite"
+        android:backgroundTint="@color/colorWhite"/>
 
 
     <EditText
@@ -35,7 +39,9 @@
         android:layout_height="0dp"
         android:layout_width="match_parent"
         android:inputType="phone"
-        />
+        android:textColor="@color/colorWhite"
+        android:textColorHint="@color/colorWhite"
+        android:backgroundTint="@color/colorWhite"/>
 
 
     <EditText
@@ -46,7 +52,10 @@
         android:layout_height="0dp"
         android:hint="@string/email_address"
         android:layout_width="match_parent"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        android:textColor="@color/colorWhite"
+        android:textColorHint="@color/colorWhite"
+        android:backgroundTint="@color/colorWhite"/>
 
 
     <EditText
@@ -57,7 +66,10 @@
         android:layout_height="0dp"
         android:hint="@string/password"
         android:layout_width="match_parent"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:textColor="@color/colorWhite"
+        android:textColorHint="@color/colorWhite"
+        android:backgroundTint="@color/colorWhite"/>
 
     <EditText
         android:id="@+id/passwordConfirm"
@@ -67,7 +79,10 @@
         android:layout_height="0dp"
         android:hint="@string/confirm_password"
         android:layout_width="match_parent"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:textColor="@color/colorWhite"
+        android:textColorHint="@color/colorWhite"
+        android:backgroundTint="@color/colorWhite"/>
 
     <Button
         android:id="@+id/signInButton"
@@ -75,9 +90,11 @@
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:layout_height="0dp"
+        android:layout_marginTop="20sp"
         android:text="@string/signUp"
         android:onClick="signUp"
-        android:layout_width="match_parent"/>
+        android:layout_width="match_parent"
+        android:background="@color/colorBanner"/>
 
 
     <TextView
@@ -86,10 +103,12 @@
         android:layout_marginLeft="50dp"
         android:text="@string/loginFromSignUp"
         android:textAlignment="center"
+        android:layout_marginTop="10sp"
         android:onClick="login"
         android:layout_marginRight="50dp"
         android:layout_height="0dp"
-        android:layout_width="match_parent"/>
+        android:layout_width="match_parent"
+        android:textColor="@color/colorWhite" />
 
 
 

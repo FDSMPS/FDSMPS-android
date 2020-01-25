@@ -16,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.Random;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import ca.ualberta.dorsa.myapplication.R;
 
@@ -33,6 +34,9 @@ public class SignUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         mAuth = FirebaseAuth.getInstance();
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
         //Use to test!!!! If you are lazy like me
 
