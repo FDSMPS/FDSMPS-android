@@ -63,7 +63,6 @@ public class LogActivity extends AppCompatActivity {
     }
     public void forgetMe(View view) {
 
-
     }
     // Get the results:
     @Override
@@ -92,12 +91,6 @@ public class LogActivity extends AppCompatActivity {
     public void chooseLocation(View view) {
         Intent mapsIntent = new Intent(getBaseContext(), MapsActivity.class);
         startActivity(mapsIntent);
-
-    }
-
-    public void logOut(View view) {
-
-//        mAuth.signOut();
 
     }
 }
