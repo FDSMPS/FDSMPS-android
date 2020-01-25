@@ -4,9 +4,17 @@
     package="ca.ualberta.dorsa.myapplication">
 
     <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
-
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-feature android:name="android.hardware.camera" />
-
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
@@ -17,8 +25,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="ca.ualberta.dorsa.seccam.SignUp"></activity>
-        <activity android:name="ca.ualberta.dorsa.seccam.LoginActivity" >
+
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name="ca.ualberta.dorsa.seccam.MapsActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_maps"></activity>
+        <activity
+            android:name="ca.ualberta.dorsa.seccam.SignUp"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="ca.ualberta.dorsa.seccam.LoginActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,10 +56,14 @@
         </activity>
         <activity
             android:name="ca.ualberta.dorsa.seccam.FeedActivity"
+            android:screenOrientation="portrait"
             android:parentActivityName="ca.ualberta.dorsa.seccam.LogActivity" />
-        <activity android:name="ca.ualberta.dorsa.seccam.LogActivity">
-        </activity>
-        <activity android:name="ca.ualberta.dorsa.seccam.MainActivity" />
+        <activity
+            android:name="ca.ualberta.dorsa.seccam.LogActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="ca.ualberta.dorsa.seccam.MainActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

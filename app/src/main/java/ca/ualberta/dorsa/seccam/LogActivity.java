@@ -75,4 +75,9 @@ public class LogActivity extends AppCompatActivity {
     }
 
 
+    public void chooseLocation(View view) {
+        Intent mapsIntent = new Intent(getBaseContext(), MapsActivity.class);
+        startActivity(mapsIntent);
+
+    }
 }
