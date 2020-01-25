@@ -2,12 +2,16 @@ package ca.ualberta.dorsa.seccam;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -23,6 +27,8 @@ import ca.ualberta.dorsa.myapplication.R;
 
 public class LogActivity extends AppCompatActivity {
     String qrCodeScanned = "";
+    private FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +74,13 @@ public class LogActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
                 qrCodeScanned = result.getContents();
+                Log.i("MYTAG", qrCodeScanned);
+
+                //update database with the qr code scan
+
+                FirebaseDatabase.getInstance().getReference("Users/" + FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .child("cameraCode")
+                        .setValue(qrCodeScanned);
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
