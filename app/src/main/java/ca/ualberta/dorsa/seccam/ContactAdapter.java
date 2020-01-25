@@ -36,14 +36,16 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
 
         @Override
         public void onClick(View view) {
+            Contact c = contacts.get(getAdapterPosition());
+
             switch (view.getId()) {
                 case R.id.message_button:
-                    Intent messageIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("sms:" + "780-123-4567"));
+                    Intent messageIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("sms:" + c.getPhone()));
                     context.startActivity(messageIntent);
                     break;
 
                 case R.id.call_button:
-                    Intent callIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "780-123-4567"));
+                    Intent callIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + c.getPhone()));
                     context.startActivity(callIntent);
                     break;
 
@@ -54,9 +56,9 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
     }
 
     private Context context;
-    private ArrayList<String> contacts;
+    private ArrayList<Contact> contacts;
 
-    public ContactAdapter(Context context, ArrayList<String> contacts) {
+    public ContactAdapter(Context context, ArrayList<Contact> contacts) {
         this.context = context;
         this.contacts = contacts;
     }
@@ -78,11 +80,17 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         // Get the data model based on position
-        String contact = contacts.get(position);
+        Contact contact = contacts.get(position);
 
         // Set item views based on your views and data model
         TextView textView = holder.contactName;
-        textView.setText(contact);
+        textView.setText(contact.getName());
+
+        // 911 cannot be messaged
+        if (contact.getPhone().equals("911")) {
+            holder.messageButton.setEnabled(false);
+            holder.messageButton.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
