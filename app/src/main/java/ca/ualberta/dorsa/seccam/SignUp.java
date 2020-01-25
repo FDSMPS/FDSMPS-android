@@ -33,11 +33,15 @@ public class SignUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         mAuth = FirebaseAuth.getInstance();
-        email = Math.random() * 1000 + 50 + "dorsa@yahoo.cpm";
-        password = "123456";
-        phone = "7807809123";
-        confirmPassword = "123456";
-        name = "joh smith";
+
+        //Use to test!!!! If you are lazy like me
+
+//        email = Math.random() * 1000 + 50 + "dorsa@yahoo.cpm";
+//        password = "123456";
+//        phone = "7807809123";
+//        confirmPassword = "123456";
+//        name = "joh smith";
+
     }
     @Override
     public void onStart() {
@@ -50,12 +54,13 @@ public class SignUp extends AppCompatActivity {
 
     public void signUp(View view) {
 
-//        email = ((EditText)(findViewById(R.id.emailSignUp))).getText().toString();
-//        password = ((EditText)(findViewById(R.id.passwordSignUp))).getText().toString();
-//        phone = ((EditText)(findViewById(R.id.phoneSignUp))).getText().toString();
-//        confirmPassword = ((EditText) (findViewById(R.id.passwordConfirm))).getText().toString();
-//        name = ((EditText) (findViewById(R.id.userFullName))).getText().toString();
+        //use to actually create accounts
 
+        email = ((EditText) (findViewById(R.id.emailSignUp))).getText().toString();
+        password = ((EditText) (findViewById(R.id.passwordSignUp))).getText().toString();
+        phone = ((EditText) (findViewById(R.id.phoneSignUp))).getText().toString();
+        confirmPassword = ((EditText) (findViewById(R.id.passwordConfirm))).getText().toString();
+        name = ((EditText) (findViewById(R.id.userFullName))).getText().toString();
 
         if (phone.length() != 10) {
             Toast.makeText(SignUp.this, "Please enter your phone!", Toast.LENGTH_SHORT).show();

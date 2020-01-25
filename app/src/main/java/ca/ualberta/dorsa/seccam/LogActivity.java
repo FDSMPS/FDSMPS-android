@@ -55,21 +55,12 @@ public class LogActivity extends AppCompatActivity {
         );
     }
 
-    /* SETTINGS ----------------------------------------------------------------------------------*/
-
-    public void openCamera(View view) {
-        new IntentIntegrator(this).initiateScan(); // `this` is the current Activity
-
-    }
-    public void forgetMe(View view) {
-
-    }
     // Get the results:
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if(result != null) {
-            if(result.getContents() == null) {
+        if (result != null) {
+            if (result.getContents() == null) {
                 Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
@@ -87,10 +78,22 @@ public class LogActivity extends AppCompatActivity {
         }
     }
 
+    /* SETTINGS ----------------------------------------------------------------------------------*/
+
+    public void openCamera(View view) {
+        new IntentIntegrator(this).initiateScan(); // `this` is the current Activity
+
+    }
+    public void forgetMe(View view) {
+
+    }
 
     public void chooseLocation(View view) {
         Intent mapsIntent = new Intent(getBaseContext(), MapsActivity.class);
         startActivity(mapsIntent);
 
+    }
+
+    public void logOut(View view) {
     }
 }
