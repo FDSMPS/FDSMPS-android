@@ -6,6 +6,7 @@
     android:weightSum="10"
     android:orientation="vertical"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient"
     tools:context="ca.ualberta.dorsa.seccam.SignUp">
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -23,7 +24,10 @@
         android:hint="@string/email"
         android:layout_marginRight="50dp"
         android:layout_width="match_parent"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        android:textColor="@color/colorWhite"
+        android:textColorHint="@color/colorWhite"
+        android:backgroundTint="@color/colorWhite"/>
 
     <EditText
         android:id="@+id/passwordLogin"
@@ -33,7 +37,10 @@
         android:hint="@string/password"
         android:layout_height="0dp"
         android:layout_width="match_parent"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:textColor="@color/colorWhite"
+        android:textColorHint="@color/colorWhite"
+        android:backgroundTint="@color/colorWhite"/>
 
 
     <Button
@@ -42,21 +49,24 @@
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:layout_height="0dp"
-        android:text="@string/sign_in"
+        android:layout_marginTop="20sp"
+        android:text="@string/login"
         android:onClick="login"
-        android:layout_width="match_parent"/>
+        android:layout_width="match_parent"
+        android:background="@color/colorBanner"/>
 
     <TextView
         android:id="@+id/loginFromSignUp"
         android:layout_weight="1"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10sp"
         android:text="@string/signUpFromLogin"
         android:textAlignment="center"
         android:onClick="signUp"
         android:layout_marginRight="50dp"
         android:layout_height="0dp"
-        android:layout_width="match_parent"/>
+        android:layout_width="match_parent"
+        android:textColor="@color/colorWhite"/>
 
 
 
