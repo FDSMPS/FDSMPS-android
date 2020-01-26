@@ -1,4 +1,4 @@
-package ca.ualberta.dorsa.myapplication;
+package ca.ualberta.dorsa.seccam;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("ca.ualberta.dorsa.myapplication", appContext.getPackageName());
+        assertEquals("ca.ualberta.dorsa.seccam", appContext.getPackageName());
     }
 }

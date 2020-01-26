@@ -42,6 +42,43 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:371370986724:android:b40987c0394a6c183ff0f1",
+        "android_client_info": {
+          "package_name": "ca.ualberta.dorsa.seccam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "371370986724-mt4spfa9fl18ucep8vms2uchm8ddd64g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ca.ualberta.dorsa.seccam",
+            "certificate_hash": "0cbd03a77031fb39ccb22c1577bcd390281b3d19"
+          }
+        },
+        {
+          "client_id": "371370986724-gu3242in8ncsf4p2h1sbgpcmpem8cv1c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvM-QujeeC4siLENEyX94H8UGUoEmU_yE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "371370986724-gu3242in8ncsf4p2h1sbgpcmpem8cv1c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="ca.ualberta.dorsa.myapplication">
+    package="ca.ualberta.dorsa.seccam">
 
     <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
     <!--

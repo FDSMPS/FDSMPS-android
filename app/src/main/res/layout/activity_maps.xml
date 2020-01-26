@@ -1,16 +1,15 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ca.ualberta.dorsa.seccam.MapsActivity"
-    android:orientation="vertical"
-    android:weightSum="1">
+    tools:context="ca.ualberta.dorsa.seccam.MapsActivity">
 
     <fragment
         android:id="@+id/place_autocomplete"
+        android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment" />
+        android:layout_height="wrap_content" />
 
     <fragment
         android:id="@+id/map"
@@ -18,5 +17,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:onClick="open_search"
+        android:layout_margin="5dp"
+        android:layout_gravity="bottom|right"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:src="@drawable/quantum_ic_search_grey600_24" />
 
-</LinearLayout>
+
+</FrameLayout>

@@ -1,4 +1,4 @@
-package ca.ualberta.dorsa.myapplication;
+package ca.ualberta.dorsa.seccam;
 
 import org.junit.Test;
 

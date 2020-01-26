@@ -9,7 +9,7 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import androidx.appcompat.app.AppCompatActivity;
-import ca.ualberta.dorsa.myapplication.R;
+import ca.ualberta.dorsa.seccam.R;
 
 public class MainActivity extends AppCompatActivity {
     String qrCodeScanned = "";

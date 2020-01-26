@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.ActionBar;
 import android.os.Bundle;
 
-import ca.ualberta.dorsa.myapplication.R;
+import ca.ualberta.dorsa.seccam.R;
 
 public class FeedActivity extends AppCompatActivity {
 

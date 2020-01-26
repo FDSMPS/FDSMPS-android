@@ -6,11 +6,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -21,13 +20,12 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import ca.ualberta.dorsa.myapplication.R;
+import ca.ualberta.dorsa.seccam.R;
 
 
 
 public class LogActivity extends AppCompatActivity {
     String qrCodeScanned = "";
-    private FirebaseAuth mAuth;
 
 
     @Override
@@ -85,6 +83,11 @@ public class LogActivity extends AppCompatActivity {
 
     }
     public void forgetMe(View view) {
+//        AuthUI.getInstance()
+//                .delete(this)
+//                .addOnCompleteListener((OnCompleteListener<Void>) task -> {
+//                    // ...
+//                });
 
     }
 
@@ -95,5 +98,11 @@ public class LogActivity extends AppCompatActivity {
     }
 
     public void logOut(View view) {
+//        AuthUI.getInstance()
+//                .signOut(this)
+//                .addOnCompleteListener((OnCompleteListener<Void>) task -> {
+//                    // ...
+//                });
+
     }
 }
