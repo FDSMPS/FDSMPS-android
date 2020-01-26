@@ -1,9 +1,10 @@
-package ca.ualberta.dorsa.seccam;
+package ca.ualberta.dorsa.seccam.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -19,8 +20,6 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String email;
     private String password;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +38,8 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
     }
 
-
-
     public void login(View view) {
+
         email = ((EditText)(findViewById(R.id.emailLogin))).getText().toString();
         password = ((EditText)(findViewById(R.id.passwordLogin))).getText().toString();
         // [START create_user_with_email]
@@ -59,18 +57,12 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, "Authentication failed.",
                                 Toast.LENGTH_SHORT).show();
                     }
-
-                    // ...
                 });
-
-
     }
 
     public void signUp(View view) {
-        Intent signUpIntent = new Intent(getBaseContext(),   SignUp.class);
+        Intent signUpIntent = new Intent(getBaseContext(),   SignUpActivity.class);
         startActivity(signUpIntent);
-
-
 
     }
 }

@@ -20,8 +20,8 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import ca.ualberta.dorsa.seccam.R;
-import ca.ualberta.dorsa.seccam.Contact;
-import ca.ualberta.dorsa.seccam.ContactAdapter;
+import ca.ualberta.dorsa.seccam.entities.Contact;
+import ca.ualberta.dorsa.seccam.adapters.ContactAdapter;
 
 public class NextStepsFragment extends Fragment {
 

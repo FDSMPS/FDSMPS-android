@@ -1,4 +1,4 @@
-package ca.ualberta.dorsa.seccam;
+package ca.ualberta.dorsa.seccam.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.ActionBar;

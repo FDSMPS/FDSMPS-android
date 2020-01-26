@@ -41,14 +41,14 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name="ca.ualberta.dorsa.seccam.MapsActivity"
+            android:name="ca.ualberta.dorsa.seccam.activities.MapsActivity"
             android:screenOrientation="portrait"
             android:label="@string/title_activity_maps"></activity>
         <activity
-            android:name="ca.ualberta.dorsa.seccam.SignUp"
+            android:name="ca.ualberta.dorsa.seccam.activities.SignUpActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="ca.ualberta.dorsa.seccam.LoginActivity"
+            android:name="ca.ualberta.dorsa.seccam.activities.LoginActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -57,14 +57,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="ca.ualberta.dorsa.seccam.FeedActivity"
+            android:name="ca.ualberta.dorsa.seccam.activities.FeedActivity"
             android:screenOrientation="portrait"
-            android:parentActivityName="ca.ualberta.dorsa.seccam.LogActivity" />
+            android:parentActivityName="ca.ualberta.dorsa.seccam.activities.LogActivity" />
         <activity
-            android:name="ca.ualberta.dorsa.seccam.LogActivity"
+            android:name="ca.ualberta.dorsa.seccam.activities.LogActivity"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name="ca.ualberta.dorsa.seccam.MainActivity"
+            android:name="ca.ualberta.dorsa.seccam.activities.MainActivity"
             android:screenOrientation="portrait" />
     </application>
 

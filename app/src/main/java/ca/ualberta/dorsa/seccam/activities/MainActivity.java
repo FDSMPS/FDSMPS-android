@@ -1,4 +1,4 @@
-package ca.ualberta.dorsa.seccam;
+package ca.ualberta.dorsa.seccam.activities;
 
 import android.content.Intent;
 import android.os.Bundle;

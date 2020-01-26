@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     android:background="@drawable/gradient"
-    tools:context="ca.ualberta.dorsa.seccam.SignUp">
+    tools:context="ca.ualberta.dorsa.seccam.activities.SignUpActivity">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_weight="3"
@@ -56,7 +56,6 @@
         android:background="@color/colorBanner"/>
 
     <TextView
-        android:id="@+id/loginFromSignUp"
         android:layout_weight="1"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="10sp"

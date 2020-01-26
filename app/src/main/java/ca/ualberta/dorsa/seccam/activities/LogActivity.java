@@ -1,11 +1,10 @@
-package ca.ualberta.dorsa.seccam;
+package ca.ualberta.dorsa.seccam.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-
 
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -15,13 +14,11 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import ca.ualberta.dorsa.seccam.R;
-
 
 
 public class LogActivity extends AppCompatActivity {
@@ -41,15 +38,11 @@ public class LogActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
-
         BottomNavigationItemView feedButton = findViewById(R.id.navigation_feed);
-        feedButton.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View view) {
-                  Intent i = new Intent(LogActivity.this, FeedActivity.class);
-                  startActivity(i);
-              }
-          }
+        feedButton.setOnClickListener(view -> {
+                    Intent i = new Intent(LogActivity.this, FeedActivity.class);
+                    startActivity(i);
+                }
         );
     }
 
@@ -82,6 +75,7 @@ public class LogActivity extends AppCompatActivity {
         new IntentIntegrator(this).initiateScan(); // `this` is the current Activity
 
     }
+
     public void forgetMe(View view) {
 //        AuthUI.getInstance()
 //                .delete(this)
