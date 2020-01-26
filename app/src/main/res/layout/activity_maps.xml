@@ -28,5 +28,16 @@
         android:backgroundTint="@color/colorPrimaryDark"
         android:src="@drawable/quantum_ic_search_grey600_24" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButtonSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|left"
+        android:layout_margin="5dp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:clickable="true"
+        android:onClick="saveAddress"
+        android:src="@android:drawable/ic_menu_save" />
+
 
 </FrameLayout>

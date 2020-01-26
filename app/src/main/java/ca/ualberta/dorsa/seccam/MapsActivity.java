@@ -10,12 +10,16 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 import java.util.Arrays;
@@ -29,6 +33,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 10;
     private GoogleMap mMap;
+    private MarkerOptions markerOptions;
+    private LatLng latlng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +50,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         Places.initialize(getApplicationContext(), "AIzaSyAwfsxCIgu65coGF_HkJNqIJoAuqMTWAmU");
 //        // Create a new Places client instance.
         PlacesClient placesClient = Places.createClient(this);
+        markerOptions = new MarkerOptions();
     }
 
     @Override
@@ -51,7 +58,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 Place place = Autocomplete.getPlaceFromIntent(data);
-                mMap.animateCamera(CameraUpdateFactory.newLatLng(place.getLatLng()));
+//                mMap.animateCamera(CameraUpdateFactory.newLatLng(place.getLatLng()));
+                latlng = place.getLatLng();
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 15.5f));
+                mMap.addMarker(markerOptions.position(place.getLatLng()).title(place.getAddress())).showInfoWindow();
+                //TODO pop up for save
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                 Status status = Autocomplete.getStatusFromIntent(data);
                 Log.i("TAG#######################################", status.getStatusMessage());
@@ -74,6 +85,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+//        mMap.setMyLocationEnabled(true);
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        mMap.setBuildingsEnabled(true);
+        mMap.setIndoorEnabled(true);
 
 //        // Add a marker in Sydney and move the camera
 //        LatLng sydney = new LatLng(-34, 151);
@@ -82,10 +97,25 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     public void open_search(View view) {
-        List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG);
+        List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG, Place.Field.ADDRESS);
         Intent intent = new Autocomplete.IntentBuilder(
                 AutocompleteActivityMode.OVERLAY, fields)
+                .setCountry("CA")
                 .build(this);
         startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
+    }
+
+    public void saveAddress(View view) {
+        double lat = latlng.latitude;
+        double lon = latlng.longitude;
+
+        FirebaseDatabase.getInstance().getReference("Users/" + FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child("userSetting").child("location").child("latitude")
+                .setValue(lat);
+        FirebaseDatabase.getInstance().getReference("Users/" + FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child("userSetting").child("location").child("longitude")
+                .setValue(lon);
+        Intent setAddressIntent = new Intent(getBaseContext(), LogActivity.class);
+        startActivity(setAddressIntent);
     }
 }
