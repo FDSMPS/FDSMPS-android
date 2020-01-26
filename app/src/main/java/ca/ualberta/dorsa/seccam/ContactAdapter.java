@@ -97,5 +97,3 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
     }
 }
 
-
-//0c:bd:03:a7:70:31:fb:39:cc:b2:2c:15:77:bc:d3:90:28:1b:3d:19
