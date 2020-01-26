@@ -16,23 +16,62 @@ tools:context="ca.ualberta.dorsa.seccam.activities.LogActivity">
     android:layout_width="match_parent"
     android:inputType="textPassword" />
 
-    <Button
-        android:onClick="chooseLocation"
-        android:text="@string/location"
-        android:layout_weight="1"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:weightSum="5"
+        android:orientation="horizontal"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:layout_height="0dp"
-        android:layout_width="match_parent" />
+        android:layout_weight="1"
+        android:layout_height="0dp">
 
-    <Button
-        android:onClick="openCamera"
-        android:text="@string/open_camera"
-        android:layout_weight="1"
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="chooseLocation"
+            android:src="@android:drawable/ic_menu_mylocation" />
+
+        <TextView
+            android:id="@+id/owner_coordinates"
+            android:onClick="chooseLocation"
+            android:text="@string/location"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:layout_weight="4"
+            android:layout_height="match_parent"
+            android:layout_width="0dp" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:weightSum="5"
+        android:orientation="horizontal"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:layout_height="0dp"
-        android:layout_width="match_parent" />
+        android:layout_weight="1"
+        android:layout_height="0dp">
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="openCamera"
+            android:src="@android:drawable/ic_menu_camera" />
+
+        <TextView
+            android:id="@+id/qr_code"
+            android:onClick="openCamera"
+            android:text="@string/camera_s_qr_code"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:layout_weight="4"
+            android:layout_height="match_parent"
+            android:layout_width="0dp" />
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 
     <Button

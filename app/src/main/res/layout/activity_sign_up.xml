@@ -10,7 +10,6 @@
     tools:context="ca.ualberta.dorsa.seccam.activities.SignUpActivity">
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/nothing1"
         android:layout_weight="3"
         android:layout_marginTop="30dp"
         android:layout_height="0dp"
@@ -98,7 +97,6 @@
 
 
     <TextView
-        android:id="@+id/loginFromSignUp"
         android:layout_weight="1"
         android:layout_marginLeft="50dp"
         android:text="@string/loginFromSignUp"

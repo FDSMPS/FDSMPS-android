@@ -34,13 +34,6 @@ public class SignUpActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
-        //Use to test!!!! If you are lazy like me
-
-//        email = Math.random() * 1000 + 50 + "dorsa@yahoo.cpm";
-//        password = "123456";
-//        phone = "7807809123";
-//        confirmPassword = "123456";
-//        name = "joh smith";
 
     }
     @Override

@@ -56,7 +56,6 @@
         android:background="@color/colorBanner"/>
 
     <TextView
-        android:id="@+id/loginFromSignUp"
         android:layout_weight="1"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="10sp"

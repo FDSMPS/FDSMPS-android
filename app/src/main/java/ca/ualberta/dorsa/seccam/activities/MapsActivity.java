@@ -35,7 +35,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private GoogleMap mMap;
     private MarkerOptions markerOptions;
     private LatLng latlng;
-
+    private String address;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,14 +58,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 Place place = Autocomplete.getPlaceFromIntent(data);
-//                mMap.animateCamera(CameraUpdateFactory.newLatLng(place.getLatLng()));
                 latlng = place.getLatLng();
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 15.5f));
                 mMap.addMarker(markerOptions.position(place.getLatLng()).title(place.getAddress())).showInfoWindow();
-                //TODO pop up for save
+                address = place.getAddress();
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                 Status status = Autocomplete.getStatusFromIntent(data);
-                Log.i("TAG#######################################", status.getStatusMessage());
             } else if (resultCode == RESULT_CANCELED) {
                 // The user canceled the operation.
             }
@@ -90,10 +88,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.setBuildingsEnabled(true);
         mMap.setIndoorEnabled(true);
 
-//        // Add a marker in Sydney and move the camera
-//        LatLng sydney = new LatLng(-34, 151);
-//        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 
     public void open_search(View view) {
@@ -115,6 +109,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         FirebaseDatabase.getInstance().getReference("Users/" + FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .child("userSetting").child("location").child("longitude")
                 .setValue(lon);
+        FirebaseDatabase.getInstance().getReference("Users/" + FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child("userSetting").child("location").child("address")
+                .setValue(address);
         Intent setAddressIntent = new Intent(getBaseContext(), LogActivity.class);
         startActivity(setAddressIntent);
     }
