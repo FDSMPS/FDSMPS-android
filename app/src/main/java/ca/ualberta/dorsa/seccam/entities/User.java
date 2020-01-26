@@ -1,28 +1,22 @@
-package ca.ualberta.dorsa.seccam;
+package ca.ualberta.dorsa.seccam.entities;
 
 
-public class User {
-    private String name, email, phone, uID;
+import ca.ualberta.dorsa.seccam.entities.Notification;
+import ca.ualberta.dorsa.seccam.entities.UserSettings;
+
+public class User extends Person {
+    private String email, uID;
     private String cameraCode;
-    private SecCamNotification notifications;
+    private Notification notifications;
     private UserSettings userSettings;
 
-    public User(String name, String email, String phone, String uID, String cameraCode, SecCamNotification notifications, UserSettings userSetting) {
-        this.name = name;
+    public User(String name, String email, String phone, String uID, String cameraCode, Notification notifications, UserSettings userSetting) {
+        super(name, phone);
         this.email = email;
-        this.phone = phone;
         this.uID = uID;
         this.cameraCode = cameraCode;
         this.notifications = notifications;
         this.userSettings = userSetting;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getEmail() {
@@ -31,14 +25,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public String getuID() {
@@ -57,11 +43,11 @@ public class User {
         this.cameraCode = cameraCode;
     }
 
-    public SecCamNotification getNotifications() {
+    public Notification getNotifications() {
         return notifications;
     }
 
-    public void setNotifications(SecCamNotification notifications) {
+    public void setNotifications(Notification notifications) {
         this.notifications = notifications;
     }
 
@@ -72,10 +58,4 @@ public class User {
     public void setUserSettings(UserSettings userSettings) {
         this.userSettings = userSettings;
     }
-
-    public User() {
-
-    }
-
-
 }

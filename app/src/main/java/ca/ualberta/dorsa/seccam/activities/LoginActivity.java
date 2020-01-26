@@ -1,4 +1,4 @@
-package ca.ualberta.dorsa.seccam;
+package ca.ualberta.dorsa.seccam.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void signUp(View view) {
-        Intent signUpIntent = new Intent(getBaseContext(),   SignUp.class);
+        Intent signUpIntent = new Intent(getBaseContext(),   SignUpActivity.class);
         startActivity(signUpIntent);
 
 

@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     android:background="@drawable/gradient"
-    tools:context="ca.ualberta.dorsa.seccam.SignUp">
+    tools:context="ca.ualberta.dorsa.seccam.activities.SignUpActivity">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_weight="3"

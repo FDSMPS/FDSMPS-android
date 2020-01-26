@@ -1,4 +1,4 @@
-package ca.ualberta.dorsa.seccam;
+package ca.ualberta.dorsa.seccam.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,8 +14,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import ca.ualberta.dorsa.seccam.R;
+import ca.ualberta.dorsa.seccam.entities.User;
 
-public class SignUp extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String email;
     private String password;
@@ -62,7 +63,7 @@ public class SignUp extends AppCompatActivity {
         name = ((EditText) (findViewById(R.id.userFullName))).getText().toString();
 
         if (phone.length() != 10) {
-            Toast.makeText(SignUp.this, "Please enter your phone!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SignUpActivity.this, "Please enter your phone!", Toast.LENGTH_SHORT).show();
         }
 
         if (password.equals(confirmPassword)) {
@@ -87,12 +88,12 @@ public class SignUp extends AppCompatActivity {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("MYTAG", "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(SignUp.this, "Authentication failed." + task.getException().getMessage(),
+                            Toast.makeText(SignUpActivity.this, "Authentication failed." + task.getException().getMessage(),
                                     Toast.LENGTH_SHORT).show();
                         }
                     });
         } else {
-            Toast.makeText(SignUp.this, "Passwords don't match!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SignUpActivity.this, "Passwords don't match!", Toast.LENGTH_SHORT).show();
 
         }
 
