@@ -38,11 +38,13 @@ public class SettingsFragment extends Fragment {
 
     private void loadDataFromFireBase() {
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Users/" + FirebaseAuth.getInstance().getCurrentUser().getUid());
+
         dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 try {
                     String address = (String) dataSnapshot.child("userSetting").child("location").child("address").getValue();
+
                     if (address != null) {
                         propertyAddress.setText(address);
                     }

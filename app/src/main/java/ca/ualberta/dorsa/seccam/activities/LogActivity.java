@@ -33,7 +33,6 @@ import ca.ualberta.dorsa.seccam.R;
 import ca.ualberta.dorsa.seccam.entities.NotificationHandler;
 
 
-
 public class LogActivity extends AppCompatActivity {
     String qrCodeScanned = "";
 
