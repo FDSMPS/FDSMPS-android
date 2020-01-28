@@ -37,6 +37,7 @@ public class FullscreenIntroActivity extends AppCompatActivity {
                     Intent logedInIntent = new Intent(getBaseContext(),   LogActivity.class);
                     logedInIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(logedInIntent);
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                     finish();
 
                 }
@@ -50,6 +51,7 @@ public class FullscreenIntroActivity extends AppCompatActivity {
                     Intent logedInIntent = new Intent(getBaseContext(),   LoginActivity.class);
                     logedInIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(logedInIntent);
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                     finish();
 
                 }

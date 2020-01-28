@@ -46,8 +46,9 @@ public class LogActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
         BottomNavigationItemView feedButton = findViewById(R.id.navigation_feed);
         feedButton.setOnClickListener(view -> {
-                    Intent i = new Intent(LogActivity.this, FeedActivity.class);
-                    startActivity(i);
+            Intent i = new Intent(LogActivity.this, FeedActivity.class);
+            startActivity(i);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 }
         );
         sharedPref = getApplicationContext().getSharedPreferences(
@@ -107,12 +108,14 @@ public class LogActivity extends AppCompatActivity {
         Intent logedInIntent = new Intent(getBaseContext(),   LoginActivity.class);
         logedInIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(logedInIntent);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         finish();
 
     }
 
     public void chooseLocation(View view) {
         Intent mapsIntent = new Intent(getBaseContext(), MapsActivity.class);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         startActivity(mapsIntent);
 
     }
@@ -125,6 +128,7 @@ public class LogActivity extends AppCompatActivity {
         Intent logedInIntent = new Intent(getBaseContext(),   LoginActivity.class);
         logedInIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(logedInIntent);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         finish();
 
     }

@@ -113,6 +113,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .child("userSetting").child("location").child("address")
                 .setValue(address);
         Intent setAddressIntent = new Intent(getBaseContext(), LogActivity.class);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         startActivity(setAddressIntent);
+        setAddressIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     }
 }

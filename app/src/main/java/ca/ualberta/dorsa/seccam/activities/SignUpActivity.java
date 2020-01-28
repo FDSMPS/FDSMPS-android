@@ -104,6 +104,7 @@ public class SignUpActivity extends AppCompatActivity {
         Intent loginIntent = new Intent(getBaseContext(),   LoginActivity.class);
         loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(loginIntent);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         finish();
 
     }

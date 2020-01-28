@@ -67,6 +67,7 @@ public class LoginActivity extends AppCompatActivity {
                             Intent logedInIntent = new Intent(getBaseContext(), LogActivity.class);
                             logedInIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(logedInIntent);
+                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                             finish();
                         } else {
                             // If sign in fails, display a message to the user.
@@ -86,6 +87,7 @@ public class LoginActivity extends AppCompatActivity {
         Intent signUpIntent = new Intent(getBaseContext(),   SignUpActivity.class);
         signUpIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(signUpIntent);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         finish();
 
     }
