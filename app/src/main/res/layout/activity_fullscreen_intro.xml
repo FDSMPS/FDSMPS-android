@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#009fff"
+    android:background="#749CBC"
     tools:context=".activities.FullscreenIntroActivity">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
