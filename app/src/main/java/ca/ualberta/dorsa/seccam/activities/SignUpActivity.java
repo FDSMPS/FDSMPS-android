@@ -58,37 +58,43 @@ public class SignUpActivity extends AppCompatActivity {
         if (phone.length() != 10) {
             Toast.makeText(SignUpActivity.this, "Please enter your phone!", Toast.LENGTH_SHORT).show();
         }
+        if ((email.trim()).length()==0 | password.trim().length()==0 | phone.trim().length()== 0 | confirmPassword.trim().length() ==0  | name.trim().length() == 0){
+            Toast.makeText(SignUpActivity.this, "Please fill in all fields!", Toast.LENGTH_SHORT).show();
+        }
 
-        if (password.equals(confirmPassword)) {
+        else {
 
-            mAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, task -> {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("MYTAG", "createUserWithEmail:success");
+            if (password.equals(confirmPassword)) {
+
+                mAuth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(this, task -> {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d("MYTAG", "createUserWithEmail:success");
 
 
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            User userObj = new User(name, email, phone, user.getUid(), null, null, null);
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                User userObj = new User(name, email, phone, user.getUid(), null, null, null);
 
-                            FirebaseDatabase.getInstance().getReference("Users")
-                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                    .setValue(userObj);
+                                FirebaseDatabase.getInstance().getReference("Users")
+                                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                        .setValue(userObj);
 
-                            Intent signedUpIntent = new Intent(getBaseContext(), LogActivity.class);
-                            signedUpIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(signedUpIntent);
+                                Intent signedUpIntent = new Intent(getBaseContext(), LogActivity.class);
+                                signedUpIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(signedUpIntent);
 
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w("MYTAG", "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(SignUpActivity.this, "Authentication failed." + task.getException().getMessage(),
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    });
-        } else {
-            Toast.makeText(SignUpActivity.this, "Passwords don't match!", Toast.LENGTH_SHORT).show();
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w("MYTAG", "createUserWithEmail:failure", task.getException());
+                                Toast.makeText(SignUpActivity.this, "Authentication failed." + task.getException().getMessage(),
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            } else {
+                Toast.makeText(SignUpActivity.this, "Passwords don't match!", Toast.LENGTH_SHORT).show();
 
+            }
         }
 
 
