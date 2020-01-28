@@ -12,7 +12,7 @@ tools:context="ca.ualberta.dorsa.seccam.activities.LogActivity">
     android:layout_weight="3"
     android:layout_marginTop="30dp"
     android:layout_height="0dp"
-    app:srcCompat="@mipmap/ic_launcher"
+    app:srcCompat="@drawable/logo_transparent"
     android:layout_width="match_parent"
     android:inputType="textPassword" />
 
@@ -80,7 +80,11 @@ tools:context="ca.ualberta.dorsa.seccam.activities.LogActivity">
         android:layout_weight="1"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
+        android:layout_marginTop="10dp"
+
+        android:textColor="@color/places_text_white_alpha_87"
         android:layout_height="0dp"
+        android:background="@drawable/round_button_blue"
         android:layout_width="match_parent" />
 
     <Button
@@ -89,7 +93,10 @@ tools:context="ca.ualberta.dorsa.seccam.activities.LogActivity">
         android:layout_weight="1"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/places_text_white_alpha_87"
         android:layout_height="0dp"
+        android:background="@drawable/round_button_blue"
         android:layout_width="match_parent" />
 
 

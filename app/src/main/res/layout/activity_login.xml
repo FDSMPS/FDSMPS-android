@@ -46,14 +46,14 @@
     <Button
         android:id="@+id/signInButton"
         android:layout_weight="1"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
         android:layout_height="0dp"
         android:layout_marginTop="20sp"
         android:text="@string/login"
         android:onClick="login"
         android:layout_width="match_parent"
-        android:background="@color/colorBanner"/>
+        android:background="@drawable/app_src_main_res_drawable_sign_up_bt"/>
 
     <TextView
         android:layout_weight="1"
