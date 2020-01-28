@@ -29,6 +29,8 @@ tools:context="ca.ualberta.dorsa.seccam.activities.LogActivity">
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/round_button_blue"
+            android:layout_marginTop="10dp"
             android:onClick="chooseLocation"
             android:src="@android:drawable/ic_menu_mylocation" />
 
@@ -47,6 +49,7 @@ tools:context="ca.ualberta.dorsa.seccam.activities.LogActivity">
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:weightSum="5"
+
         android:orientation="horizontal"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
@@ -56,7 +59,9 @@ tools:context="ca.ualberta.dorsa.seccam.activities.LogActivity">
         <ImageButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
             android:layout_weight="1"
+            android:background="@drawable/round_button_blue"
             android:onClick="openCamera"
             android:src="@android:drawable/ic_menu_camera" />
 
