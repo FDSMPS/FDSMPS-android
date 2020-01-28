@@ -1,6 +1,8 @@
 package ca.ualberta.dorsa.seccam.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +22,8 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String email;
     private String password;
+    private SharedPreferences sharedPref;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +33,8 @@ public class LoginActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+        sharedPref = getApplicationContext().getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
     }
 
     @Override
@@ -49,20 +55,33 @@ public class LoginActivity extends AppCompatActivity {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d("MYTAG", "signInWithEmail:success");
                         FirebaseUser user = mAuth.getCurrentUser();
+                        editor = sharedPref.edit();
+                        editor.putBoolean(getString(R.string.saved_high_score_key), true);
+                        editor.putString("UID",user.getUid());
+                        editor.apply();
+
                         Intent logedInIntent = new Intent(getBaseContext(),   LogActivity.class);
+                        logedInIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(logedInIntent);
+                        finish();
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w("MYTAG", "signInWithEmail:failure", task.getException());
                         Toast.makeText(LoginActivity.this, "Authentication failed.",
                                 Toast.LENGTH_SHORT).show();
+                        editor = sharedPref.edit();
+                        editor.putBoolean(getString(R.string.saved_high_score_key), false);
+                        editor.apply();
+
                     }
                 });
     }
 
     public void signUp(View view) {
         Intent signUpIntent = new Intent(getBaseContext(),   SignUpActivity.class);
+        signUpIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(signUpIntent);
+        finish();
 
     }
 }

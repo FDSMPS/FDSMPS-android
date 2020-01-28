@@ -76,6 +76,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     .setValue(userObj);
 
                             Intent signedUpIntent = new Intent(getBaseContext(), LogActivity.class);
+                            signedUpIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(signedUpIntent);
 
                         } else {
@@ -95,7 +96,9 @@ public class SignUpActivity extends AppCompatActivity {
 
     public void login(View view) {
         Intent loginIntent = new Intent(getBaseContext(),   LoginActivity.class);
+        loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(loginIntent);
+        finish();
 
     }
 }

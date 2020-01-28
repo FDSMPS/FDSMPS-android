@@ -4,12 +4,14 @@
     package="ca.ualberta.dorsa.seccam">
 
     <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
+
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
          location permissions for the 'MyLocation' functionality.
     -->
     <uses-feature android:name="android.hardware.camera" />
+
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -27,7 +29,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".activities.FullscreenIntroActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/FullscreenTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -41,31 +52,34 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name="ca.ualberta.dorsa.seccam.activities.MapsActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_maps"></activity>
-        <activity
-            android:name="ca.ualberta.dorsa.seccam.activities.SignUpActivity"
+            android:name=".activities.MapsActivity"
+            android:label="@string/title_activity_maps"
             android:screenOrientation="portrait" />
         <activity
-            android:name="ca.ualberta.dorsa.seccam.activities.LoginActivity"
+            android:name=".activities.SignUpActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.LoginActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
-            android:name="ca.ualberta.dorsa.seccam.activities.FeedActivity"
-            android:screenOrientation="portrait"
-            android:parentActivityName="ca.ualberta.dorsa.seccam.activities.LogActivity" />
-        <activity
-            android:name="ca.ualberta.dorsa.seccam.activities.LogActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="ca.ualberta.dorsa.seccam.activities.MainActivity"
+            android:name=".activities.FeedActivity"
+            android:parentActivityName=".activities.LogActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.LogActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.MainActivity"
+            android:screenOrientation="portrait" />
+
+        <service
+            android:name=".notificationService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

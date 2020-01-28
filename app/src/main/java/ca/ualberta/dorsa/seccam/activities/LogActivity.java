@@ -1,7 +1,8 @@
 package ca.ualberta.dorsa.seccam.activities;
 
-import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +25,10 @@ import ca.ualberta.dorsa.seccam.R;
 
 public class LogActivity extends AppCompatActivity {
     String qrCodeScanned = "";
+    private SharedPreferences sharedPref;
+    SharedPreferences.Editor editor;
+    FirebaseAuth firebaseAuth;
+
 
 
     @Override
@@ -45,6 +50,9 @@ public class LogActivity extends AppCompatActivity {
                     startActivity(i);
                 }
         );
+        sharedPref = getApplicationContext().getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        firebaseAuth = FirebaseAuth.getInstance();
     }
 
     // Get the results:
@@ -78,11 +86,19 @@ public class LogActivity extends AppCompatActivity {
     }
 
     public void forgetMe(View view) {
-//        AuthUI.getInstance()
-//                .delete(this)
-//                .addOnCompleteListener((OnCompleteListener<Void>) task -> {
-//                    // ...
-//                });
+        editor = sharedPref.edit();
+        editor.putBoolean(getString(R.string.saved_high_score_key), false);
+        editor.apply();
+
+        //TODO handle forget me logic
+
+
+        //End of forget me logic
+
+        Intent logedInIntent = new Intent(getBaseContext(),   LoginActivity.class);
+        logedInIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(logedInIntent);
+        finish();
 
     }
 
@@ -93,11 +109,14 @@ public class LogActivity extends AppCompatActivity {
     }
 
     public void logOut(View view) {
-//        AuthUI.getInstance()
-//                .signOut(this)
-//                .addOnCompleteListener((OnCompleteListener<Void>) task -> {
-//                    // ...
-//                });
+        editor = sharedPref.edit();
+        editor.putBoolean(getString(R.string.saved_high_score_key), false);
+        editor.apply();
+        firebaseAuth.signOut();
+        Intent logedInIntent = new Intent(getBaseContext(),   LoginActivity.class);
+        logedInIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(logedInIntent);
+        finish();
 
     }
 }
