@@ -131,59 +131,48 @@ public class NextStepsFragment extends Fragment implements RecyclerViewListener 
         // inflating menu from xml resource
         popup.inflate(R.menu.nextsteps_context_menu);
         // adding click listener
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.edit:
-                        AlertDialog.Builder editDialogBuilder = new AlertDialog.Builder(getActivity());
-                        editDialogBuilder.setTitle("Edit Emergency Contact");
+        popup.setOnMenuItemClickListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.edit:
+                    AlertDialog.Builder editDialogBuilder = new AlertDialog.Builder(getActivity());
+                    editDialogBuilder.setTitle("Edit Emergency Contact");
 
-                        LinearLayout layout = new LinearLayout(getActivity());
-                        layout.setOrientation(LinearLayout.VERTICAL);
+                    LinearLayout layout = new LinearLayout(getActivity());
+                    layout.setOrientation(LinearLayout.VERTICAL);
 
-                        final EditText nameInput = new EditText(getActivity());
-                        nameInput.setText(contacts.get(position).getName());
+                    final EditText nameInput = new EditText(getActivity());
+                    nameInput.setText(contacts.get(position).getName());
 
-                        final EditText phoneInput = new EditText(getActivity());
-                        phoneInput.setText(contacts.get(position).getPhone());
+                    final EditText phoneInput = new EditText(getActivity());
+                    phoneInput.setText(contacts.get(position).getPhone());
 
-                        layout.addView(nameInput);
-                        layout.addView(phoneInput);
-                        editDialogBuilder.setView(layout);
+                    layout.addView(nameInput);
+                    layout.addView(phoneInput);
+                    editDialogBuilder.setView(layout);
 
-                        String prevName = contacts.get(position).getName();
+                    String prevName = contacts.get(position).getName();
 
-                        editDialogBuilder.setPositiveButton("SAVE", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                deleteContact(prevName);
-                                addContact(nameInput.getText().toString(), phoneInput.getText().toString());
-                            }
-                        });
+                    editDialogBuilder.setPositiveButton("SAVE", (dialogInterface, i) -> {
+                        deleteContact(prevName);
+                        addContact(nameInput.getText().toString(), phoneInput.getText().toString());
+                    });
 
-                        editDialogBuilder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.cancel();
-                            }
-                        });
+                    editDialogBuilder.setNegativeButton("CANCEL", (dialogInterface, i) -> dialogInterface.cancel());
 
-                        AlertDialog editDialog = editDialogBuilder.create();
-                        editDialog.show();
-                        break;
+                    AlertDialog editDialog = editDialogBuilder.create();
+                    editDialog.show();
+                    break;
 
-                    case R.id.delete:
-                        deleteContact(contacts.get(position).getName());
-                        contacts.remove(position);
-                        adapter.notifyItemRemoved(position);
-                        break;
+                case R.id.delete:
+                    deleteContact(contacts.get(position).getName());
+                    contacts.remove(position);
+                    adapter.notifyItemRemoved(position);
+                    break;
 
-                    default:
-                        break;
-                }
-                return false;
+                default:
+                    break;
             }
+            return false;
         });
 
         // displaying the popup
