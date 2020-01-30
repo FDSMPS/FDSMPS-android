@@ -1,51 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:background="#fffff8"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="10dp"
     >
 
-    <TextView
-        android:id="@+id/contact_name"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:background="#fffff8"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
-        android:textSize="20dp"
-        />
+        >
 
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/message_button"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:paddingLeft="16dp"
-        android:background="@drawable/round_button_blue"
-        android:paddingRight="16dp"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="2dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="2dp"
-        android:textSize="20dp"
-        android:src="@drawable/ic_message_black_24dp"
-        />
+        <TextView
+            android:id="@+id/contact_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:textSize="20dp"
+            />
 
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/call_button"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="2dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="2dp"
-        android:background="@drawable/round_button_blue"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:textSize="20dp"
-        android:src="@drawable/ic_call_black_24dp"
-        />
-</LinearLayout>
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/message_button"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:paddingLeft="16dp"
+            android:background="@color/zxing_transparent"
+            android:paddingRight="16dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:textSize="20dp"
+            android:src="@drawable/ic_message_black_24dp"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/call_button"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:background="@color/zxing_transparent"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:textSize="20dp"
+            android:src="@drawable/ic_call_black_24dp"
+            />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

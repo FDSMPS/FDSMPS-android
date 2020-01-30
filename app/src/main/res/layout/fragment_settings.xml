@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:weightSum="10"
     android:orientation="vertical"
-    android:background="#fffff8"
+    android:background="@color/colorLightGrey"
     android:layout_height="match_parent"
     tools:context="ca.ualberta.dorsa.seccam.activities.LogActivity">
 
