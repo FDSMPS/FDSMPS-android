@@ -1,7 +1,7 @@
 package ca.ualberta.dorsa.seccam.activities;
 
+import android.app.Instrumentation;
 import android.content.Context;
-import android.content.SharedPreferences;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -19,13 +19,13 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4ClassRunner.class)
 @LargeTest
 public class LoginActivityTest {
-
 
 
     private Context context;
@@ -34,7 +34,6 @@ public class LoginActivityTest {
     public void setup() {
 
         context = ApplicationProvider.getApplicationContext();
-
         assertNotNull(context);
     }
 
@@ -43,19 +42,19 @@ public class LoginActivityTest {
             new ActivityTestRule<>(LoginActivity.class);
 
     @Test
-    public void ensureTextChangesWork() {
+    public void ensureActivityChange() {
         // Type text and then press the button.
         onView(withId(R.id.emailLogin))
                 .perform(typeText("d@yahoo.com"), closeSoftKeyboard());
         onView(withId(R.id.passwordLogin))
                 .perform(typeText("123456"), closeSoftKeyboard());
         onView(withId(R.id.signInButton)).perform(click());
+        Instrumentation.ActivityMonitor activityMonitor = getInstrumentation().addMonitor(LogActivity.class.getName(), null, false);
 
-        // Check that the text was changed.
-        SharedPreferences sharedPref = context.getSharedPreferences(
-                context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        boolean sign_in = sharedPref.getBoolean(context.getString(R.string.saved_high_score_key), false);
-        assertTrue(sign_in);
+        LoginActivity myActivity = this.mActivityRule.getActivity();
 
+        LogActivity nextActivity = (LogActivity) getInstrumentation().waitForMonitorWithTimeout(activityMonitor, 5000);
+        assertEquals(nextActivity.getClass().getName(), LogActivity.class.getName());
+        nextActivity.finish();
     }
 }
