@@ -15,9 +15,6 @@ Supported version:
    * versionName "1.0"
 
 
-Possible Problems:
-
-
 To dos:
 * Live Feed 
 * Logs of past notifications
