@@ -1,39 +1,52 @@
 package ca.ualberta.dorsa.seccam.adapters;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.PopupMenu;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 import ca.ualberta.dorsa.seccam.R;
 import ca.ualberta.dorsa.seccam.RecyclerViewListener;
 import ca.ualberta.dorsa.seccam.entities.Contact;
-import ca.ualberta.dorsa.seccam.ui.nextsteps.NextStepsFragment;
 
+/**
+ * The type Contact adapter. This is the adaptor that shows the list of the contacts of the users
+ * Executed UI tested yet to be unit tested
+ *  * @author Jessica D'Cunha
+ *  * @date 2020-1-31
+ *  * Project: ECE 492 Group 1
+ */
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHolder> {
+    /**
+     * The type View holder.
+     */
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        /**
+         * The Contact name.
+         */
         public TextView contactName;
+        /**
+         * The Message button.
+         */
         public ImageButton messageButton;
+        /**
+         * The Call button.
+         */
         public ImageButton callButton;
 
+        /**
+         * Instantiates a new View holder.
+         *
+         * @param itemView the item view
+         */
         public ViewHolder(View itemView) {
             super(itemView);
 
@@ -70,6 +83,13 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
     private Context context;
     private ArrayList<Contact> contacts;
 
+    /**
+     * Instantiates a new Contact adapter.
+     *
+     * @param listener the listener
+     * @param context  the context
+     * @param contacts the contacts
+     */
     public ContactAdapter(RecyclerViewListener listener, Context context, ArrayList<Contact> contacts) {
         this.listener = listener;
         this.context = context;

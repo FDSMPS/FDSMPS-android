@@ -106,7 +106,7 @@
 
     <Button
         android:onClick="logOut"
-        android:text="Log out"
+        android:text="@string/log_out"
         android:layout_weight="1"
         android:layout_marginLeft="70dp"
         android:layout_marginRight="70dp"

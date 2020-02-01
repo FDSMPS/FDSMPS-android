@@ -23,10 +23,27 @@ import androidx.navigation.ui.NavigationUI;
 import ca.ualberta.dorsa.seccam.R;
 
 
+/**
+ * The type Log activity. This is to allow the user to see the previous
+ * logs of different notifications
+ * Executed UI tested yet to be unit tested
+ *  @author Jessica D'Cunha
+ *  @date 2020-1-31
+ *  Project: ECE 492 Group 1
+ */
 public class LogActivity extends AppCompatActivity {
+    /**
+     * The Qr code scanned.
+     */
     String qrCodeScanned = "";
     private SharedPreferences sharedPref;
+    /**
+     * The Editor.
+     */
     SharedPreferences.Editor editor;
+    /**
+     * The Firebase auth.
+     */
     FirebaseAuth firebaseAuth;
 
 
@@ -90,11 +107,21 @@ public class LogActivity extends AppCompatActivity {
 
     /* SETTINGS ----------------------------------------------------------------------------------*/
 
+    /**
+     * Open camera.
+     *
+     * @param view the view
+     */
     public void openCamera(View view) {
         new IntentIntegrator(this).initiateScan(); // `this` is the current Activity
 
     }
 
+    /**
+     * Forget me.
+     *
+     * @param view the view
+     */
     public void forgetMe(View view) {
         editor = sharedPref.edit();
         editor.putBoolean(getString(R.string.saved_high_score_key), false);
@@ -113,6 +140,11 @@ public class LogActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Choose location on the map.
+     *
+     * @param view the view
+     */
     public void chooseLocation(View view) {
         Intent mapsIntent = new Intent(getBaseContext(), MapsActivity.class);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
@@ -120,6 +152,11 @@ public class LogActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Log out.
+     *
+     * @param view the view
+     */
     public void logOut(View view) {
         editor = sharedPref.edit();
         editor.putBoolean(getString(R.string.saved_high_score_key), false);

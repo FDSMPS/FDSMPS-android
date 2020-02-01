@@ -29,6 +29,15 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import ca.ualberta.dorsa.seccam.R;
 
+/**
+ * The type Maps activity. This is to allow user to pick their location and save their property
+ * address
+ * Executed UI tested yet to be unit tested
+ *
+ *  @author Dorsa Nahid
+ *  @date 2020-1-31
+ *  Project: ECE 492 Group 1
+ */
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 10;
@@ -90,6 +99,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
+    /**
+     * Open search, allow the user to choose the address
+     *
+     * @param view the view
+     */
     public void open_search(View view) {
         List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG, Place.Field.ADDRESS);
         Intent intent = new Autocomplete.IntentBuilder(
@@ -99,6 +113,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
     }
 
+    /**
+     * Save address, allow the user to save the location
+     *
+     * @param view the view
+     */
     public void saveAddress(View view) {
         double lat = latlng.latitude;
         double lon = latlng.longitude;

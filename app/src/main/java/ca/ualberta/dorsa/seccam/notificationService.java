@@ -12,6 +12,15 @@ import com.google.firebase.messaging.RemoteMessage;
 import androidx.core.app.NotificationCompat;
 
 
+/**
+ * The type Notification service.
+ * This connects to the Firebase server and recieves any notifications sends through the server
+ * It also creates the push notification
+ * Executed UI tested yet to be unit tested
+ * @author Jessica D'Cunha and Dorsa Nahid
+ * @date 2020-1-31
+ * Project: ECE 492 Group 1
+ */
 public class notificationService extends FirebaseMessagingService {
 
     @Override
@@ -26,7 +35,7 @@ public class notificationService extends FirebaseMessagingService {
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setStyle(new NotificationCompat.BigTextStyle())
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.logo_transparent)
                 .setAutoCancel(true);
 
         NotificationManager notificationManager =

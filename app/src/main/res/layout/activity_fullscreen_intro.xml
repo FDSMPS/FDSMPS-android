@@ -17,7 +17,6 @@
         android:src="@drawable/logo_transparent"
         android:keepScreenOn="true"
         android:layout_margin="95dp"
-        android:textColor="#33b5e5"
         android:textSize="50sp"
         android:textStyle="bold" />
 

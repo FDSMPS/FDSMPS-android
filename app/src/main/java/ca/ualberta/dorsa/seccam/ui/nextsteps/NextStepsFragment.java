@@ -32,6 +32,13 @@ import ca.ualberta.dorsa.seccam.RecyclerViewListener;
 import ca.ualberta.dorsa.seccam.entities.Contact;
 import ca.ualberta.dorsa.seccam.adapters.ContactAdapter;
 
+/**
+ * The type Next steps fragment.
+ * Executed UI tested yet to be unit tested
+ * @author Jessica D'Cunha
+ * @date 2020-1-31
+ * Project: ECE 492 Group 1
+ */
 public class NextStepsFragment extends Fragment implements RecyclerViewListener {
 
     private NextStepsViewModel nextStepsViewModel;
@@ -47,11 +54,11 @@ public class NextStepsFragment extends Fragment implements RecyclerViewListener 
         View root = inflater.inflate(R.layout.fragment_next_steps, container, false);
 
         contactList = root.findViewById(R.id.contact_list);
-        contacts = new ArrayList<Contact>();
+        contacts = new ArrayList<>();
 
         registerForContextMenu(contactList); // on long-click menu for editing and deleting
 
-        addButton = (FloatingActionButton) root.findViewById(R.id.add_button);
+        addButton = root.findViewById(R.id.add_button);
 
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Users/" + FirebaseAuth.getInstance()
                 .getCurrentUser()
@@ -83,42 +90,39 @@ public class NextStepsFragment extends Fragment implements RecyclerViewListener 
             }
         });
 
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder addDialogBuilder = new AlertDialog.Builder(getActivity());
-                addDialogBuilder.setTitle("Add Emergency Contact");
+        addButton.setOnClickListener(view -> {
+            AlertDialog.Builder addDialogBuilder = new AlertDialog.Builder(getActivity());
+            addDialogBuilder.setTitle("Add Emergency Contact");
 
-                LinearLayout layout = new LinearLayout(getActivity());
-                layout.setOrientation(LinearLayout.VERTICAL);
+            LinearLayout layout = new LinearLayout(getActivity());
+            layout.setOrientation(LinearLayout.VERTICAL);
 
-                final EditText nameInput = new EditText(getActivity());
-                nameInput.setHint("Name");
+            final EditText nameInput = new EditText(getActivity());
+            nameInput.setHint("Name");
 
-                final EditText phoneInput = new EditText(getActivity());
-                phoneInput.setHint("Phone number");
+            final EditText phoneInput = new EditText(getActivity());
+            phoneInput.setHint("Phone number");
 
-                layout.addView(nameInput);
-                layout.addView(phoneInput);
-                addDialogBuilder.setView(layout);
+            layout.addView(nameInput);
+            layout.addView(phoneInput);
+            addDialogBuilder.setView(layout);
 
-                addDialogBuilder.setPositiveButton("SAVE", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        addContact(nameInput.getText().toString(), phoneInput.getText().toString());
-                    }
-                });
+            addDialogBuilder.setPositiveButton("SAVE", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    addContact(nameInput.getText().toString(), phoneInput.getText().toString());
+                }
+            });
 
-                addDialogBuilder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.cancel();
-                    }
-                });
+            addDialogBuilder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.cancel();
+                }
+            });
 
-                AlertDialog addDialog = addDialogBuilder.create();
-                addDialog.show();
-            }
+            AlertDialog addDialog = addDialogBuilder.create();
+            addDialog.show();
         });
 
         return root;
@@ -189,6 +193,11 @@ public class NextStepsFragment extends Fragment implements RecyclerViewListener 
                 .setValue(c);
     }
 
+    /**
+     * Delete contact.
+     *
+     * @param name the name
+     */
     public void deleteContact(String name) {
         FirebaseDatabase.getInstance().getReference("Users/" + FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .child("userSetting")
