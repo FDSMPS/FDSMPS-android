@@ -37,30 +37,24 @@ public class FullscreenIntroActivity extends AppCompatActivity {
         boolean sign_in = sharedPref.getBoolean(getString(R.string.saved_high_score_key),false);
         if (sign_in){
 
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Intent logedInIntent = new Intent(getBaseContext(),   LogActivity.class);
-                    logedInIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(logedInIntent);
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                    finish();
+            new Handler().postDelayed(() -> {
+                Intent logedInIntent = new Intent(getBaseContext(),   LogActivity.class);
+                logedInIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(logedInIntent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                finish();
 
-                }
             }, 750);
 
         }
         else {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Intent logedInIntent = new Intent(getBaseContext(),   LoginActivity.class);
-                    logedInIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(logedInIntent);
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                    finish();
+            new Handler().postDelayed(() -> {
+                Intent logedInIntent = new Intent(getBaseContext(),   LoginActivity.class);
+                logedInIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(logedInIntent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                finish();
 
-                }
             }, 750);
 
         }
