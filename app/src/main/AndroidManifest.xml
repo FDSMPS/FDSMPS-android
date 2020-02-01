@@ -32,7 +32,6 @@
         <activity
             android:name=".activities.FullscreenIntroActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"
             android:theme="@style/FullscreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -48,6 +47,12 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
+        <uses-library android:name="android.test.runner"
+            android:required="false" />
+        <uses-library android:name="android.test.base"
+            android:required="false" />
+        <uses-library android:name="android.test.mock"
+            android:required="false" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
