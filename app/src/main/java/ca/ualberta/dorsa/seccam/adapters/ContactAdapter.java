@@ -19,6 +19,7 @@ import ca.ualberta.dorsa.seccam.entities.Contact;
 
 /**
  * The type Contact adapter. This is the adaptor that shows the list of the contacts of the users
+ * Executed UI tested yet to be unit tested
  *  * @author Jessica D'Cunha
  *  * @date 2020-1-31
  *  * Project: ECE 492 Group 1

@@ -15,6 +15,7 @@ import ca.ualberta.dorsa.seccam.R;
  * status bar and navigation/system bar) with user interaction.
  * This is to allow all the backend for logging in the user to occur
  * And it creates a nice animation
+ * Executed UI tested yet to be unit tested
  *  @author Dorsa Nahid
  *  @date 2020-1-31
  *  Project: ECE 492 Group 1

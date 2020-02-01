@@ -2,6 +2,7 @@ package ca.ualberta.dorsa.seccam.entities;
 
 /**
  * The type Security camera.
+ * Executed UI tested yet to be unit tested
  * @author Jessica D'Cunha and Dorsa Nahid
  * @date 2020-1-31
  * Project: ECE 492 Group 1

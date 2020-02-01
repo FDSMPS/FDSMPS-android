@@ -13,6 +13,7 @@ import ca.ualberta.dorsa.seccam.R;
 
 /**
  * The type Main activity.
+ * Executed UI tested yet to be unit tested
  *  @author Dorsa Nahid
  *  @date 2020-1-31
  *  Project: ECE 492 Group 1

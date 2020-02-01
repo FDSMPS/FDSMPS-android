@@ -32,6 +32,7 @@ import ca.ualberta.dorsa.seccam.R;
 /**
  * The type Maps activity. This is to allow user to pick their location and save their property
  * address
+ * Executed UI tested yet to be unit tested
  *
  *  @author Dorsa Nahid
  *  @date 2020-1-31

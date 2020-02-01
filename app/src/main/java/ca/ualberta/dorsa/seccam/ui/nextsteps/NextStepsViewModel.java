@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 /**
  * The type Next steps view model.
+ * Executed UI tested yet to be unit tested
  * @author Jessica D'Cunha
  * @date 2020-1-31
  * Project: ECE 492 Group 1

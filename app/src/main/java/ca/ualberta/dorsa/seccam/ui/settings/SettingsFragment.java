@@ -20,6 +20,7 @@ import ca.ualberta.dorsa.seccam.R;
 
 /**
  * The type Settings fragment.
+ * Executed UI tested yet to be unit tested
  *
  * @author Jessica D'Cunha and Dorsa Nahid
  * @date 2020 -1-31

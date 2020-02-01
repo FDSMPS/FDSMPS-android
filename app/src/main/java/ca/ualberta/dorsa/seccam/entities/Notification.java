@@ -4,6 +4,7 @@ import java.util.Date;
 
 /**
  * The type Notification. this is to createthe notification object
+ * Executed UI tested yet to be unit tested
  * @author Dorsa Nahid
  * @date 2020-1-31
  * Project: ECE 492 Group 1

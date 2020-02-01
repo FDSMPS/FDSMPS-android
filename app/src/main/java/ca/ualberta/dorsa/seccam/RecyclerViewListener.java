@@ -4,6 +4,10 @@ import android.view.View;
 
 /**
  * The interface Recycler view listener.
+ *
+ * @author Jessica D'Cunha and Dorsa Nahid
+ * @date 2020-1-31
+ * Project: ECE 492 Group 1
  */
 public interface RecyclerViewListener {
     /**
