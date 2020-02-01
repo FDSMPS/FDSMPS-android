@@ -23,5 +23,6 @@
     <string name="saved_high_score_key">logged_in</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
+    <string name="log_out">Log out</string>
 
 </resources>
