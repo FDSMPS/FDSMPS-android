@@ -1,12 +1,14 @@
 package ca.ualberta.dorsa.seccam.entities;
 
 
+import com.google.android.gms.maps.model.LatLng;
+
 /**
  * The type Location, it incldues latitude and longitude
  * Executed UI tested yet to be unit tested
+ *
  * @author Dorsa Nahid
- * @date 2020-1-31
- * Project: ECE 492 Group 1
+ * @date 2020 -1-31 Project: ECE 492 Group 1
  */
 public class Location {
 
@@ -58,6 +60,15 @@ public class Location {
     public Location (double latitude, double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
+    }
+
+    /**
+     * Get lat lng lat lng.
+     *
+     * @return the lat lng
+     */
+    public LatLng getLatLng(){
+        return new LatLng(latitude,longitude);
     }
 
 }
