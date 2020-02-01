@@ -23,6 +23,9 @@ import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentat
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+/**
+ * To test that login activity will switch activities after a successful login
+ */
 @RunWith(AndroidJUnit4ClassRunner.class)
 @LargeTest
 public class LoginActivityTest {
@@ -30,6 +33,9 @@ public class LoginActivityTest {
 
     private Context context;
 
+    /**
+     * Set up the context
+     */
     @Before
     public void setup() {
 
@@ -37,10 +43,16 @@ public class LoginActivityTest {
         assertNotNull(context);
     }
 
+    /**
+     * Use LoginActivity.class
+     */
     @Rule
     public ActivityTestRule<LoginActivity> mActivityRule =
             new ActivityTestRule<>(LoginActivity.class);
 
+    /**
+     * Ensure activity change.
+     */
     @Test
     public void ensureActivityChange() {
         // Type text and then press the button.
