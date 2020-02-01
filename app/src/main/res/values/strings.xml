@@ -18,15 +18,10 @@
     <string name="forget_me">Forget me</string>
     <string name="location">Enter your location</string>
     <string name="title_activity_maps">Map</string>
-    <string name="channel_name">channelName</string>
-    <string name="channel_description">channelDesc</string>
     <string name="preference_file_key">app_state</string>
     <string name="camera_s_qr_code">Enter your camera code</string>
     <string name="saved_high_score_key">logged_in</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
 
-    <string name="title_activity_fullscreen_intro">FullscreenIntroActivity</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

@@ -13,6 +13,12 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import ca.ualberta.dorsa.seccam.R;
 
+/**
+ * The type Alerts fragment. It would include a list of previous alert
+ * @author Jessica D'Cunha
+ * @date 2020-1-31
+ * Project: ECE 492 Group 1
+ */
 public class AlertsFragment extends Fragment {
 
     private AlertsViewModel alertsViewModel;

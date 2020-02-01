@@ -16,6 +16,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import ca.ualberta.dorsa.seccam.R;
 import ca.ualberta.dorsa.seccam.entities.User;
 
+/**
+ * The type Sign up activity.This activity allows the user to sign up to create an account
+ *  @author Dorsa Nahid
+ *  @date 2020-1-31
+ *  Project: ECE 492 Group 1
+ */
 public class SignUpActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String email;
@@ -44,7 +50,11 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
 
-
+    /**
+     * Sign up, the main logic to sign up a user and put the information on database
+     *
+     * @param view the view
+     */
     public void signUp(View view) {
 
         //use to actually create accounts
@@ -100,6 +110,11 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Login, switches the activity to the login activity
+     *
+     * @param view the view
+     */
     public void login(View view) {
         Intent loginIntent = new Intent(getBaseContext(),   LoginActivity.class);
         loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

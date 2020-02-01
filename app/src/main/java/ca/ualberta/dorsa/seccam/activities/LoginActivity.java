@@ -18,11 +18,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import ca.ualberta.dorsa.seccam.R;
 
 
+/**
+ * The type Login activity. This is activity handles the logic of logging in
+ *  @author Dorsa Nahid
+ *  @date 2020-1-31
+ *  Project: ECE 492 Group 1
+ */
 public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String email;
     private String password;
     private SharedPreferences sharedPref;
+    /**
+     * The Editor.
+     */
     SharedPreferences.Editor editor;
 
     @Override
@@ -44,6 +53,11 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
     }
 
+    /**
+     * Login. The main logic that also interacts with Firebase
+     *
+     * @param view the view
+     */
     public void login(View view) {
 
         email = ((EditText)(findViewById(R.id.emailLogin))).getText().toString();
@@ -83,6 +97,11 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Sign up, handle the logic to send the user to the sign up activity
+     *
+     * @param view the view
+     */
     public void signUp(View view) {
         Intent signUpIntent = new Intent(getBaseContext(),   SignUpActivity.class);
         signUpIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

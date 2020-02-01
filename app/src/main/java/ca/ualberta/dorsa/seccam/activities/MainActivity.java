@@ -11,7 +11,16 @@ import com.google.zxing.integration.android.IntentResult;
 import androidx.appcompat.app.AppCompatActivity;
 import ca.ualberta.dorsa.seccam.R;
 
+/**
+ * The type Main activity.
+ *  @author Dorsa Nahid
+ *  @date 2020-1-31
+ *  Project: ECE 492 Group 1
+ */
 public class MainActivity extends AppCompatActivity {
+    /**
+     * The Qr code scanned.
+     */
     String qrCodeScanned = "";
 
     @Override
@@ -21,10 +30,21 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Open camera, change the activity
+     *
+     * @param view the view
+     */
     public void openCamera(View view) {
         new IntentIntegrator(this).initiateScan(); // `this` is the current Activity
 
     }
+
+    /**
+     * Forget me, delete the user completely from the database
+     *
+     * @param view the view
+     */
     public void forgetMe(View view) {
 
     }

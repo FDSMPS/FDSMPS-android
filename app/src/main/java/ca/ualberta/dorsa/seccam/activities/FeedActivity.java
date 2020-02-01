@@ -6,6 +6,13 @@ import android.os.Bundle;
 
 import ca.ualberta.dorsa.seccam.R;
 
+/**
+ * The type Feed activity.
+ * This activity is for the live feed coming from the camera
+ * @author Jessica D'Cunha
+ * @date 2020-1-31
+ * Project: ECE 492 Group 1
+ */
 public class FeedActivity extends AppCompatActivity {
 
     @Override

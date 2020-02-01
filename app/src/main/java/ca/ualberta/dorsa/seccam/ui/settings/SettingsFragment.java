@@ -18,6 +18,13 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import ca.ualberta.dorsa.seccam.R;
 
+/**
+ * The type Settings fragment.
+ *
+ * @author Jessica D'Cunha and Dorsa Nahid
+ * @date 2020 -1-31
+ * Project: ECE 492 Group 1
+ */
 public class SettingsFragment extends Fragment {
 
     private SettingsViewModel settingsViewModel;

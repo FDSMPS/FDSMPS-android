@@ -11,8 +11,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import ca.ualberta.dorsa.seccam.R;
 
 /**
- * An example full-screen activity that shows and hides the system UI (i.e.
+ * A full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
+ * This is to allow all the backend for logging in the user to occur
+ * And it creates a nice animation
+ *  @author Dorsa Nahid
+ *  @date 2020-1-31
+ *  Project: ECE 492 Group 1
  */
 public class FullscreenIntroActivity extends AppCompatActivity {
 
