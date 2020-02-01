@@ -7,12 +7,7 @@ Our team wishes to design and build a camera-based security system that uses mot
 
 Supported version:
 (Android Application)
-   * compileSdkVersion 29
-   * buildToolsVersion "29.0.1"
-   * minSdkVersion 24
-   * targetSdkVersion 29
-   * versionCode 1
-   * versionName "1.0"
+   * SDK 24+, Android Nougat (7.0)  and Above
 
 
 To dos:
