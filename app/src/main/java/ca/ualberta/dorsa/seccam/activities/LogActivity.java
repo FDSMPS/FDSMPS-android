@@ -91,14 +91,8 @@ public class LogActivity extends AppCompatActivity {
                         .child("cameraCode")
                         .setValue(qrCodeScanned);
 
-                FirebaseDatabase.getInstance().getReference("Users/" + FirebaseAuth.getInstance().getCurrentUser().getUid())
-                        .child("userSetting")
-                        .child("cameraCode")
-                        .setValue(qrCodeScanned);
-
-                FirebaseDatabase.getInstance().getReference("SecurityCameras/" + qrCodeScanned).child("registered").setValue("true");
-                FirebaseDatabase.getInstance().getReference("SecurityCameras/" + qrCodeScanned).child("registeredUserName").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                FirebaseDatabase.getInstance().getReference("SecurityCameras/" + qrCodeScanned).child("cameraCode").setValue(qrCodeScanned);
+                FirebaseDatabase.getInstance().getReference("Camera/" + qrCodeScanned).child("registered").setValue("true");
+//                FirebaseDatabase.getInstance().getReference("SecurityCameras/" + qrCodeScanned).child("registeredUserName").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
