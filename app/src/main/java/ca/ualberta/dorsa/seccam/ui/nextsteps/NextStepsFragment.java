@@ -8,9 +8,12 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -93,26 +96,13 @@ public class NextStepsFragment extends Fragment implements RecyclerViewListener 
         addButton.setOnClickListener(view -> {
             AlertDialog.Builder addDialogBuilder = new AlertDialog.Builder(getActivity());
             addDialogBuilder.setTitle("Add Emergency Contact");
+            View dialogView = inflater.inflate(R.layout.next_steps_dialog, null);
+            addDialogBuilder.setView(dialogView);
 
-            LinearLayout layout = new LinearLayout(getActivity());
-            layout.setOrientation(LinearLayout.VERTICAL);
+            EditText nameInput = (EditText) dialogView.findViewById(R.id.name_input);
+            EditText phoneInput = (EditText) dialogView.findViewById(R.id.phone_input);
 
-            final EditText nameInput = new EditText(getActivity());
-            nameInput.setHint("Name");
-
-            final EditText phoneInput = new EditText(getActivity());
-            phoneInput.setHint("Phone number");
-
-            layout.addView(nameInput);
-            layout.addView(phoneInput);
-            addDialogBuilder.setView(layout);
-
-            addDialogBuilder.setPositiveButton("SAVE", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    addContact(nameInput.getText().toString(), phoneInput.getText().toString());
-                }
-            });
+            addDialogBuilder.setPositiveButton("SAVE", null);
 
             addDialogBuilder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
                 @Override
@@ -122,6 +112,26 @@ public class NextStepsFragment extends Fragment implements RecyclerViewListener 
             });
 
             AlertDialog addDialog = addDialogBuilder.create();
+
+            addDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                @Override
+                public void onShow(final DialogInterface dialog) {
+                    Button positiveButton = addDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                    positiveButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (!nameInput.getText().toString().isEmpty() && !phoneInput.getText().toString().isEmpty()) {
+                                addContact(nameInput.getText().toString(), phoneInput.getText().toString());
+                                dialog.dismiss();
+                            }
+                            else {
+                                Toast.makeText(getActivity(),"Please enter all fields.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
+            });
+
             addDialog.show();
         });
 
@@ -140,30 +150,43 @@ public class NextStepsFragment extends Fragment implements RecyclerViewListener 
                 case R.id.edit:
                     AlertDialog.Builder editDialogBuilder = new AlertDialog.Builder(getActivity());
                     editDialogBuilder.setTitle("Edit Emergency Contact");
+                    LayoutInflater inflater = this.getLayoutInflater();
+                    View dialogView = inflater.inflate(R.layout.next_steps_dialog, null);
+                    editDialogBuilder.setView(dialogView);
 
-                    LinearLayout layout = new LinearLayout(getActivity());
-                    layout.setOrientation(LinearLayout.VERTICAL);
-
-                    final EditText nameInput = new EditText(getActivity());
-                    nameInput.setText(contacts.get(position).getName());
-
-                    final EditText phoneInput = new EditText(getActivity());
-                    phoneInput.setText(contacts.get(position).getPhone());
-
-                    layout.addView(nameInput);
-                    layout.addView(phoneInput);
-                    editDialogBuilder.setView(layout);
+                    EditText nameInput = (EditText) dialogView.findViewById(R.id.name_input);
+                    EditText phoneInput = (EditText) dialogView.findViewById(R.id.phone_input);
 
                     String prevName = contacts.get(position).getName();
+                    nameInput.setText(prevName);
+                    phoneInput.setText(contacts.get(position).getPhone());
 
-                    editDialogBuilder.setPositiveButton("SAVE", (dialogInterface, i) -> {
-                        deleteContact(prevName);
-                        addContact(nameInput.getText().toString(), phoneInput.getText().toString());
-                    });
+                    editDialogBuilder.setPositiveButton("SAVE", null);
 
                     editDialogBuilder.setNegativeButton("CANCEL", (dialogInterface, i) -> dialogInterface.cancel());
 
                     AlertDialog editDialog = editDialogBuilder.create();
+
+                    editDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                        @Override
+                        public void onShow(final DialogInterface dialog) {
+                            Button positiveButton = editDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                            positiveButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    if (!nameInput.getText().toString().isEmpty() && !phoneInput.getText().toString().isEmpty()) {
+                                        deleteContact(prevName);
+                                        addContact(nameInput.getText().toString(), phoneInput.getText().toString());
+                                        dialog.dismiss();
+                                    }
+                                    else {
+                                        Toast.makeText(getActivity(),"Please enter all fields.", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                        }
+                    });
+
                     editDialog.show();
                     break;
 
