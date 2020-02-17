@@ -11,7 +11,7 @@ public class SecurityCamera {
     private String currentImageString;
     private String QRCode;
     private Boolean registered;
-    private String registeredUID;
+    private String registeredUid;
 
     /**
      * Instantiates a new Security camera.
@@ -19,13 +19,13 @@ public class SecurityCamera {
      * @param currentImageString the current image string
      * @param QRCode             the qr code
      * @param registered         the registered
-     * @param registeredUID      the registered uid
+     * @param registeredUid      the registered uid
      */
-    public SecurityCamera(String currentImageString, String QRCode, Boolean registered, String registeredUID) {
+    public SecurityCamera(String currentImageString, String QRCode, Boolean registered, String registeredUid) {
         this.currentImageString = currentImageString;
         this.QRCode = QRCode;
         this.registered = registered;
-        this.registeredUID = registeredUID;
+        this.registeredUid = registeredUid;
     }
 
     /**
@@ -87,16 +87,16 @@ public class SecurityCamera {
      *
      * @return the registered uid
      */
-    public String getRegisteredUID() {
-        return registeredUID;
+    public String getRegisteredUid() {
+        return registeredUid;
     }
 
     /**
      * Sets registered uid.
      *
-     * @param registeredUID the registered uid
+     * @param registeredUid the registered uid
      */
-    public void setRegisteredUID(String registeredUID) {
-        this.registeredUID = registeredUID;
+    public void setRegisteredUid(String registeredUid) {
+        this.registeredUid = registeredUid;
     }
 }

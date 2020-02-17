@@ -10,7 +10,7 @@ package ca.ualberta.dorsa.seccam.entities;
  * Project: ECE 492 Group 1
  */
 public class User extends Person {
-    private String email, uID;
+    private String email, uId;
     private String cameraCode;
     private Notification notifications;
     private UserSettings userSettings;
@@ -21,15 +21,15 @@ public class User extends Person {
      * @param name          the name
      * @param email         the email
      * @param phone         the phone
-     * @param uID           the u id
+     * @param uId           the u id
      * @param cameraCode    the camera code
      * @param notifications the notifications
      * @param userSetting   the user setting
      */
-    public User(String name, String email, String phone, String uID, String cameraCode, Notification notifications, UserSettings userSetting) {
+    public User(String name, String email, String phone, String uId, String cameraCode, Notification notifications, UserSettings userSetting) {
         super(name, phone);
         this.email = email;
-        this.uID = uID;
+        this.uId = uId;
         this.cameraCode = cameraCode;
         this.notifications = notifications;
         this.userSettings = userSetting;
@@ -58,17 +58,17 @@ public class User extends Person {
      *
      * @return the id
      */
-    public String getuID() {
-        return uID;
+    public String getuId() {
+        return uId;
     }
 
     /**
      * Sets id.
      *
-     * @param uID the u id
+     * @param uId the u id
      */
-    public void setuID(String uID) {
-        this.uID = uID;
+    public void setuId(String uId) {
+        this.uId = uId;
     }
 
     /**
