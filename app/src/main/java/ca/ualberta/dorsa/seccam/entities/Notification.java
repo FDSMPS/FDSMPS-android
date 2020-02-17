@@ -7,16 +7,35 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
- * The type Notification. this is to createthe notification object
+ * The type Notification. this is to create the notification object
  * Executed UI tested yet to be unit tested
+ *
  * @author Dorsa Nahid
- * @date 2020-1-31
- * Project: ECE 492 Group 1
+ * @date 2020 -1-31 Project: ECE 492 Group 1
  */
 public class Notification {
+    private String cameraCode;
     private Date datetime;
-    private String notificationId;
     private String imageId;
+    private String notificationId;
+
+    public Notification() {
+    }
+
+    /**
+     * Instantiates a new Notification.
+     *
+     * @param cameraCode     the camera code
+     * @param datetime       the datetime
+     * @param imageId        the image id
+     * @param notificationId the notification id
+     */
+    public Notification(String cameraCode, Date datetime, String imageId, String notificationId) {
+        this.cameraCode = cameraCode;
+        this.datetime = datetime;
+        this.imageId = imageId;
+        this.notificationId = notificationId;
+    }
 
     public String getImageId() {
         return imageId;
@@ -24,17 +43,6 @@ public class Notification {
 
     public void setImageId(String imageId) {
         this.imageId = imageId;
-    }
-
-    /**
-     * Instantiates a new Notification.
-     *
-     * @param datetime       the datetime
-     * @param notificationId the notification id
-     */
-    public Notification(Date datetime, String notificationId) {
-        this.datetime = datetime;
-        this.notificationId = notificationId;
     }
 
     /**
