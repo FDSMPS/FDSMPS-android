@@ -8,7 +8,7 @@ package ca.ualberta.dorsa.seccam.entities;
  * Project: ECE 492 Group 1
  */
 public class NotificationImage {
-    private String notificationID;
+    private String notificationId;
     private String imageString;
 
     /**
@@ -18,7 +18,7 @@ public class NotificationImage {
      * @param imageString    the image string
      */
     public NotificationImage(String notificationID, String imageString) {
-        this.notificationID = notificationID;
+        this.notificationId = notificationID;
         this.imageString = imageString;
     }
 
@@ -27,17 +27,17 @@ public class NotificationImage {
      *
      * @return the notification id
      */
-    public String getNotificationID() {
-        return notificationID;
+    public String getNotificationId() {
+        return notificationId;
     }
 
     /**
      * Sets notification id.
      *
-     * @param notificationID the notification id
+     * @param notificationId the notification id
      */
-    public void setNotificationID(String notificationID) {
-        this.notificationID = notificationID;
+    public void setNotificationId(String notificationId) {
+        this.notificationId = notificationId;
     }
 
     /**

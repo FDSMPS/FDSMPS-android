@@ -11,17 +11,17 @@ import java.util.Date;
  */
 public class Notification {
     private Date datetime;
-    private String notificationID;
+    private String notificationId;
 
     /**
      * Instantiates a new Notification.
      *
      * @param datetime       the datetime
-     * @param notificationID the notification id
+     * @param notificationId the notification id
      */
-    public Notification(Date datetime, String notificationID) {
+    public Notification(Date datetime, String notificationId) {
         this.datetime = datetime;
-        this.notificationID = notificationID;
+        this.notificationId = notificationId;
     }
 
     /**
@@ -47,16 +47,16 @@ public class Notification {
      *
      * @return the notification id
      */
-    public String getNotificationID() {
-        return notificationID;
+    public String getNotificationId() {
+        return notificationId;
     }
 
     /**
      * Sets notification id.
      *
-     * @param notificationID the notification id
+     * @param notificationId the notification id
      */
-    public void setNotificationID(String notificationID) {
-        this.notificationID = notificationID;
+    public void setNotificationId(String notificationId) {
+        this.notificationId = notificationId;
     }
 }
