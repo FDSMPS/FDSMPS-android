@@ -18,41 +18,47 @@ public class SecurityCameraTest {
      */
     @Before
     public void setUp() {
-        sc = new SecurityCamera("image", "qrcode", true, "12345");
+        sc = new SecurityCamera(
+                "code",
+                true,
+                "image",
+                true,
+                "12345"
+        );
     }
 
     /**
-     * Checks that getting currentImageString is correct.
+     * Checks that getting cameraCode is correct.
      */
     @Test
-    public void getCurrentImageString() {
-        assertEquals("image", sc.getCurrentImageString());
+    public void getCameraCode() {
+        assertEquals("code", sc.getCameraCode());
     }
 
     /**
      * Checks that setting currentImageString is correct.
      */
     @Test
-    public void setCurrentImageString() {
-        sc.setCurrentImageString("another");
-        assertEquals("another", sc.getCurrentImageString());
+    public void setCameraCode() {
+        sc.setCameraCode("another");
+        assertEquals("another", sc.getCameraCode());
     }
 
     /**
-     * Checks that getting QRCode is correct.
+     * Checks that getting cameraEnabled is correct.
      */
     @Test
-    public void getQRCode() {
-        assertEquals("qrcode", sc.getQRCode());
+    public void getCameraEnabled() {
+        assertTrue(sc.getCameraEnabled());
     }
 
     /**
-     * Checks that setting QRCode is correct.
+     * Checks that setting cameraEnabled is correct.
      */
     @Test
-    public void setQRCode() {
-        sc.setQRCode("different");
-        assertEquals("different", sc.getQRCode());
+    public void setCameraEnabled() {
+        sc.setCameraEnabled(Boolean.FALSE);
+        assertFalse(sc.getCameraEnabled());
     }
 
     /**
@@ -70,22 +76,5 @@ public class SecurityCameraTest {
     public void setRegistered() {
         sc.setRegistered(Boolean.FALSE);
         assertFalse(sc.getRegistered());
-    }
-
-    /**
-     * Checks that getting registeredUid is correct.
-     */
-    @Test
-    public void getRegisteredUid() {
-        assertEquals("12345", sc.getRegisteredUid());
-    }
-
-    /**
-     * Checks that setting registeredUid is correct.
-     */
-    @Test
-    public void setRegisteredUid() {
-        sc.setRegisteredUid("67890");
-        assertEquals("67890", sc.getRegisteredUid());
     }
 }
