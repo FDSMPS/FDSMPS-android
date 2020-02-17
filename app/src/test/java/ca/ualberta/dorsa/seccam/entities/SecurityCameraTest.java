@@ -8,7 +8,7 @@ import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 
 /**
- * To test the methods in the Contact file
+ * To test the methods in the SecurityCamera file
  */
 public class SecurityCameraTest {
     private SecurityCamera sc;
