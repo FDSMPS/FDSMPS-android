@@ -14,11 +14,11 @@ public class NotificationImage {
     /**
      * Instantiates a new Notification image.
      *
-     * @param notificationID the notification id
+     * @param notificationId the notification id
      * @param imageString    the image string
      */
-    public NotificationImage(String notificationID, String imageString) {
-        this.notificationId = notificationID;
+    public NotificationImage(String notificationId, String imageString) {
+        this.notificationId = notificationId;
         this.imageString = imageString;
     }
 

@@ -1,5 +1,8 @@
 package ca.ualberta.dorsa.seccam.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * The type Security camera.
  * Executed UI tested yet to be unit tested
@@ -8,42 +11,49 @@ package ca.ualberta.dorsa.seccam.entities;
  * Project: ECE 492 Group 1
  */
 public class SecurityCamera {
-    private String currentImageString;
-    private String QRCode;
+    private String cameraCode;
+    private Boolean cameraEnabled;
+    private String liveFeedImage;
     private Boolean registered;
-    private String registeredUid;
+    private String registeredUId;
+    private List<String> users;
+
+    public SecurityCamera(String cameraCode, Boolean cameraEnabled, String liveFeedImage, Boolean registered, String registeredUId) {
+        this.cameraCode = cameraCode;
+        this.cameraEnabled = cameraEnabled;
+        this.liveFeedImage = liveFeedImage;
+        this.registered = registered;
+        this.registeredUId = registeredUId;
+        users = new ArrayList<>();
+        users.add(registeredUId);
+    }
 
     /**
      * Instantiates a new Security camera.
      *
-     * @param currentImageString the current image string
-     * @param QRCode             the qr code
+     * @param liveFeedImage the current image string
+     * @param cameraCode             the qr code
      * @param registered         the registered
-     * @param registeredUID      the registered uid
+     * @param users      the registered uid
      */
-    public SecurityCamera(String currentImageString, String QRCode, Boolean registered, String registeredUID) {
-        this.currentImageString = currentImageString;
-        this.QRCode = QRCode;
-        this.registered = registered;
-        this.registeredUid = registeredUID;
-    }
+
 
     /**
      * Gets current image string.
      *
      * @return the current image string
      */
-    public String getCurrentImageString() {
-        return currentImageString;
+    public String getLiveFeedImage() {
+        return liveFeedImage;
     }
 
     /**
      * Sets current image string.
      *
-     * @param currentImageString the current image string
+     * @param liveFeedImage the current image string
      */
-    public void setCurrentImageString(String currentImageString) {
-        this.currentImageString = currentImageString;
+    public void setLiveFeedImage(String liveFeedImage) {
+        this.liveFeedImage = liveFeedImage;
     }
 
     /**
@@ -51,17 +61,17 @@ public class SecurityCamera {
      *
      * @return the qr code
      */
-    public String getQRCode() {
-        return QRCode;
+    public String getCameraCode() {
+        return cameraCode;
     }
 
     /**
      * Sets qr code.
      *
-     * @param QRCode the qr code
+     * @param cameraCode the qr code
      */
-    public void setQRCode(String QRCode) {
-        this.QRCode = QRCode;
+    public void setCameraCode(String cameraCode) {
+        this.cameraCode = cameraCode;
     }
 
     /**
@@ -87,16 +97,24 @@ public class SecurityCamera {
      *
      * @return the registered uid
      */
-    public String getRegisteredUid() {
-        return registeredUid;
+    public List<String> getUsers() {
+        return users;
     }
 
     /**
      * Sets registered uid.
      *
-     * @param registeredUid the registered uid
+     * @param users the registered uid
      */
-    public void setRegisteredUid(String registeredUid) {
-        this.registeredUid = registeredUid;
+    public void setUsers(List<String> users) {
+        this.users = users;
+    }
+
+    public Boolean getCameraEnabled() {
+        return cameraEnabled;
+    }
+
+    public void setCameraEnabled(Boolean cameraEnabled) {
+        this.cameraEnabled = cameraEnabled;
     }
 }

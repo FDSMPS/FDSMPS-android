@@ -1,6 +1,8 @@
 package ca.ualberta.dorsa.seccam.entities;
 
 
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * The type User.
@@ -12,7 +14,7 @@ package ca.ualberta.dorsa.seccam.entities;
 public class User extends Person {
     private String email, uId;
     private String cameraCode;
-    private Notification notifications;
+    private HashMap<String,Notification> notifications;
     private UserSettings userSettings;
 
     /**
@@ -21,18 +23,18 @@ public class User extends Person {
      * @param name          the name
      * @param email         the email
      * @param phone         the phone
-     * @param uID           the u id
+     * @param uId           the unique id
      * @param cameraCode    the camera code
      * @param notifications the notifications
-     * @param userSetting   the user setting
+     * @param userSettings   the user setting
      */
-    public User(String name, String email, String phone, String uID, String cameraCode, Notification notifications, UserSettings userSetting) {
+    public User(String name, String phone, String email, String uId, String cameraCode, HashMap<String, Notification> notifications, UserSettings userSettings) {
         super(name, phone);
         this.email = email;
-        this.uId = uID;
+        this.uId = uId;
         this.cameraCode = cameraCode;
-        this.notifications = notifications;
-        this.userSettings = userSetting;
+        this.notifications = new HashMap<String, Notification>();
+        this.userSettings = userSettings;
     }
 
     /**
@@ -94,7 +96,7 @@ public class User extends Person {
      *
      * @return the notifications
      */
-    public Notification getNotifications() {
+    public HashMap<String,Notification>  getNotifications() {
         return notifications;
     }
 
@@ -103,7 +105,7 @@ public class User extends Person {
      *
      * @param notifications the notifications
      */
-    public void setNotifications(Notification notifications) {
+    public void setNotifications(HashMap<String,Notification>  notifications) {
         this.notifications = notifications;
     }
 

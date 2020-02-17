@@ -1,6 +1,10 @@
 package ca.ualberta.dorsa.seccam.entities;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * The type Notification. this is to createthe notification object
@@ -12,6 +16,15 @@ import java.util.Date;
 public class Notification {
     private Date datetime;
     private String notificationId;
+    private String imageId;
+
+    public String getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(String imageId) {
+        this.imageId = imageId;
+    }
 
     /**
      * Instantiates a new Notification.
@@ -32,6 +45,28 @@ public class Notification {
     public Date getDatetime() {
         return datetime;
     }
+
+    public String getDate() {
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+//        TODO to make the date look nice
+        try {
+            return Objects.requireNonNull(formatter.parse(formatter.format(this.datetime))).toString();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return datetime.toString();
+    }
+
+    public String getTime() {
+        DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+        try {
+            return Objects.requireNonNull(formatter.parse(formatter.format(this.datetime))).toString();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return datetime.toString();
+    }
+
 
     /**
      * Sets datetime.
