@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import ca.ualberta.dorsa.seccam.R;
-import ca.ualberta.dorsa.seccam.RecyclerViewListener;
 import ca.ualberta.dorsa.seccam.entities.Notification;
 
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.ViewHolder> {
