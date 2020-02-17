@@ -125,12 +125,9 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
             holder.messageButton.setVisibility(View.INVISIBLE);
         }
         else {
-            holder.contactName.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    listener.recyclerViewOnLongClick(view, position);
-                    return true;
-                }
+            holder.contactName.setOnLongClickListener(view -> {
+                listener.recyclerViewOnLongClick(view, position);
+                return true;
             });
         }
     }

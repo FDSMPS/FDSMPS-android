@@ -11,7 +11,12 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -21,6 +26,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import ca.ualberta.dorsa.seccam.R;
+import ca.ualberta.dorsa.seccam.entities.SecurityCamera;
 
 
 /**
@@ -45,6 +51,8 @@ public class LogActivity extends AppCompatActivity {
      * The Firebase auth.
      */
     FirebaseAuth firebaseAuth;
+    Boolean isPreviouslyRegisteredCameraCode;
+    private String oldCameraCode = "empty";
 
 
 
@@ -71,6 +79,12 @@ public class LogActivity extends AppCompatActivity {
         sharedPref = getApplicationContext().getSharedPreferences(
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         firebaseAuth = FirebaseAuth.getInstance();
+        isPreviouslyRegisteredCameraCode = sharedPref.getBoolean(getString(R.string.registered_camera),false);
+
+        if (isPreviouslyRegisteredCameraCode){
+            notificationSubscription();
+        }
+
     }
 
     // Get the results:
@@ -81,6 +95,12 @@ public class LogActivity extends AppCompatActivity {
             if (result.getContents() == null) {
                 Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
             } else {
+
+                if (isPreviouslyRegisteredCameraCode){
+                    notificationRemoveSubscription(oldCameraCode);
+
+                }
+
                 Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
                 qrCodeScanned = result.getContents();
                 Log.i("MYTAG", qrCodeScanned);
@@ -91,14 +111,15 @@ public class LogActivity extends AppCompatActivity {
                         .child("cameraCode")
                         .setValue(qrCodeScanned);
 
-                FirebaseDatabase.getInstance().getReference("Users/" + FirebaseAuth.getInstance().getCurrentUser().getUid())
-                        .child("userSetting")
-                        .child("cameraCode")
-                        .setValue(qrCodeScanned);
+                SecurityCamera securityCamera = new SecurityCamera(qrCodeScanned,false,null, true, FirebaseAuth.getInstance().getCurrentUser().getUid());
+                oldCameraCode = qrCodeScanned;
+                FirebaseDatabase.getInstance().getReference("SecurityCameras")
+                        .child(qrCodeScanned)
+                        .setValue(securityCamera);
 
-                FirebaseDatabase.getInstance().getReference("SecurityCameras/" + qrCodeScanned).child("registered").setValue("true");
-                FirebaseDatabase.getInstance().getReference("SecurityCameras/" + qrCodeScanned).child("registeredUserName").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                FirebaseDatabase.getInstance().getReference("SecurityCameras/" + qrCodeScanned).child("cameraCode").setValue(qrCodeScanned);
+                isPreviouslyRegisteredCameraCode = true;
+                notificationSubscription();
+
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
@@ -167,6 +188,55 @@ public class LogActivity extends AppCompatActivity {
         startActivity(logedInIntent);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         finish();
+
+    }
+
+    private void notificationSubscription() {
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Users/" + FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                try {
+                    String cameraCode = (String) dataSnapshot.child("cameraCode").getValue();
+
+                    FirebaseMessaging.getInstance().subscribeToTopic(cameraCode)
+                            .addOnCompleteListener(task -> {
+                                String msg = getString(R.string.msg_subscribed);
+                                if (!task.isSuccessful()) {
+                                    msg = getString(R.string.msg_subscribe_failed);
+                                }
+                                Log.d("TAG", msg);
+                                Toast.makeText(LogActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            });
+
+                } catch (NullPointerException np) {
+                    throw np;
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+    private void notificationRemoveSubscription(String oldCameraCode) {
+        FirebaseMessaging.getInstance().unsubscribeFromTopic(oldCameraCode)
+                .addOnCompleteListener(task -> {
+                    String msg = getString(R.string.msg_unsubscribed);
+                    if (!task.isSuccessful()) {
+                        msg = getString(R.string.msg_unsubscribe_failed);
+                    }
+                    else{
+                        FirebaseDatabase.getInstance().getReference("SecurityCameras/" + oldCameraCode)
+                                .removeValue();
+                    }
+                    Log.d("TAG", msg);
+                    Toast.makeText(LogActivity.this, msg, Toast.LENGTH_SHORT).show();
+                });
+
 
     }
 }

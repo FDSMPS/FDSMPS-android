@@ -1,5 +1,7 @@
 package ca.ualberta.dorsa.seccam.ui.settings;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +33,9 @@ public class SettingsFragment extends Fragment {
     private SettingsViewModel settingsViewModel;
     private TextView qrCode;
     private TextView propertyAddress;
+    private SharedPreferences sharedPref;
+    SharedPreferences.Editor editor;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -39,6 +44,8 @@ public class SettingsFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_settings, container, false);
         qrCode = root.findViewById(R.id.qr_code);
         propertyAddress = root.findViewById((R.id.owner_coordinates));
+        sharedPref = getActivity().getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         loadDataFromFireBase();
         return root;
     }
@@ -59,6 +66,9 @@ public class SettingsFragment extends Fragment {
                     String cameraCode = (String) dataSnapshot.child("cameraCode").getValue();
                     if (cameraCode != null) {
                         qrCode.setText(cameraCode);
+                        editor = sharedPref.edit();
+                        editor.putBoolean(getString(R.string.registered_camera), true);
+                        editor.apply();
                     }
                 } catch (NullPointerException np) {
                     throw np;

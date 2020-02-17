@@ -24,5 +24,10 @@
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="log_out">Log out</string>
+    <string name="msg_subscribed">Subscribtion Success</string>
+    <string name="msg_subscribe_failed">Subscription Failed</string>
+    <string name="registered_camera">Registered camera</string>
+    <string name="msg_unsubscribed">Unsubscribe Success</string>
+    <string name="msg_unsubscribe_failed">Unsubscribe Failed</string>
 
 </resources>

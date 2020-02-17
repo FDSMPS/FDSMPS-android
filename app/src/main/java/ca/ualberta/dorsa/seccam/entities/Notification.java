@@ -1,6 +1,10 @@
 package ca.ualberta.dorsa.seccam.entities;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * The type Notification. this is to createthe notification object
@@ -11,17 +15,26 @@ import java.util.Date;
  */
 public class Notification {
     private Date datetime;
-    private String notificationID;
+    private String notificationId;
+    private String imageId;
+
+    public String getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(String imageId) {
+        this.imageId = imageId;
+    }
 
     /**
      * Instantiates a new Notification.
      *
      * @param datetime       the datetime
-     * @param notificationID the notification id
+     * @param notificationId the notification id
      */
-    public Notification(Date datetime, String notificationID) {
+    public Notification(Date datetime, String notificationId) {
         this.datetime = datetime;
-        this.notificationID = notificationID;
+        this.notificationId = notificationId;
     }
 
     /**
@@ -32,6 +45,28 @@ public class Notification {
     public Date getDatetime() {
         return datetime;
     }
+
+    public String getDate() {
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+//        TODO to make the date look nice
+        try {
+            return Objects.requireNonNull(formatter.parse(formatter.format(this.datetime))).toString();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return datetime.toString();
+    }
+
+    public String getTime() {
+        DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+        try {
+            return Objects.requireNonNull(formatter.parse(formatter.format(this.datetime))).toString();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return datetime.toString();
+    }
+
 
     /**
      * Sets datetime.
@@ -47,16 +82,16 @@ public class Notification {
      *
      * @return the notification id
      */
-    public String getNotificationID() {
-        return notificationID;
+    public String getNotificationId() {
+        return notificationId;
     }
 
     /**
      * Sets notification id.
      *
-     * @param notificationID the notification id
+     * @param notificationId the notification id
      */
-    public void setNotificationID(String notificationID) {
-        this.notificationID = notificationID;
+    public void setNotificationId(String notificationId) {
+        this.notificationId = notificationId;
     }
 }
