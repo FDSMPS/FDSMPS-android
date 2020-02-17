@@ -51,7 +51,7 @@ public class LogActivity extends AppCompatActivity {
      * The Firebase auth.
      */
     FirebaseAuth firebaseAuth;
-    Boolean flag;
+    Boolean isPreviouslyRegisteredCameraCode;
     private String oldCameraCode = "empty";
 
 
@@ -79,9 +79,9 @@ public class LogActivity extends AppCompatActivity {
         sharedPref = getApplicationContext().getSharedPreferences(
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         firebaseAuth = FirebaseAuth.getInstance();
-        flag = sharedPref.getBoolean(getString(R.string.registered_camera),false);
+        isPreviouslyRegisteredCameraCode = sharedPref.getBoolean(getString(R.string.registered_camera),false);
 
-        if (flag){
+        if (isPreviouslyRegisteredCameraCode){
             notificationSubscription();
         }
 
@@ -96,7 +96,7 @@ public class LogActivity extends AppCompatActivity {
                 Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
             } else {
 
-                if (flag){
+                if (isPreviouslyRegisteredCameraCode){
                     notificationRemoveSubscription(oldCameraCode);
 
                 }
@@ -117,9 +117,8 @@ public class LogActivity extends AppCompatActivity {
                         .child(qrCodeScanned)
                         .setValue(securityCamera);
 
-                flag = true;
+                isPreviouslyRegisteredCameraCode = true;
                 notificationSubscription();
-
 
             }
         } else {
