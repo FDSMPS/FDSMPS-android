@@ -30,7 +30,10 @@
     <ImageView
         android:id="@+id/notification_image"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:contentDescription="TODO"
+        android:padding="10dp"
+        app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
 
 
 </LinearLayout>

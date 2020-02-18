@@ -1,5 +1,7 @@
 package ca.ualberta.dorsa.seccam.entities;
 
+import android.util.Log;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -55,11 +57,37 @@ public class Notification {
     }
 
     public String getDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = null;
+        try {
+            date = dateFormat.parse(datetime);
+            Log.d("MYDATETIME",date.toString());
+            SimpleDateFormat convetDateFormat = new SimpleDateFormat("E, MMMM dd, yyyy");
+            return convetDateFormat.format(date);
+        } catch (ParseException e) {
+            Log.d("MYDATETIME","failed");
+
+            e.printStackTrace();
+        }
+        Log.d("MYDATETIME",datetime);
         return datetime;
 
     }
 
     public String getTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date time = null;
+        try {
+            time = dateFormat.parse(datetime);
+            Log.d("MYDATETIME",time.toString());
+            SimpleDateFormat convetDateFormat = new SimpleDateFormat("h:mm a");
+            return convetDateFormat.format(time);
+        } catch (ParseException e) {
+            Log.d("MYDATETIME","failed");
+
+            e.printStackTrace();
+        }
+        Log.d("MYDATETIME",datetime);
         return datetime;
     }
 
