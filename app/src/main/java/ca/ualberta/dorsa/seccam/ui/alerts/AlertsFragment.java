@@ -14,6 +14,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -50,6 +53,7 @@ public class AlertsFragment extends Fragment {
                 .child("UserNotifications");
 
         userNotificationIds = new ArrayList<UserNotifications>();
+        //TODO sort this
         userNotification = new ArrayList<Notification>();
 
 
@@ -86,6 +90,9 @@ public class AlertsFragment extends Fragment {
                             userNotification.add(thisUserNotification);
 
                             Log.d("NOTIDS", dataSnapshot.child("imageId").getValue(String.class));
+                            //TODO Sort use userNotification with Comparator and Collection
+
+                            Collections.sort(userNotification, new CustomComparator());
 
                             adapter = new NotificationAdapter (getActivity(), userNotification);
                             notificationList.setAdapter(adapter);
@@ -109,6 +116,12 @@ public class AlertsFragment extends Fragment {
         });
 
         return root;
+    }
+    public class CustomComparator implements Comparator<Notification> {
+        @Override
+        public int compare(Notification o1, Notification o2) {
+            return o1.getDatetime().compareTo(o2.getDatetime());
+        }
     }
 
 
