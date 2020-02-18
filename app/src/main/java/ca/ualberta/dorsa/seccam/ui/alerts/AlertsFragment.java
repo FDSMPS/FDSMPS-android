@@ -32,8 +32,8 @@ public class AlertsFragment extends Fragment {
     private ArrayList<Notification> notifications;
     private NotificationAdapter adapter;
 
-    private List<UserNotifications> userNotificationIds;
-    private List<Notification> userNotification;
+    private ArrayList<UserNotifications> userNotificationIds;
+    private ArrayList<Notification> userNotification;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -61,25 +61,33 @@ public class AlertsFragment extends Fragment {
                 for (DataSnapshot notificationIdSnapshot : dataSnapshot.getChildren()) {
 
                     //From Users -> UID -> UserNotifications get the list of notification Ids
-                    Log.d("NOTID",notificationIdSnapshot.getValue().toString());
 
-                    UserNotifications userNotifications = (UserNotifications) (notificationIdSnapshot.getValue());
+                    UserNotifications userNotifications = new UserNotifications(
+                            notificationIdSnapshot.child("notificationId").getValue(String.class),
+                            Boolean.valueOf(notificationIdSnapshot.child("read").getValue(String.class)));
+
                     userNotificationIds.add(userNotifications);
 
                     //From Notifications, create a notification object
 
-                    DatabaseReference dbRefNotifications = FirebaseDatabase.getInstance().getReference("Notifications/");
+                    DatabaseReference dbRefNotifications = FirebaseDatabase.getInstance().getReference("Notifications/" + userNotifications.getNotificationId());
 
                     dbRefNotifications.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            Log.d("NOTID",dataSnapshot.getValue().toString());
 
-                            for (DataSnapshot notificationSnapshot : dataSnapshot.getChildren()) {
-                                Notification thisUserNotification = (Notification) notificationSnapshot.getValue();
-                                userNotification.add(thisUserNotification);
-                            }
+                            Notification thisUserNotification = new Notification(
+                                    dataSnapshot.child("cameraCode").getValue(String.class),
+                                    dataSnapshot.child("datetime").getValue(String.class),
+                                    dataSnapshot.child("imageId").getValue(String.class),
+                                    dataSnapshot.child("notificationId").getValue(String.class));
 
-                            adapter = new NotificationAdapter (getActivity(), notifications);
+                            userNotification.add(thisUserNotification);
+
+                            Log.d("NOTIDS", dataSnapshot.child("imageId").getValue(String.class));
+
+                            adapter = new NotificationAdapter (getActivity(), userNotification);
                             notificationList.setAdapter(adapter);
                             notificationList.setLayoutManager(new LinearLayoutManager(getActivity()));
                         }
@@ -92,9 +100,6 @@ public class AlertsFragment extends Fragment {
 
                 }
 
-                adapter = new NotificationAdapter (getActivity(), notifications);
-                notificationList.setAdapter(adapter);
-                notificationList.setLayoutManager(new LinearLayoutManager(getActivity()));
             }
 
             @Override
@@ -105,5 +110,7 @@ public class AlertsFragment extends Fragment {
 
         return root;
     }
+
+
 
 }

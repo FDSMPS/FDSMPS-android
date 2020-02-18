@@ -9,8 +9,10 @@
     >
 
     <LinearLayout
+        android:id="@+id/notificationItem"
         android:orientation="vertical"
         android:layout_width="match_parent"
+        android:clickable="true"
         android:layout_height="wrap_content"
         >
 

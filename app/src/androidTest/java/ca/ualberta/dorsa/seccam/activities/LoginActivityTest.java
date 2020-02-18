@@ -12,6 +12,7 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.LargeTest;
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 import androidx.test.rule.ActivityTestRule;
+import ca.ualberta.dorsa.seccam.R;
 import ca.ualberta.dorsa.seccam.activities.LogActivity;
 import ca.ualberta.dorsa.seccam.activities.LoginActivity;
 

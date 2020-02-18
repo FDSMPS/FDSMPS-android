@@ -1,13 +1,28 @@
 package ca.ualberta.dorsa.seccam.adapters;
 
 import android.app.AlertDialog;
+import android.app.Application;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -15,6 +30,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import ca.ualberta.dorsa.seccam.R;
 import ca.ualberta.dorsa.seccam.entities.Notification;
+import ca.ualberta.dorsa.seccam.ui.alerts.AlertsFragment;
 
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.ViewHolder> {
 
@@ -22,42 +38,56 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
         public TextView notificationDate;
         public TextView notificationTime;
+        public ImageView notificationImage;
+        public View notificationItem;
+        public AlertDialog.Builder addDialogBuilder;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            addDialogBuilder = new AlertDialog.Builder(context);
+            View dialogView = LayoutInflater.from(itemView.getContext()).inflate(R.layout.image_notification_dialog, null);
+            addDialogBuilder.setView(dialogView);
 
-            notificationDate = (TextView) itemView.findViewById(R.id.notification_date);
-            notificationTime = (TextView) itemView.findViewById(R.id.notification_time);
+            notificationDate = (TextView) itemView.findViewById(R.id.log_notification_date);
+            notificationTime = (TextView) itemView.findViewById(R.id.log_notification_time);
+            notificationImage = (ImageView) itemView.findViewById(R.id.notification_image);
+
+
+            notificationItem = (View) itemView.findViewById(R.id.notificationItem);
+            notificationItem.setOnClickListener(this);
+
+
 
         }
 
         @Override
         public void onClick(View view) {
             Notification notification = notifications.get(getAdapterPosition());
-//            TODO grab image from firebase and display
 
-            AlertDialog.Builder addDialogBuilder = new AlertDialog.Builder(context);
-            addDialogBuilder.setTitle("Add Emergency Contact");
+            notificationDate.setText(notification.getDate());
+            notificationTime.setText(notification.getTime());
 
-            LinearLayout layout = new LinearLayout(context);
-            layout.setOrientation(LinearLayout.VERTICAL);
+            Log.d("IMGIDS", notification.getNotificationId());
 
-            final TextView date = new TextView(context);
-            date.setText(notification.getDate());
 
-            final TextView time = new TextView(context);
-            time.setText(notification.getTime());
+            DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("NotificationImages/" + notification.getImageId());
 
-            final ImageView notImage = new ImageView(context);
-            notImage.setImageDrawable(context.getDrawable(R.drawable.logo_transparent));
+            dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    try {
+                        String imageData = (String) dataSnapshot.child("imageData").getValue();
+                        Log.d("IMGIDS", imageData);
+                        notificationImage.setImageBitmap(StringToBitMap(imageData));
 
-            layout.addView(date);
-            layout.addView(time);
-            layout.addView(notImage);
-
-            addDialogBuilder.setView(layout);
-
-            addDialogBuilder.setPositiveButton("OK", (dialogInterface, i) -> dialogInterface.cancel());
+                    } catch (NullPointerException np) {
+                        throw np;
+                    }
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
 
             AlertDialog addDialog = addDialogBuilder.create();
             addDialog.show();
@@ -65,6 +95,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
         }
     }
+
 
     private Context context;
     private ArrayList<Notification> notifications;
@@ -81,8 +112,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        // Inflate the custom layout
-        View contactView = inflater.inflate(R.layout.contact_row, parent, false);
+        // Inflate the custom layoutcontact_row
+        View contactView = inflater.inflate(R.layout.notification_row, parent, false);
 
         // Return a new holder instance
         ViewHolder viewHolder = new ViewHolder(contactView);
@@ -97,7 +128,6 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         // Set item views based on your views and data model
         TextView dateTextView = holder.notificationDate;
         dateTextView.setText(notification.getDate());
-
         TextView timeTextView = holder.notificationTime;
         timeTextView.setText(notification.getTime());
 
@@ -106,6 +136,17 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     @Override
     public int getItemCount() {
         return notifications.size();
+    }
+
+    public Bitmap StringToBitMap(String image){
+        try{
+            byte [] encodeByte= Base64.decode(image,Base64.DEFAULT);
+            Bitmap bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        }catch(Exception e){
+            e.getMessage();
+            return null;
+        }
     }
 
 }
