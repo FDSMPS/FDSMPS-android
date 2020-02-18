@@ -207,7 +207,7 @@ public class LogActivity extends AppCompatActivity {
                                     msg = getString(R.string.msg_subscribe_failed);
                                 }
                                 Log.d("TAG", msg);
-                                Toast.makeText(LogActivity.this, msg, Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(LogActivity.this, msg, Toast.LENGTH_SHORT).show();
                             });
 
                 } catch (NullPointerException np) {
