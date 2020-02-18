@@ -2,6 +2,7 @@ package ca.ualberta.dorsa.seccam.adapters;
 
 import android.app.AlertDialog;
 import android.app.Application;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
@@ -54,7 +55,6 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             notificationTime = (TextView) itemView.findViewById(R.id.notification_time);
             logNotificationDate = (TextView) itemView.findViewById(R.id.log_notification_date);
             logNotificationTime = (TextView) itemView.findViewById(R.id.log_notification_time);
-            notificationImage = (ImageView) itemView.findViewById(R.id.notification_image);
 
             notificationItem = (View) itemView.findViewById(R.id.notificationItem);
             notificationItem.setOnClickListener(this);
@@ -66,8 +66,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         public void onClick(View view) {
             Notification notification = notifications.get(getAdapterPosition());
 
-            logNotificationDate.setText(notification.getDate());
-            logNotificationTime.setText(notification.getTime());
+//            logNotificationDate.setText(notification.getDate());
+//            logNotificationTime.setText(notification.getTime());
 
             Log.d("IMGIDS", notification.getNotificationId());
 
@@ -80,7 +80,14 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                     try {
                         String imageData = (String) dataSnapshot.child("imageData").getValue();
                         Log.d("IMGIDS", imageData);
-//                        notificationImage.setImageBitmap(StringToBitMap(imageData));
+                        Dialog addDialog = addDialogBuilder.create();
+                        addDialog.setTitle(notification.getDate());
+                        notificationImage = (ImageView) addDialog.findViewById(R.id.notification_image);
+//                        notificationImage.setImageBitmap(imageData);
+
+
+
+                        addDialog.show();
 
                     } catch (NullPointerException np) {
                         throw np;
@@ -91,8 +98,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                 }
             });
 
-            AlertDialog addDialog = addDialogBuilder.create();
-            addDialog.show();
+
 
 
         }
