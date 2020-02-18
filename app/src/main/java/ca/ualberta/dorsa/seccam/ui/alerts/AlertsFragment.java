@@ -53,7 +53,6 @@ public class AlertsFragment extends Fragment {
                 .child("UserNotifications");
 
         userNotificationIds = new ArrayList<UserNotifications>();
-        //TODO sort this
         userNotification = new ArrayList<Notification>();
 
 
@@ -90,7 +89,6 @@ public class AlertsFragment extends Fragment {
                             userNotification.add(thisUserNotification);
 
                             Log.d("NOTIDS", dataSnapshot.child("imageId").getValue(String.class));
-                            //TODO Sort use userNotification with Comparator and Collection
 
                             Collections.sort(userNotification, new CustomComparator());
 
