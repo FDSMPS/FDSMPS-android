@@ -38,6 +38,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
         public TextView notificationDate;
         public TextView notificationTime;
+        public TextView logNotificationDate;
+        public TextView logNotificationTime;
         public ImageView notificationImage;
         public View notificationItem;
         public AlertDialog.Builder addDialogBuilder;
@@ -48,14 +50,14 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             View dialogView = LayoutInflater.from(itemView.getContext()).inflate(R.layout.image_notification_dialog, null);
             addDialogBuilder.setView(dialogView);
 
-            notificationDate = (TextView) itemView.findViewById(R.id.log_notification_date);
-            notificationTime = (TextView) itemView.findViewById(R.id.log_notification_time);
+            notificationDate = (TextView) itemView.findViewById(R.id.notification_date);
+            notificationTime = (TextView) itemView.findViewById(R.id.notification_time);
+            logNotificationDate = (TextView) itemView.findViewById(R.id.log_notification_date);
+            logNotificationTime = (TextView) itemView.findViewById(R.id.log_notification_time);
             notificationImage = (ImageView) itemView.findViewById(R.id.notification_image);
-
 
             notificationItem = (View) itemView.findViewById(R.id.notificationItem);
             notificationItem.setOnClickListener(this);
-
 
 
         }
@@ -64,8 +66,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         public void onClick(View view) {
             Notification notification = notifications.get(getAdapterPosition());
 
-            notificationDate.setText(notification.getDate());
-            notificationTime.setText(notification.getTime());
+            logNotificationDate.setText(notification.getDate());
+            logNotificationTime.setText(notification.getTime());
 
             Log.d("IMGIDS", notification.getNotificationId());
 
@@ -78,7 +80,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                     try {
                         String imageData = (String) dataSnapshot.child("imageData").getValue();
                         Log.d("IMGIDS", imageData);
-                        notificationImage.setImageBitmap(StringToBitMap(imageData));
+//                        notificationImage.setImageBitmap(StringToBitMap(imageData));
 
                     } catch (NullPointerException np) {
                         throw np;
