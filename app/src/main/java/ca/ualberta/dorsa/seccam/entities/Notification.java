@@ -1,5 +1,7 @@
 package ca.ualberta.dorsa.seccam.entities;
 
+import android.util.Log;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -7,16 +9,35 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
- * The type Notification. this is to createthe notification object
+ * The type Notification. this is to create the notification object
  * Executed UI tested yet to be unit tested
+ *
  * @author Dorsa Nahid
- * @date 2020-1-31
- * Project: ECE 492 Group 1
+ * @date 2020 -1-31 Project: ECE 492 Group 1
  */
 public class Notification {
-    private Date datetime;
-    private String notificationId;
+    private String cameraCode;
+    private String datetime;
     private String imageId;
+    private String notificationId;
+
+    public Notification() {
+    }
+
+    /**
+     * Instantiates a new Notification.
+     *
+     * @param cameraCode     the camera code
+     * @param datetime       the datetime
+     * @param imageId        the image id
+     * @param notificationId the notification id
+     */
+    public Notification(String cameraCode, String datetime, String imageId, String notificationId) {
+        this.cameraCode = cameraCode;
+        this.datetime = datetime;
+        this.imageId = imageId;
+        this.notificationId = notificationId;
+    }
 
     public String getImageId() {
         return imageId;
@@ -27,44 +48,47 @@ public class Notification {
     }
 
     /**
-     * Instantiates a new Notification.
-     *
-     * @param datetime       the datetime
-     * @param notificationId the notification id
-     */
-    public Notification(Date datetime, String notificationId) {
-        this.datetime = datetime;
-        this.notificationId = notificationId;
-    }
-
-    /**
      * Gets datetime.
      *
      * @return the datetime
      */
-    public Date getDatetime() {
+    public String getDatetime() {
         return datetime;
     }
 
     public String getDate() {
-        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-//        TODO to make the date look nice
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = null;
         try {
-            return Objects.requireNonNull(formatter.parse(formatter.format(this.datetime))).toString();
+            date = dateFormat.parse(datetime);
+            Log.d("MYDATETIME",date.toString());
+            SimpleDateFormat convetDateFormat = new SimpleDateFormat("E, MMMM dd, yyyy");
+            return convetDateFormat.format(date);
         } catch (ParseException e) {
+            Log.d("MYDATETIME","failed");
+
             e.printStackTrace();
         }
-        return datetime.toString();
+        Log.d("MYDATETIME",datetime);
+        return datetime;
+
     }
 
     public String getTime() {
-        DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date time = null;
         try {
-            return Objects.requireNonNull(formatter.parse(formatter.format(this.datetime))).toString();
+            time = dateFormat.parse(datetime);
+            Log.d("MYDATETIME",time.toString());
+            SimpleDateFormat convetDateFormat = new SimpleDateFormat("h:mm a");
+            return convetDateFormat.format(time);
         } catch (ParseException e) {
+            Log.d("MYDATETIME","failed");
+
             e.printStackTrace();
         }
-        return datetime.toString();
+        Log.d("MYDATETIME",datetime);
+        return datetime;
     }
 
 
@@ -73,7 +97,7 @@ public class Notification {
      *
      * @param datetime the datetime
      */
-    public void setDatetime(Date datetime) {
+    public void setDatetime(String datetime) {
         this.datetime = datetime;
     }
 
