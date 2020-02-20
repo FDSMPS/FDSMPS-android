@@ -1,8 +1,11 @@
 package ca.ualberta.dorsa.seccam.activities;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,7 +23,9 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -238,5 +243,34 @@ public class LogActivity extends AppCompatActivity {
                 });
 
 
+    }
+
+    public void openWebPage(String url) {
+        Uri webpage = Uri.parse(url);
+        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }else{
+            //Page not found
+        }
+    }
+
+
+    public void connectCameraToWifi(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setMessage(R.string.connect_to_wifi)
+                .setTitle(R.string.camera_config);
+
+        builder.setPositiveButton(R.string.ok, (dialog, id) -> {
+            openWebPage("http://192.168.0.1:3000");
+            // User clicked OK button
+        });
+        builder.setNegativeButton(R.string.cancel, (dialog, id) -> {
+            // User cancelled the dialog
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }

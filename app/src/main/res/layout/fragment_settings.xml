@@ -11,7 +11,7 @@
 
     <TextView
         android:onClick="logOut"
-        android:layout_weight="0.75"
+        android:layout_weight="0.2"
         android:layout_marginLeft="70dp"
         android:layout_marginRight="70dp"
         android:layout_marginTop="10dp"
@@ -90,6 +90,17 @@
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
+    <Button
+        android:onClick="connectCameraToWifi"
+        android:text="@string/connectToWifi"
+        android:layout_weight="1"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/places_text_white_alpha_87"
+        android:layout_height="0dp"
+        android:background="@drawable/round_button_blue"
+        android:layout_width="match_parent" />
 
     <Button
         android:onClick="forgetMe"
