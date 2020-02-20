@@ -3,15 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorLightGrey"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <include
-        android:id="@+id/fragment_titlebar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/titlebar_height"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
 
     <GridView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/fragment_full_gallery_gridview"
@@ -25,6 +21,5 @@
         android:verticalSpacing="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_titlebar"></GridView>
+        app:layout_constraintStart_toStartOf="parent"></GridView>
 </android.support.constraint.ConstraintLayout>
