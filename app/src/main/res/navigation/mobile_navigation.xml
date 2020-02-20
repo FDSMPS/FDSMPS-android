@@ -21,4 +21,10 @@
         android:name="ca.ualberta.dorsa.seccam.ui.nextsteps.NextStepsFragment"
         android:label="@string/title_next_steps"
         tools:layout="@layout/fragment_next_steps" />
+
+    <fragment
+        android:id="@+id/gallery"
+        android:name="ca.ualberta.dorsa.seccam.ui.gallery.GalleryFragment"
+        android:label="@string/gallery"
+        tools:layout="@layout/fragment_gallery" />
 </navigation>

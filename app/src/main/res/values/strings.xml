@@ -34,5 +34,7 @@
     <string name="ok">OK</string>
     <string name="cancel">CANCEL</string>
     <string name="camera_config">Camera Wifi Configuration</string>
+    <string name="save">Save</string>
+    <string name="gallery">Gallery</string>
 
 </resources>

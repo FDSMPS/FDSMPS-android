@@ -3,6 +3,7 @@ package ca.ualberta.dorsa.seccam.adapters;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
@@ -10,8 +11,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,6 +22,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
@@ -35,6 +41,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         public TextView logNotificationDate;
         public TextView logNotificationTime;
         public ImageView notificationImage;
+        public Button saveImageNotification;
         public View notificationItem;
         public AlertDialog.Builder addDialogBuilder;
         public View dialogView;
@@ -51,6 +58,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             logNotificationTime = (TextView) dialogView.findViewById(R.id.log_notification_time);
             notificationImage = (ImageView) dialogView.findViewById(R.id.notification_image);
 
+            saveImageNotification = (Button) dialogView.findViewById(R.id.saveImageNotification);
 
             notificationItem = (View) itemView.findViewById(R.id.notificationItem);
             notificationItem.setOnClickListener(this);
@@ -74,11 +82,16 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                         String imageData = (String) dataSnapshot.child("imageData").getValue();
                         Log.d("IMGIDS", imageData);
                         Dialog addDialog = addDialogBuilder.create();
-//                        addDialog.setTitle(notification.getDate());
                         logNotificationDate.setText(notification.getDate());
                         logNotificationTime.setText(notification.getTime());
                         notificationImage.setImageBitmap(StringToBitMap(imageData));
 
+                        saveImageNotification.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Toast.makeText(context, notification.getNotificationId(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
 
                         addDialog.show();
 
@@ -147,6 +160,30 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             e.getMessage();
             return null;
         }
+    }
+
+    private String saveToInternalStorage(Bitmap bitmapImage){
+        ContextWrapper cw = new ContextWrapper(context);
+        // path to /data/data/yourapp/app_data/imageDir
+        File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+        // Create imageDir
+        File mypath=new File(directory,"profile.jpg");
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(mypath);
+            // Use the compress method on the BitMap object to write image to the OutputStream
+            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return directory.getAbsolutePath();
     }
 
 }
