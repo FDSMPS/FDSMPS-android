@@ -2,7 +2,6 @@ package ca.ualberta.dorsa.seccam.entities;
 
 
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * The type User.

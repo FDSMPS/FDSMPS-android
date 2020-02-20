@@ -2,9 +2,6 @@ package ca.ualberta.dorsa.seccam.entities;
 
 import java.util.ArrayList;
 
-import ca.ualberta.dorsa.seccam.entities.Contact;
-import ca.ualberta.dorsa.seccam.entities.Location;
-
 /**
  * The type User settings.
  * Executed UI tested yet to be unit tested

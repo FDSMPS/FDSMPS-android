@@ -2,11 +2,9 @@ package ca.ualberta.dorsa.seccam.entities;
 
 import android.util.Log;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Objects;
 
 /**
  * The type Notification. this is to create the notification object
