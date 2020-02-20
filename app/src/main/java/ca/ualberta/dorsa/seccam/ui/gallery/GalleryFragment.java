@@ -33,15 +33,15 @@ import ca.ualberta.dorsa.seccam.entities.GalleryItem;
  * The type Settings fragment.
  * Executed UI tested yet to be unit tested
  *
- * @author Jessica D'Cunha and Dorsa Nahid
+ * @author Dorsa Nahid
  * @date 2020 -1-31
  * Project: ECE 492 Group 1
  */
 public class GalleryFragment extends Fragment {
 
 
-    public static final String PHOTO_CONTENT = "ca.cybersix.photo";
-    public static final String GALLERY_MODE = "ca.cybersix.gallerymode";
+    public static final String PHOTO_CONTENT = "ca.ualberta.dorsa.seccam.photos";
+    public static final String GALLERY_MODE = "ca.ualberta.dorsa.seccam.gallerymode";
 
 
     public static List<GalleryItem> photos;
@@ -64,7 +64,7 @@ public class GalleryFragment extends Fragment {
         photos = new ArrayList<GalleryItem>();
         int size;
 
-        if(getArguments()!=null) {
+        if (getArguments() != null) {
             int problemIndex = getArguments().getInt(GALLERY_MODE);
 //            if (RecordController.getInstance().getSelectedProblemRecords().get(problemIndex) == null) {
 //                size = 0;
@@ -94,33 +94,32 @@ public class GalleryFragment extends Fragment {
 //        }
 
 
-        GridView gridView = view.findViewById(R.id.fragment_full_gallery_gridview);
-        final ImageAdapter imageAdapter = new ImageAdapter(getActivity(), photos);
-        gridView.setAdapter(imageAdapter);
+            GridView gridView = view.findViewById(R.id.fragment_full_gallery_gridview);
+            final ImageAdapter imageAdapter = new ImageAdapter(getActivity(), photos);
+//        gridView.setAdapter(imageAdapter);
 
-        gridView.setOnItemClickListener((parent, view1, position, id) -> {
-            Intent intent = new Intent(getActivity().getBaseContext(),
-                    SlideShowActivity.class);
-            intent.putExtra(PHOTO_CONTENT, position);
-            getActivity().startActivity(intent);
-        });
+            gridView.setOnItemClickListener((parent, view1, position, id) -> {
+                Intent intent = new Intent(getActivity().getBaseContext(),
+                        SlideShowActivity.class);
+                intent.putExtra(PHOTO_CONTENT, position);
+                getActivity().startActivity(intent);
+            });
 
-        gridView.setOnItemLongClickListener((parent, view12, position, id) -> {
-            Intent intent = new Intent(getActivity().getBaseContext(),
-                    DeletePhoto.class);
-            intent.putExtra(PHOTO_CONTENT, position);
-            getActivity().startActivity(intent);
-            return true;
-        });
+            gridView.setOnItemLongClickListener((parent, view12, position, id) -> {
+                Intent intent = new Intent(getActivity().getBaseContext(),
+                        DeletePhoto.class);
+                intent.putExtra(PHOTO_CONTENT, position);
+                getActivity().startActivity(intent);
+                return true;
+            });
 
 //        TextView title = getActivity().findViewById(R.id.fragment_title_bar_fragmentTitle);
 //        View returnButton = getActivity().findViewById(R.id.fragment_title_bar_returnButton);
 
-        return view;
+            return view;
+        }
+    return view;
+
     }
-}
-
-
-
 
 }

@@ -9,7 +9,7 @@ import ca.ualberta.dorsa.seccam.adapters.SlidingImageAdaptor;
 
 public class SlideShowActivity extends AppCompatActivity {
 
-    public static final String PHOTO_CONTENT = "ca.cybersix.photo";
+    public static final String PHOTO_CONTENT = "ca.ualberta.dorsa.seccam.photos";
     private static ViewPager mPager;
 
 

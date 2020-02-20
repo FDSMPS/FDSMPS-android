@@ -25,8 +25,8 @@ import ca.ualberta.dorsa.seccam.entities.GalleryItem;
 
 public class GalleryAdapter extends Fragment {
 
-    public static final String PHOTO_CONTENT = " ca.ualberta.dorsa.seccam.photo";
-    public static final String GALLERY_MODE = " ca.ualberta.dorsa.seccam";
+    public static final String PHOTO_CONTENT = " ca.ualberta.dorsa.seccam.photos";
+    public static final String GALLERY_MODE = " ca.ualberta.dorsa.seccam.gallerymode";
 
 
     public static List<GalleryItem> photos;
@@ -81,27 +81,21 @@ public class GalleryAdapter extends Fragment {
 
         GridView gridView = view.findViewById(R.id.fragment_full_gallery_gridview);
         final ImageAdapter imageAdapter = new ImageAdapter(getActivity(), photos);
-        gridView.setAdapter(imageAdapter);
+//        gridView.setAdapter(imageAdapter);
 
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity().getBaseContext(),
-                        SlideShowActivity.class);
-                intent.putExtra(PHOTO_CONTENT, position);
-                getActivity().startActivity(intent);
-            }
+        gridView.setOnItemClickListener((parent, view1, position, id) -> {
+            Intent intent = new Intent(getActivity().getBaseContext(),
+                    SlideShowActivity.class);
+            intent.putExtra(PHOTO_CONTENT, position);
+            getActivity().startActivity(intent);
         });
 
-        gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity().getBaseContext(),
-                        DeletePhoto.class);
-                intent.putExtra(PHOTO_CONTENT, position);
-                getActivity().startActivity(intent);
-                return true;
-            }
+        gridView.setOnItemLongClickListener((parent, view12, position, id) -> {
+            Intent intent = new Intent(getActivity().getBaseContext(),
+                    DeletePhoto.class);
+            intent.putExtra(PHOTO_CONTENT, position);
+            getActivity().startActivity(intent);
+            return true;
         });
 
         return view;
