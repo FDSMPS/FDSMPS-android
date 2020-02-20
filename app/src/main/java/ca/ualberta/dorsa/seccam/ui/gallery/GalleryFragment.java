@@ -105,15 +105,12 @@ public class GalleryFragment extends Fragment {
             getActivity().startActivity(intent);
         });
 
-        gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity().getBaseContext(),
-                        DeletePhoto.class);
-                intent.putExtra(PHOTO_CONTENT, position);
-                getActivity().startActivity(intent);
-                return true;
-            }
+        gridView.setOnItemLongClickListener((parent, view12, position, id) -> {
+            Intent intent = new Intent(getActivity().getBaseContext(),
+                    DeletePhoto.class);
+            intent.putExtra(PHOTO_CONTENT, position);
+            getActivity().startActivity(intent);
+            return true;
         });
 
 //        TextView title = getActivity().findViewById(R.id.fragment_title_bar_fragmentTitle);
