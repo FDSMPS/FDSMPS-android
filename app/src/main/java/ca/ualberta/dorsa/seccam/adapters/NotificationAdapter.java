@@ -1,11 +1,14 @@
 package ca.ualberta.dorsa.seccam.adapters;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Environment;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,6 +31,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import ca.ualberta.dorsa.seccam.R;
 import ca.ualberta.dorsa.seccam.entities.Notification;
@@ -45,12 +50,15 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         public View notificationItem;
         public AlertDialog.Builder addDialogBuilder;
         public View dialogView;
+        public Dialog addDialog;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
             addDialogBuilder = new AlertDialog.Builder(context);
             dialogView = LayoutInflater.from(itemView.getContext()).inflate(R.layout.image_notification_dialog, null);
             addDialogBuilder.setView(dialogView);
+            addDialog = addDialogBuilder.create();
 
             notificationDate = (TextView) itemView.findViewById(R.id.notification_date);
             notificationTime = (TextView) itemView.findViewById(R.id.notification_time);
@@ -67,7 +75,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         }
 
         @Override
-        public void onClick(View view) {
+        public void onClick(View view){
             Notification notification = notifications.get(getAdapterPosition());
 
             Log.d("IMGIDS", notification.getNotificationId());
@@ -81,16 +89,13 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                     try {
                         String imageData = (String) dataSnapshot.child("imageData").getValue();
                         Log.d("IMGIDS", imageData);
-                        Dialog addDialog = addDialogBuilder.create();
                         logNotificationDate.setText(notification.getDate());
                         logNotificationTime.setText(notification.getTime());
                         notificationImage.setImageBitmap(StringToBitMap(imageData));
 
-                        saveImageNotification.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Toast.makeText(context, notification.getNotificationId(), Toast.LENGTH_SHORT).show();
-                            }
+                        saveImageNotification.setOnClickListener(v -> {
+                            saveToInternalStorage(StringToBitMap(imageData),notification.getNotificationId());
+//                                Toast.makeText(context, notification.getNotificationId(), Toast.LENGTH_SHORT).show();
                         });
 
                         addDialog.show();
@@ -106,6 +111,24 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             });
 
 
+        }
+
+        private boolean saveToInternalStorage(Bitmap bitmapImage, String notificationId) {
+
+            File folder = new File(Environment.getExternalStorageDirectory().toString() + File.separator + "iSecurity");
+            folder.mkdirs();
+            File file = new File(folder.getPath() + File.separator + notificationId + ".jpg");
+            try {
+                FileOutputStream fos = new FileOutputStream(file);
+                // Use the compress method on the BitMap object to write image to the OutputStream
+                bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
+                fos.close();
+                addDialog.dismiss();
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
         }
     }
 
@@ -160,30 +183,6 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             e.getMessage();
             return null;
         }
-    }
-
-    private String saveToInternalStorage(Bitmap bitmapImage){
-        ContextWrapper cw = new ContextWrapper(context);
-        // path to /data/data/yourapp/app_data/imageDir
-        File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
-        // Create imageDir
-        File mypath=new File(directory,"profile.jpg");
-
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(mypath);
-            // Use the compress method on the BitMap object to write image to the OutputStream
-            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                fos.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return directory.getAbsolutePath();
     }
 
 }

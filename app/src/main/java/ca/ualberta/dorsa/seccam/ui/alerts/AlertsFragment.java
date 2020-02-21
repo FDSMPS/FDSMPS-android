@@ -1,5 +1,7 @@
 package ca.ualberta.dorsa.seccam.ui.alerts;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +22,8 @@ import java.util.Comparator;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,7 +41,7 @@ public class AlertsFragment extends Fragment {
 
     private ArrayList<UserNotifications> userNotificationIds;
     private ArrayList<Notification> userNotification;
-
+    private final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL = 20;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -54,7 +58,6 @@ public class AlertsFragment extends Fragment {
 
         userNotificationIds = new ArrayList<UserNotifications>();
         userNotification = new ArrayList<Notification>();
-
 
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -113,8 +116,60 @@ public class AlertsFragment extends Fragment {
             }
         });
 
+        if (ContextCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            Log.d("PERMG","NOT GRANTED");
+
+            // Permission is not granted
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+            } else {
+                // No explanation needed; request the permission
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        } else {
+            Log.d("PERMG","GRANTED");
+            // Permission has already been granted
+        }
+
         return root;
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                    //TODO: save the state of the permission
+                } else {
+                    //TODO: save the state of the permission, ask upon launch if this is the case
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request.
+        }
+    }
+
     public class CustomComparator implements Comparator<Notification> {
         @Override
         public int compare(Notification o1, Notification o2) {
