@@ -49,36 +49,6 @@ public class GalleryAdapter extends Fragment {
         photos = new ArrayList<GalleryItem>();
         int size;
 
-//        if(getArguments()!=null) {
-//            int problemIndex = getArguments().getInt(GALLERY_MODE);
-//            if (RecordController.getInstance().getSelectedProblemRecords().get(problemIndex) == null) {
-//                size = 0;
-//            } else {
-//                size = RecordController.getInstance().getSelectedProblemRecords().get(problemIndex).getPhotos().size();
-//            }
-//
-//            for (int i = 0; i < size; i++) {
-//                photos.add(new GalleryItem(problemIndex,RecordController.getInstance().getSelectedProblemRecords().get(problemIndex).getPhotos().get(i)));
-//            }
-//
-//        }else{
-//            if(ProblemController.getInstance().getSelectedProblem()!=null) {
-//                if (RecordController.getInstance().getSelectedProblemRecords() == null) {
-//                    size = 0;
-//                } else {
-//                    size = RecordController.getInstance().getSelectedProblemRecords().size();
-//                }
-//
-//                for (int i = 0; i < size; i++) {
-//                    int recordSize = RecordController.getInstance().getSelectedProblemRecords().get(i).getPhotos().size();
-//                    for (int j = 0; j < recordSize; j++) {
-//                        photos.add(new GalleryItem(i, RecordController.getInstance().getSelectedProblemRecords().get(i).getPhotos().get(j)));
-//                    }
-//                }
-//            }
-//        }
-
-
         GridView gridView = view.findViewById(R.id.fragment_full_gallery_gridview);
         final ImageAdapter imageAdapter = new ImageAdapter(getActivity(), photos);
 //        gridView.setAdapter(imageAdapter);
