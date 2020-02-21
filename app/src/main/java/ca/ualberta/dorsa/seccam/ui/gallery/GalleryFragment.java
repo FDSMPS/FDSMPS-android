@@ -5,17 +5,24 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
+import android.security.keystore.KeyGenParameterSpec;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.security.crypto.EncryptedFile;
+import androidx.security.crypto.MasterKeys;
 import ca.ualberta.dorsa.seccam.R;
 import ca.ualberta.dorsa.seccam.activities.SlideShowActivity;
 import ca.ualberta.dorsa.seccam.adapters.ImageAdapter;
@@ -28,6 +35,19 @@ public class GalleryFragment extends Fragment {
     public static final String FILE_NAME = "ca.ualberta.dorsa.seccam.file.name";
     public static final String GALLERY_MODE = "ca.ualberta.dorsa.seccam.gallerymode";
     public ImageAdapter imageAdapter;
+
+    KeyGenParameterSpec keyGenParameterSpec = MasterKeys.AES256_GCM_SPEC;
+    String masterKeyAlias;
+
+    {
+        try {
+            masterKeyAlias = MasterKeys.getOrCreate(keyGenParameterSpec);
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public GalleryFragment() {
         // Required empty public constructor
@@ -45,7 +65,13 @@ public class GalleryFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_gallery, container, false);
         photos = new ArrayList<GalleryItem>();
-        loadGallery();
+        try {
+            loadGallery();
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
         GridView gridView = view.findViewById(R.id.fragment_full_gallery_gridview);
@@ -75,7 +101,7 @@ public class GalleryFragment extends Fragment {
     }
 
 
-    private void loadGallery() {
+    private void loadGallery() throws GeneralSecurityException, IOException {
         File folder = new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath());
         File f = new File(folder.getAbsolutePath());
         File[] file = f.listFiles();
@@ -83,6 +109,29 @@ public class GalleryFragment extends Fragment {
             if (value.exists()) {
 
                 Bitmap myBitmap = BitmapFactory.decodeFile(value.getAbsolutePath());
+                //TODO decode the encryption
+
+                EncryptedFile encryptedFile = new EncryptedFile.Builder(
+                        new File(folder, value.toString()),
+                        getContext(),
+                        masterKeyAlias,
+                        EncryptedFile.FileEncryptionScheme.AES256_GCM_HKDF_4KB
+                ).build();
+
+                StringBuffer stringBuffer = new StringBuffer();
+                try (BufferedReader reader =
+                             new BufferedReader(new FileReader(String.valueOf(encryptedFile)))) {
+
+                    String line = reader.readLine();
+                    while (line != null) {
+                        stringBuffer.append(line).append('\n');
+                        line = reader.readLine();
+                    }
+                } catch (IOException e) {
+                    // Error occurred opening raw file for reading.
+                } finally {
+                    String contents = stringBuffer.toString();
+                }
                 photos.add(new GalleryItem(value.getName(), myBitmap));
             }
         }

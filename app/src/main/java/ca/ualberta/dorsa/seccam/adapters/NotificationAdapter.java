@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
+import android.security.keystore.KeyGenParameterSpec;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,16 +22,37 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.security.crypto.EncryptedFile;
 import ca.ualberta.dorsa.seccam.R;
 import ca.ualberta.dorsa.seccam.entities.Notification;
+import androidx.security.crypto.MasterKeys;
+
 
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.ViewHolder> {
+
+
+    KeyGenParameterSpec keyGenParameterSpec = MasterKeys.AES256_GCM_SPEC;
+    String masterKeyAlias;
+
+    {
+        try {
+            masterKeyAlias = MasterKeys.getOrCreate(keyGenParameterSpec);
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -116,7 +138,28 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                 try {
                     FileOutputStream fos = new FileOutputStream(file);
                     // Use the compress method on the BitMap object to write image to the OutputStream
+                    //TODO encrypt the image
                     bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
+
+                    try {
+                        EncryptedFile encryptedFile = new EncryptedFile.Builder(
+                                new File(file, bitmapImage.toString()),
+                                context,
+                                masterKeyAlias,
+                                EncryptedFile.FileEncryptionScheme.AES256_GCM_HKDF_4KB
+                        ).build();
+
+                        // Write to a file.
+                        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
+                                encryptedFile.openFileOutput()));
+                        writer.write("MY SUPER-SECRET INFORMATION");
+                    } catch (GeneralSecurityException gse) {
+                        // Error occurred getting or creating keyset.
+                    } catch (IOException ex) {
+                        // Error occurred opening file for writing.
+                    }
+
+
                     fos.close();
                     addDialog.dismiss();
                     return true;
