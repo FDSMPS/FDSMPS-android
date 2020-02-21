@@ -5,11 +5,13 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Environment;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,6 +21,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
@@ -35,15 +39,19 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         public TextView logNotificationDate;
         public TextView logNotificationTime;
         public ImageView notificationImage;
+        public Button saveImageNotification;
         public View notificationItem;
         public AlertDialog.Builder addDialogBuilder;
         public View dialogView;
+        public Dialog addDialog;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
             addDialogBuilder = new AlertDialog.Builder(context);
             dialogView = LayoutInflater.from(itemView.getContext()).inflate(R.layout.image_notification_dialog, null);
             addDialogBuilder.setView(dialogView);
+            addDialog = addDialogBuilder.create();
 
             notificationDate = (TextView) itemView.findViewById(R.id.notification_date);
             notificationTime = (TextView) itemView.findViewById(R.id.notification_time);
@@ -51,6 +59,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             logNotificationTime = (TextView) dialogView.findViewById(R.id.log_notification_time);
             notificationImage = (ImageView) dialogView.findViewById(R.id.notification_image);
 
+            saveImageNotification = (Button) dialogView.findViewById(R.id.saveImageNotification);
 
             notificationItem = (View) itemView.findViewById(R.id.notificationItem);
             notificationItem.setOnClickListener(this);
@@ -73,12 +82,14 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                     try {
                         String imageData = (String) dataSnapshot.child("imageData").getValue();
                         Log.d("IMGIDS", imageData);
-                        Dialog addDialog = addDialogBuilder.create();
-//                        addDialog.setTitle(notification.getDate());
                         logNotificationDate.setText(notification.getDate());
                         logNotificationTime.setText(notification.getTime());
                         notificationImage.setImageBitmap(StringToBitMap(imageData));
 
+                        saveImageNotification.setOnClickListener(v -> {
+                            saveToInternalStorage(StringToBitMap(imageData), notification.getNotificationId());
+//                                Toast.makeText(context, notification.getNotificationId(), Toast.LENGTH_SHORT).show();
+                        });
 
                         addDialog.show();
 
@@ -93,6 +104,29 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             });
 
 
+        }
+
+        private boolean saveToInternalStorage(Bitmap bitmapImage, String notificationId) {
+//            File folder = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "iSecurity");
+            File folder = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath());
+
+            folder.mkdir();
+            if (folder.exists()) {
+                File file = new File(folder.getPath() + File.separator + notificationId + ".jpg");
+                try {
+                    FileOutputStream fos = new FileOutputStream(file);
+                    // Use the compress method on the BitMap object to write image to the OutputStream
+                    bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
+                    fos.close();
+                    addDialog.dismiss();
+                    return true;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return false;
+                }
+            } else {
+                return false;
+            }
         }
     }
 
