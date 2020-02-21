@@ -7,18 +7,25 @@
         android:title="@string/title_alerts" />
 
     <item
+        android:id="@+id/navigation_next_steps"
+        android:icon="@drawable/ic_phone_in_talk_black_24dp"
+        android:title="@string/title_next_steps" />
+
+    <item
         android:id="@+id/navigation_feed"
         android:icon="@drawable/ic_videocam_black_24dp"
         android:title="@string/title_feed" />
+
+    <item
+        android:id="@+id/navigation_gallery"
+        android:icon="@drawable/ic_add_a_photo_black_24dp"
+        android:title="@string/gallery" />
 
     <item
         android:id="@+id/navigation_settings"
         android:icon="@drawable/ic_settings_black_24dp"
         android:title="@string/title_settings" />
 
-    <item
-        android:id="@+id/navigation_next_steps"
-        android:icon="@drawable/ic_phone_in_talk_black_24dp"
-        android:title="@string/title_next_steps" />
+
 
 </menu>

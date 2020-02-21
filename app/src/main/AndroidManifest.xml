@@ -75,6 +75,12 @@
             android:name=".activities.LogActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".activities.SlideShowActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.DeletePhoto"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".activities.MainActivity"
             android:screenOrientation="portrait" />
 
