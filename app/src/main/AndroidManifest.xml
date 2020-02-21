@@ -70,7 +70,6 @@
         </activity>
         <activity
             android:name=".activities.FeedActivity"
-            android:parentActivityName=".activities.LogActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.LogActivity"
