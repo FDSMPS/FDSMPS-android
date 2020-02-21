@@ -16,10 +16,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -35,13 +33,12 @@ import ca.ualberta.dorsa.seccam.entities.UserNotifications;
 
 public class AlertsFragment extends Fragment {
 
+    private final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL = 20;
     private RecyclerView notificationList;
     private ArrayList<Notification> notifications;
     private NotificationAdapter adapter;
-
     private ArrayList<UserNotifications> userNotificationIds;
     private ArrayList<Notification> userNotification;
-    private final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL = 20;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -81,7 +78,7 @@ public class AlertsFragment extends Fragment {
                     dbRefNotifications.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            Log.d("NOTID",dataSnapshot.getValue().toString());
+                            Log.d("NOTID", dataSnapshot.getValue().toString());
 
                             Notification thisUserNotification = new Notification(
                                     dataSnapshot.child("cameraCode").getValue(String.class),
@@ -95,7 +92,7 @@ public class AlertsFragment extends Fragment {
 
                             Collections.sort(userNotification, new CustomComparator());
 
-                            adapter = new NotificationAdapter (getActivity(), userNotification);
+                            adapter = new NotificationAdapter(getActivity(), userNotification);
                             notificationList.setAdapter(adapter);
                             notificationList.setLayoutManager(new LinearLayoutManager(getActivity()));
                         }
@@ -119,7 +116,7 @@ public class AlertsFragment extends Fragment {
         if (ContextCompat.checkSelfPermission(getActivity(),
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
-            Log.d("PERMG","NOT GRANTED");
+            Log.d("PERMG", "NOT GRANTED");
 
             // Permission is not granted
             // Should we show an explanation?
@@ -139,7 +136,7 @@ public class AlertsFragment extends Fragment {
                 // result of the request.
             }
         } else {
-            Log.d("PERMG","GRANTED");
+            Log.d("PERMG", "GRANTED");
             // Permission has already been granted
         }
 
@@ -157,6 +154,8 @@ public class AlertsFragment extends Fragment {
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
                     //TODO: save the state of the permission
+//                    File folder = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "iSecurity");
+//                    folder.mkdir();
                 } else {
                     //TODO: save the state of the permission, ask upon launch if this is the case
                     // permission denied, boo! Disable the
@@ -176,7 +175,6 @@ public class AlertsFragment extends Fragment {
             return o1.getDatetime().compareTo(o2.getDatetime());
         }
     }
-
 
 
 }

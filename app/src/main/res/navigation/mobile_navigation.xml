@@ -23,7 +23,7 @@
         tools:layout="@layout/fragment_next_steps" />
 
     <fragment
-        android:id="@+id/gallery"
+        android:id="@+id/navigation_gallery"
         android:name="ca.ualberta.dorsa.seccam.ui.gallery.GalleryFragment"
         android:label="@string/gallery"
         tools:layout="@layout/fragment_gallery" />

@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 import ca.ualberta.dorsa.seccam.R;
 import ca.ualberta.dorsa.seccam.entities.GalleryItem;
 
-public class ImageAdapter {
+public class ImageAdapter extends BaseAdapter {
     private final Context mContext;
     private final List<GalleryItem> photos;
 

@@ -68,7 +68,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         }
 
         @Override
-        public void onClick(View view){
+        public void onClick(View view) {
             Notification notification = notifications.get(getAdapterPosition());
 
             Log.d("IMGIDS", notification.getNotificationId());
@@ -87,7 +87,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                         notificationImage.setImageBitmap(StringToBitMap(imageData));
 
                         saveImageNotification.setOnClickListener(v -> {
-                            saveToInternalStorage(StringToBitMap(imageData),notification.getNotificationId());
+                            saveToInternalStorage(StringToBitMap(imageData), notification.getNotificationId());
 //                                Toast.makeText(context, notification.getNotificationId(), Toast.LENGTH_SHORT).show();
                         });
 
@@ -107,19 +107,24 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         }
 
         private boolean saveToInternalStorage(Bitmap bitmapImage, String notificationId) {
+//            File folder = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "iSecurity");
+            File folder = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath());
 
-            File folder = new File(Environment.getExternalStorageDirectory().toString() + File.separator + "iSecurity");
-            folder.mkdirs();
-            File file = new File(folder.getPath() + File.separator + notificationId + ".jpg");
-            try {
-                FileOutputStream fos = new FileOutputStream(file);
-                // Use the compress method on the BitMap object to write image to the OutputStream
-                bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
-                fos.close();
-                addDialog.dismiss();
-                return true;
-            } catch (Exception e) {
-                e.printStackTrace();
+            folder.mkdir();
+            if (folder.exists()) {
+                File file = new File(folder.getPath() + File.separator + notificationId + ".jpg");
+                try {
+                    FileOutputStream fos = new FileOutputStream(file);
+                    // Use the compress method on the BitMap object to write image to the OutputStream
+                    bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
+                    fos.close();
+                    addDialog.dismiss();
+                    return true;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return false;
+                }
+            } else {
                 return false;
             }
         }

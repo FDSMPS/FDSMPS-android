@@ -1,50 +1,35 @@
 package ca.ualberta.dorsa.seccam.ui.gallery;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Gallery;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 import ca.ualberta.dorsa.seccam.R;
 import ca.ualberta.dorsa.seccam.activities.DeletePhoto;
 import ca.ualberta.dorsa.seccam.activities.SlideShowActivity;
-import ca.ualberta.dorsa.seccam.adapters.GalleryAdapter;
 import ca.ualberta.dorsa.seccam.adapters.ImageAdapter;
 import ca.ualberta.dorsa.seccam.entities.GalleryItem;
 
-/**
- * The type Settings fragment.
- * Executed UI tested yet to be unit tested
- *
- * @author Dorsa Nahid
- * @date 2020 -1-31
- * Project: ECE 492 Group 1
- */
 public class GalleryFragment extends Fragment {
 
-
-    public static final String PHOTO_CONTENT = "ca.ualberta.dorsa.seccam.photos";
-    public static final String GALLERY_MODE = "ca.ualberta.dorsa.seccam.gallerymode";
-
-
     public static List<GalleryItem> photos;
+    public static final String PHOTO_CONTENT = "ca.ualberta.dorsa.seccam.photos";
+    public static final String FILE_NAME = "ca.ualberta.dorsa.seccam.file.name";
+    public static final String GALLERY_MODE = "ca.ualberta.dorsa.seccam.gallerymode";
+    public ImageAdapter imageAdapter;
 
     public GalleryFragment() {
         // Required empty public constructor
@@ -59,67 +44,59 @@ public class GalleryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_gallery, container, false);
         photos = new ArrayList<GalleryItem>();
-        int size;
-
-        if (getArguments() != null) {
-            int problemIndex = getArguments().getInt(GALLERY_MODE);
-//            if (RecordController.getInstance().getSelectedProblemRecords().get(problemIndex) == null) {
-//                size = 0;
-//            } else {
-//                size = RecordController.getInstance().getSelectedProblemRecords().get(problemIndex).getPhotos().size();
-//            }
-//
-//            for (int i = 0; i < size; i++) {
-//                photos.add(new GalleryItem(problemIndex,RecordController.getInstance().getSelectedProblemRecords().get(problemIndex).getPhotos().get(i)));
-//            }
-//
-//        }else{
-//            if(ProblemController.getInstance().getSelectedProblem()!=null) {
-//                if (RecordController.getInstance().getSelectedProblemRecords() == null) {
-//                    size = 0;
-//                } else {
-//                    size = RecordController.getInstance().getSelectedProblemRecords().size();
-//                }
-//
-//                for (int i = 0; i < size; i++) {
-//                    int recordSize = RecordController.getInstance().getSelectedProblemRecords().get(i).getPhotos().size();
-//                    for (int j = 0; j < recordSize; j++) {
-//                        photos.add(new GalleryItem(i, RecordController.getInstance().getSelectedProblemRecords().get(i).getPhotos().get(j)));
-//                    }
-//                }
-//            }
-//        }
+        loadGallery();
 
 
-            GridView gridView = view.findViewById(R.id.fragment_full_gallery_gridview);
-            final ImageAdapter imageAdapter = new ImageAdapter(getActivity(), photos);
-//        gridView.setAdapter(imageAdapter);
+        GridView gridView = view.findViewById(R.id.fragment_full_gallery_gridview);
+        imageAdapter = new ImageAdapter(getActivity(), photos);
+        gridView.setAdapter(imageAdapter);
 
-            gridView.setOnItemClickListener((parent, view1, position, id) -> {
-                Intent intent = new Intent(getActivity().getBaseContext(),
-                        SlideShowActivity.class);
-                intent.putExtra(PHOTO_CONTENT, position);
-                getActivity().startActivity(intent);
-            });
 
-            gridView.setOnItemLongClickListener((parent, view12, position, id) -> {
-                Intent intent = new Intent(getActivity().getBaseContext(),
-                        DeletePhoto.class);
-                intent.putExtra(PHOTO_CONTENT, position);
-                getActivity().startActivity(intent);
-                return true;
-            });
+        gridView.setOnItemClickListener((parent, view1, position, id) -> {
+            Intent intent = new Intent(getActivity().getBaseContext(),
+                    SlideShowActivity.class);
+            intent.putExtra(PHOTO_CONTENT, position);
+            getActivity().startActivity(intent);
+        });
 
-//        TextView title = getActivity().findViewById(R.id.fragment_title_bar_fragmentTitle);
-//        View returnButton = getActivity().findViewById(R.id.fragment_title_bar_returnButton);
+        gridView.setOnItemLongClickListener((parent, view12, position, id) -> {
+            File file = new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath()+File.separator+photos.get(position).getProblemIndex());
+            file.delete();
+            if (file.exists()) {
+                getActivity().deleteFile(file.getName());
+            }else{
+                photos.remove(position);
+                this.imageAdapter.notifyDataSetChanged();
+            }
+            return true;
+        });
+//        gridView.setOnItemLongClickListener((parent, view12, position, id) -> {
+//            Intent intent = new Intent(getActivity().getBaseContext(),
+//                    DeletePhoto.class);
+//            intent.putExtra(FILE_NAME, photos.get(position).getProblemIndex());
+//            intent.putExtra(PHOTO_CONTENT, position);
+//            getActivity().startActivity(intent);
+//            return true;
+//        });
 
-            return view;
+        return view;
+    }
+
+
+    private void loadGallery() {
+        File folder = new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath());
+        File f = new File(folder.getAbsolutePath());
+        File[] file = f.listFiles();
+        for (File value : file) {
+            if (value.exists()) {
+
+                Bitmap myBitmap = BitmapFactory.decodeFile(value.getAbsolutePath());
+                photos.add(new GalleryItem(value.getName(), myBitmap));
+            }
         }
-    return view;
-
     }
 
 }

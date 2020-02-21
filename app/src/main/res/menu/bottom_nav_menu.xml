@@ -17,7 +17,7 @@
         android:title="@string/title_feed" />
 
     <item
-        android:id="@+id/gallery"
+        android:id="@+id/navigation_gallery"
         android:icon="@drawable/ic_add_a_photo_black_24dp"
         android:title="@string/gallery" />
 
