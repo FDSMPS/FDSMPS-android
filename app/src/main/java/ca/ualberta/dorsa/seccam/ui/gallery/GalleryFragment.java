@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,6 @@ import java.util.List;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import ca.ualberta.dorsa.seccam.R;
-import ca.ualberta.dorsa.seccam.activities.DeletePhoto;
 import ca.ualberta.dorsa.seccam.activities.SlideShowActivity;
 import ca.ualberta.dorsa.seccam.adapters.ImageAdapter;
 import ca.ualberta.dorsa.seccam.entities.GalleryItem;
@@ -63,7 +61,7 @@ public class GalleryFragment extends Fragment {
         });
 
         gridView.setOnItemLongClickListener((parent, view12, position, id) -> {
-            File file = new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath()+File.separator+photos.get(position).getProblemIndex());
+            File file = new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath()+File.separator+photos.get(position).getImageIndex());
             file.delete();
             if (file.exists()) {
                 getActivity().deleteFile(file.getName());
@@ -73,15 +71,6 @@ public class GalleryFragment extends Fragment {
             }
             return true;
         });
-//        gridView.setOnItemLongClickListener((parent, view12, position, id) -> {
-//            Intent intent = new Intent(getActivity().getBaseContext(),
-//                    DeletePhoto.class);
-//            intent.putExtra(FILE_NAME, photos.get(position).getProblemIndex());
-//            intent.putExtra(PHOTO_CONTENT, position);
-//            getActivity().startActivity(intent);
-//            return true;
-//        });
-
         return view;
     }
 
