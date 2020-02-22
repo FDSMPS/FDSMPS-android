@@ -74,7 +74,7 @@ public class GalleryFragment extends Fragment {
         });
 
         gridView.setOnItemLongClickListener((parent, view12, position, id) -> {
-            File file = new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath() + File.separator + photos.get(position).getProblemIndex());
+            File file = new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath() + File.separator + photos.get(position).getImageIndex());
             file.delete();
             if (file.exists()) {
                 getActivity().deleteFile(file.getName());
