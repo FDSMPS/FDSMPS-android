@@ -26,7 +26,6 @@ import ca.ualberta.dorsa.seccam.entities.GalleryItem;
 public class GalleryAdapter extends Fragment {
 
     public static final String PHOTO_CONTENT = " ca.ualberta.dorsa.seccam.photos";
-    public static final String GALLERY_MODE = " ca.ualberta.dorsa.seccam.gallerymode";
 
 
     public static List<GalleryItem> photos;
@@ -51,7 +50,6 @@ public class GalleryAdapter extends Fragment {
 
         GridView gridView = view.findViewById(R.id.fragment_full_gallery_gridview);
         final ImageAdapter imageAdapter = new ImageAdapter(getActivity(), photos);
-//        gridView.setAdapter(imageAdapter);
 
         gridView.setOnItemClickListener((parent, view1, position, id) -> {
             Intent intent = new Intent(getActivity().getBaseContext(),
