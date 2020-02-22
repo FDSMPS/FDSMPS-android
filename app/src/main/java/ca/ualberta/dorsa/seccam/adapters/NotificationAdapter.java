@@ -6,7 +6,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
-import android.security.keystore.KeyGenParameterSpec;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,11 +21,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 
@@ -35,24 +33,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.security.crypto.EncryptedFile;
 import ca.ualberta.dorsa.seccam.R;
 import ca.ualberta.dorsa.seccam.entities.Notification;
-import androidx.security.crypto.MasterKeys;
 
+import static ca.ualberta.dorsa.seccam.activities.FullscreenIntroActivity.masterKeyAlias;
 
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.ViewHolder> {
-
-
-    KeyGenParameterSpec keyGenParameterSpec = MasterKeys.AES256_GCM_SPEC;
-    String masterKeyAlias;
-
-    {
-        try {
-            masterKeyAlias = MasterKeys.getOrCreate(keyGenParameterSpec);
-        } catch (GeneralSecurityException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -85,7 +69,6 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
             notificationItem = (View) itemView.findViewById(R.id.notificationItem);
             notificationItem.setOnClickListener(this);
-
 
         }
 
@@ -129,51 +112,46 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         }
 
         private boolean saveToInternalStorage(Bitmap bitmapImage, String notificationId) {
-//            File folder = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "iSecurity");
             File folder = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath());
 
             folder.mkdir();
             if (folder.exists()) {
-//                File file = new File(folder.getPath() + File.separator + notificationId + ".jpg");
-                File file = new File(folder.getPath() + File.separator + notificationId + ".dorsalfin");
                 try {
-//                    FileOutputStream fos = new FileOutputStream(file);
-                    // Use the compress method on the BitMap object to write image to the OutputStream
-                    //TODO encrypt the image
-//                    bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
+                    EncryptedFile encryptedFile = new EncryptedFile.Builder(
+                            new File(folder.getAbsolutePath(), notificationId),
+                            context,
+                            masterKeyAlias,
+                            EncryptedFile.FileEncryptionScheme.AES256_GCM_HKDF_4KB
+                    ).build();
 
-                    try {
-                        EncryptedFile encryptedFile = new EncryptedFile.Builder(
-                                new File(folder.getAbsolutePath(), file.getName()),
-                                context,
-                                masterKeyAlias,
-                                EncryptedFile.FileEncryptionScheme.AES256_GCM_HKDF_4KB
-                        ).build();
+                    // Write to a file.
+                    FileOutputStream encryptedOutputStream = encryptedFile.openFileOutput();
+                    byte[] contentInBytes = BitMapToString(bitmapImage).getBytes();
 
-                        // Write to a file.
-                        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
-                                encryptedFile.openFileOutput()));
-                        writer.write(bitmapImage.toString());
-                    } catch (GeneralSecurityException gse) {
-                        // Error occurred getting or creating keyset.
-                    } catch (IOException ex) {
-                        // Error occurred opening file for writing.
-                    }
-
-
-//                    fos.close();
+                    encryptedOutputStream.write(contentInBytes);
+                    encryptedOutputStream.flush();
+                    encryptedOutputStream.close();
                     addDialog.dismiss();
-                    return true;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return false;
+                } catch (GeneralSecurityException gse) {
+                    gse.printStackTrace();
+                    // Error occurred getting or creating keyset.
+                } catch (IOException ex) {
+                    // Error occurred opening file for writing.
                 }
+                return false;
             } else {
                 return false;
             }
         }
     }
 
+    private String BitMapToString(Bitmap bitmap){
+        ByteArrayOutputStream baos=new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
+        byte [] b=baos.toByteArray();
+        String temp=Base64.encodeToString(b, Base64.DEFAULT);
+        return temp;
+    }
 
     private Context context;
     private ArrayList<Notification> notifications;
@@ -216,7 +194,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         return notifications.size();
     }
 
-    public Bitmap StringToBitMap(String image) {
+    private Bitmap StringToBitMap(String image) {
         try {
             byte[] encodeByte = Base64.decode(image, Base64.DEFAULT);
             Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
