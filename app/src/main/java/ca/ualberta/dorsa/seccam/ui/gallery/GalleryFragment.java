@@ -112,7 +112,7 @@ public class GalleryFragment extends Fragment {
                 //TODO decode the encryption
 
                 EncryptedFile encryptedFile = new EncryptedFile.Builder(
-                        new File(folder, value.toString()),
+                        new File(folder, value.getName()),
                         getContext(),
                         masterKeyAlias,
                         EncryptedFile.FileEncryptionScheme.AES256_GCM_HKDF_4KB

@@ -134,16 +134,17 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
             folder.mkdir();
             if (folder.exists()) {
-                File file = new File(folder.getPath() + File.separator + notificationId + ".jpg");
+//                File file = new File(folder.getPath() + File.separator + notificationId + ".jpg");
+                File file = new File(folder.getPath() + File.separator + notificationId + ".dorsalfin");
                 try {
-                    FileOutputStream fos = new FileOutputStream(file);
+//                    FileOutputStream fos = new FileOutputStream(file);
                     // Use the compress method on the BitMap object to write image to the OutputStream
                     //TODO encrypt the image
-                    bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
+//                    bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
 
                     try {
                         EncryptedFile encryptedFile = new EncryptedFile.Builder(
-                                new File(file, bitmapImage.toString()),
+                                new File(folder.getAbsolutePath(), file.getName()),
                                 context,
                                 masterKeyAlias,
                                 EncryptedFile.FileEncryptionScheme.AES256_GCM_HKDF_4KB
@@ -152,7 +153,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                         // Write to a file.
                         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
                                 encryptedFile.openFileOutput()));
-                        writer.write("MY SUPER-SECRET INFORMATION");
+                        writer.write(bitmapImage.toString());
                     } catch (GeneralSecurityException gse) {
                         // Error occurred getting or creating keyset.
                     } catch (IOException ex) {
@@ -160,7 +161,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                     }
 
 
-                    fos.close();
+//                    fos.close();
                     addDialog.dismiss();
                     return true;
                 } catch (Exception e) {
