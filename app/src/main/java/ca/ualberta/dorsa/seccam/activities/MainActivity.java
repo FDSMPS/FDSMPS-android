@@ -10,6 +10,7 @@ import com.google.zxing.integration.android.IntentResult;
 
 import androidx.appcompat.app.AppCompatActivity;
 import ca.ualberta.dorsa.seccam.R;
+import ca.ualberta.dorsa.seccam.database.DatabaseHelper;
 
 /**
  * The type Main activity.
@@ -28,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
     }
 
     /**

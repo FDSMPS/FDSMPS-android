@@ -9,6 +9,7 @@ import android.os.Handler;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import ca.ualberta.dorsa.seccam.R;
+import ca.ualberta.dorsa.seccam.database.DatabaseHelper;
 
 /**
  * A full-screen activity that shows and hides the system UI (i.e.
@@ -29,6 +30,9 @@ public class FullscreenIntroActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fullscreen_intro);
+
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+        databaseHelper.getCurrentUser();
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();

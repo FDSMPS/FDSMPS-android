@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseUser;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import ca.ualberta.dorsa.seccam.R;
+import ca.ualberta.dorsa.seccam.database.DatabaseHelper;
 
 
 /**
@@ -80,6 +81,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             Intent logedInIntent = new Intent(getBaseContext(), LogActivity.class);
                             logedInIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
                             startActivity(logedInIntent);
                             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                             finish();
@@ -95,6 +97,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     });
         }
+
     }
 
     /**

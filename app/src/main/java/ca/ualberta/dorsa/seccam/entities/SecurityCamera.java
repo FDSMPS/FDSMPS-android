@@ -1,7 +1,15 @@
 package ca.ualberta.dorsa.seccam.entities;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
+import android.util.Base64;
+import android.widget.ImageView;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import ca.ualberta.dorsa.seccam.R;
 
 /**
  * The type Security camera.
@@ -28,6 +36,9 @@ public class SecurityCamera {
         users.add(registeredUId);
     }
 
+    public SecurityCamera(){
+        users = new ArrayList<>();
+    };
     /**
      * Instantiates a new Security camera.
      *
@@ -93,6 +104,27 @@ public class SecurityCamera {
     }
 
     /**
+     * Gets registeredUId.
+     *
+     * @return the registeredUId
+     */
+    public String getRegisteredUId() {
+        return registeredUId;
+    }
+
+    /**
+     * Sets registeredUId.
+     *
+     * @param registeredUId the registeredUid
+     */
+    public void setRegisteredUId(String registeredUId) {
+        this.registeredUId = registeredUId;
+        if (!this.users.isEmpty()){
+            this.users.add(registeredUId);
+        }
+    }
+
+    /**
      * Gets registered uid.
      *
      * @return the registered uid
@@ -116,5 +148,18 @@ public class SecurityCamera {
 
     public void setCameraEnabled(Boolean cameraEnabled) {
         this.cameraEnabled = cameraEnabled;
+    }
+
+    public void decodeToImage(String imageString,ImageView imageView) {
+
+        byte[] imageBytes;
+        try {
+            //decode base64 string to image
+            imageBytes = Base64.decode(imageString, Base64.DEFAULT);
+            Bitmap decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+            imageView.setImageBitmap(decodedImage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

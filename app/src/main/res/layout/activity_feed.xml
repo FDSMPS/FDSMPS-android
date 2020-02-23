@@ -7,4 +7,16 @@
     android:layout_height="match_parent"
     tools:context="ca.ualberta.dorsa.seccam.activities.FeedActivity">
 
+    <TextView
+        android:id="@+id/textView1"
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        tools:layout_editor_absoluteX="177dp"
+        tools:layout_editor_absoluteY="304dp" />
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </android.support.constraint.ConstraintLayout>
