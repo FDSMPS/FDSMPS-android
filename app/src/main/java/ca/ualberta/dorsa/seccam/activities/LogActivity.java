@@ -35,9 +35,9 @@ import ca.ualberta.dorsa.seccam.entities.SecurityCamera;
  * The type Log activity. This is to allow the user to see the previous
  * logs of different notifications
  * Executed UI tested yet to be unit tested
- *  @author Jessica D'Cunha
- *  @date 2020-1-31
- *  Project: ECE 492 Group 1
+ *
+ * @author Jessica D'Cunha
+ * @date 2020 -1-31  Project: ECE 492 Group 1
  */
 public class LogActivity extends AppCompatActivity {
     /**
@@ -53,6 +53,9 @@ public class LogActivity extends AppCompatActivity {
      * The Firebase auth.
      */
     FirebaseAuth firebaseAuth;
+    /**
+     * The Is previously registered camera code.
+     */
     Boolean isPreviouslyRegisteredCameraCode;
     private String oldCameraCode = "empty";
 
@@ -192,7 +195,10 @@ public class LogActivity extends AppCompatActivity {
         finish();
 
     }
-
+    /**
+     * To subscribe a device to receive notifications
+     *
+     */
     private void notificationSubscription() {
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Users/" + FirebaseAuth.getInstance().getCurrentUser().getUid());
 
@@ -224,6 +230,12 @@ public class LogActivity extends AppCompatActivity {
         });
 
     }
+
+    /**
+     * To remove the subscription
+     *
+     * @param oldCameraCode the previous camera code
+     */
     private void notificationRemoveSubscription(String oldCameraCode) {
         FirebaseMessaging.getInstance().unsubscribeFromTopic(oldCameraCode)
                 .addOnCompleteListener(task -> {
@@ -242,6 +254,11 @@ public class LogActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Open web page.
+     *
+     * @param url the url
+     */
     public void openWebPage(String url) {
         Uri webpage = Uri.parse(url);
         Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
@@ -253,6 +270,11 @@ public class LogActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Connect camera to wifi.
+     *
+     * @param view the view
+     */
     public void connectCameraToWifi(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 

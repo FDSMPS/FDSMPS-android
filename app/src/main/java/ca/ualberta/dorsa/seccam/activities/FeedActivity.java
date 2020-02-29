@@ -1,22 +1,11 @@
 package ca.ualberta.dorsa.seccam.activities;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import ca.ualberta.dorsa.seccam.R;
-import ca.ualberta.dorsa.seccam.database.DatabaseHelper;
-import ca.ualberta.dorsa.seccam.entities.SecurityCamera;
-import ca.ualberta.dorsa.seccam.entities.User;
-import ca.ualberta.dorsa.seccam.singletons.CurrentUser;
 import ca.ualberta.dorsa.seccam.singletons.SecurityCameraInUse;
 
 /**

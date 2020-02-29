@@ -26,19 +26,54 @@ import androidx.recyclerview.widget.RecyclerView;
 import ca.ualberta.dorsa.seccam.R;
 import ca.ualberta.dorsa.seccam.entities.Notification;
 
+/**
+ * The type Notification adapter.
+ */
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.ViewHolder> {
 
+    /**
+     * The type View holder.
+     */
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        /**
+         * The Notification date.
+         */
         public TextView notificationDate;
+        /**
+         * The Notification time.
+         */
         public TextView notificationTime;
+        /**
+         * The Log notification date.
+         */
         public TextView logNotificationDate;
+        /**
+         * The Log notification time.
+         */
         public TextView logNotificationTime;
+        /**
+         * The Notification image.
+         */
         public ImageView notificationImage;
+        /**
+         * The Notification item.
+         */
         public View notificationItem;
+        /**
+         * The Add dialog builder.
+         */
         public AlertDialog.Builder addDialogBuilder;
+        /**
+         * The Dialog view.
+         */
         public View dialogView;
 
+        /**
+         * Instantiates a new View holder.
+         *
+         * @param itemView the item view
+         */
         public ViewHolder(View itemView) {
             super(itemView);
             addDialogBuilder = new AlertDialog.Builder(context);
@@ -101,6 +136,12 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     private ArrayList<Notification> notifications;
 
 
+    /**
+     * Instantiates a new Notification adapter.
+     *
+     * @param context       the context
+     * @param notifications the notifications
+     */
     public NotificationAdapter(Context context, ArrayList<Notification> notifications) {
         this.context = context;
         this.notifications = notifications;
@@ -138,6 +179,12 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         return notifications.size();
     }
 
+    /**
+     * String to bit map bitmap.
+     *
+     * @param image the image
+     * @return the bitmap
+     */
     public Bitmap StringToBitMap(String image) {
         try {
             byte[] encodeByte = Base64.decode(image, Base64.DEFAULT);
