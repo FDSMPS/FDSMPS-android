@@ -6,11 +6,11 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 /**
- * The type Alerts view model.
+ * The type Notification. this is to create the notification Adapter
  * Executed UI tested yet to be unit tested
- * @author Jessica D'Cunha
- * @date 2020-1-31
- * Project: ECE 492 Group 1
+ *
+ * @author Dorsa Nahid
+ * @date 2020 -2-21 Project: ECE 492 Group 1
  */
 public class AlertsViewModel extends ViewModel {
 

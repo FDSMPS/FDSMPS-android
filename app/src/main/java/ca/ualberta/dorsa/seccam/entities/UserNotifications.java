@@ -1,5 +1,12 @@
 package ca.ualberta.dorsa.seccam.entities;
 
+/**
+ * The type Notification. this is to create the user notification
+ * Executed UI tested yet to be unit tested
+ *
+ * @author Dorsa Nahid
+ * @date 2020 -2-21 Project: ECE 492 Group 1
+ */
 public class UserNotifications {
     public UserNotifications(String notificationId, Boolean read) {
         this.notificationId = notificationId;

@@ -242,6 +242,11 @@ public class LogActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Open web page.
+     *
+     * @param url the url
+     */
     public void openWebPage(String url) {
         Uri webpage = Uri.parse(url);
         Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
@@ -252,7 +257,12 @@ public class LogActivity extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * connect the camera to the wifi, it shows a website to gather the info to allow the
+     * raspberry pi to connect to the wifi
+     *
+     * @param view the view
+     */
     public void connectCameraToWifi(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 

@@ -28,7 +28,13 @@ import ca.ualberta.dorsa.seccam.adapters.NotificationAdapter;
 import ca.ualberta.dorsa.seccam.entities.Notification;
 import ca.ualberta.dorsa.seccam.entities.UserNotifications;
 
-
+/**
+ * The type Notification. this is to create the notification Adapter
+ * Executed UI tested yet to be unit tested
+ *
+ * @author Dorsa Nahid
+ * @date 2020 -2-21 Project: ECE 492 Group 1
+ */
 public class AlertsFragment extends Fragment {
 
     private RecyclerView notificationList;
