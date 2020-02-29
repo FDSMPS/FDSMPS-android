@@ -28,7 +28,6 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import ca.ualberta.dorsa.seccam.R;
-import ca.ualberta.dorsa.seccam.entities.SecurityCamera;
 
 
 /**
@@ -112,12 +111,6 @@ public class LogActivity extends AppCompatActivity {
                 FirebaseDatabase.getInstance().getReference("Users/" + FirebaseAuth.getInstance().getCurrentUser().getUid())
                         .child("cameraCode")
                         .setValue(qrCodeScanned);
-
-                SecurityCamera securityCamera = new SecurityCamera(qrCodeScanned, false, null, true, FirebaseAuth.getInstance().getCurrentUser().getUid());
-                oldCameraCode = qrCodeScanned;
-                FirebaseDatabase.getInstance().getReference("SecurityCameras")
-                        .child(qrCodeScanned)
-                        .setValue(securityCamera);
 
                 isPreviouslyRegisteredCameraCode = true;
                 notificationSubscription();
