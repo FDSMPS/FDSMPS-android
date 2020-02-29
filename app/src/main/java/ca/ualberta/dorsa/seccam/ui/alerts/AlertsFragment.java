@@ -31,7 +31,7 @@ import ca.ualberta.dorsa.seccam.entities.Notification;
 import ca.ualberta.dorsa.seccam.entities.UserNotifications;
 
 /**
- * The type Notification. this is to create the notification Adapter
+ * The type alerts fragment . this is to create the alerts
  * Executed UI tested yet to be unit tested
  *
  * @author Dorsa Nahid
@@ -159,22 +159,18 @@ public class AlertsFragment extends Fragment {
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
-                    //TODO: save the state of the permission
-//                    File folder = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "iSecurity");
-//                    folder.mkdir();
                 } else {
-                    //TODO: save the state of the permission, ask upon launch if this is the case
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
                 }
                 return;
             }
-
             // other 'case' lines to check for other
             // permissions this app might request.
         }
     }
 
+    /**
+     * The type Custom comparator.
+     */
     public class CustomComparator implements Comparator<Notification> {
         @Override
         public int compare(Notification o1, Notification o2) {

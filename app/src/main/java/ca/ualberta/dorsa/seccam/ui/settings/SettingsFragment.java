@@ -25,8 +25,7 @@ import ca.ualberta.dorsa.seccam.R;
  * Executed UI tested yet to be unit tested
  *
  * @author Jessica D'Cunha and Dorsa Nahid
- * @date 2020 -1-31
- * Project: ECE 492 Group 1
+ * @date 2020 -1-31 Project: ECE 492 Group 1
  */
 public class SettingsFragment extends Fragment {
 
@@ -34,6 +33,9 @@ public class SettingsFragment extends Fragment {
     private TextView qrCode;
     private TextView propertyAddress;
     private SharedPreferences sharedPref;
+    /**
+     * The Editor.
+     */
     SharedPreferences.Editor editor;
 
 
@@ -50,7 +52,9 @@ public class SettingsFragment extends Fragment {
         return root;
     }
 
-
+    /**
+     * Load the data from the database and display it on the settings screen
+     */
     private void loadDataFromFireBase() {
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Users/" + FirebaseAuth.getInstance().getCurrentUser().getUid());
 

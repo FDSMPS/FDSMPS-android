@@ -7,12 +7,11 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 /**
- * The type Settings view model.
+ * The type gallery view model
  * Executed UI tested yet to be unit tested
- * Executed UI tested yet to be unit tested
- * @author Jessica D'Cunha and Dorsa Nahid
- * @date 2020-1-31
- * Project: ECE 492 Group 1
+ *
+ * @author Dorsa Nahid
+ * @date 2020 -2-21 Project: ECE 492 Group 1
  */
 public class GalleryViewModel extends ViewModel {
 

@@ -12,10 +12,26 @@ import androidx.appcompat.app.AppCompatActivity;
 import ca.ualberta.dorsa.seccam.R;
 import ca.ualberta.dorsa.seccam.ui.gallery.GalleryFragment;
 
+/**
+ * To delete a photo from the gallery
+ * Executed UI tested yet to be unit tested
+ *
+ * @author Dorsa Nahid
+ * @date 2020 -2-21 Project: ECE 492 Group 1
+ */
 public class DeletePhoto extends AppCompatActivity {
+    /**
+     * The constant PHOTO_CONTENT.
+     */
     public static final String PHOTO_CONTENT = "ca.ualberta.dorsa.seccam.photos";
+    /**
+     * The constant FILE_NAME.
+     */
     public static final String FILE_NAME = "ca.ualberta.dorsa.seccam.file.name";
 
+    /**
+     * The Delete image.
+     */
     ImageView delete_image;
     private int position;
     private String fileName;
@@ -37,6 +53,11 @@ public class DeletePhoto extends AppCompatActivity {
 //        opens an intent, grab the picture and then put it in the next function
     }
 
+    /**
+     * Delete image.
+     *
+     * @param view the view
+     */
     public void deleteImage(View view) {
         File file = new File(this.getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath()+File.separator+fileName);
         Log.d("DELETE_FILE",this.getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath()+File.separator+fileName);

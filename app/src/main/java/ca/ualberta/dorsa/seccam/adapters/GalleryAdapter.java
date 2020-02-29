@@ -1,17 +1,12 @@
 package ca.ualberta.dorsa.seccam.adapters;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Gallery;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.TextView;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,13 +18,29 @@ import ca.ualberta.dorsa.seccam.activities.DeletePhoto;
 import ca.ualberta.dorsa.seccam.activities.SlideShowActivity;
 import ca.ualberta.dorsa.seccam.entities.GalleryItem;
 
+/**
+ * The type gallery adapter, adapt data to visualization
+ * Executed UI tested yet to be unit tested
+ *
+ * @author Dorsa Nahid
+ * @date 2020 -2-21 Project: ECE 492 Group 1
+ */
 public class GalleryAdapter extends Fragment {
 
+    /**
+     * The constant PHOTO_CONTENT.
+     */
     public static final String PHOTO_CONTENT = " ca.ualberta.dorsa.seccam.photos";
 
 
+    /**
+     * The Photos.
+     */
     public static List<GalleryItem> photos;
 
+    /**
+     * Instantiates a new Gallery adapter.
+     */
     public GalleryAdapter() {
         // Required empty public constructor
     }

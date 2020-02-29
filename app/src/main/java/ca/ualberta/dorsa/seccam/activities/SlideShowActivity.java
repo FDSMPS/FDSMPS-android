@@ -7,8 +7,19 @@ import androidx.viewpager.widget.ViewPager;
 import ca.ualberta.dorsa.seccam.R;
 import ca.ualberta.dorsa.seccam.adapters.SlidingImageAdaptor;
 
+/**
+ * The type Slide show activity.
+ * To create a slide show effect when going through the pictures in the
+ * Executed UI tested yet to be unit tested
+ *
+ * @author Dorsa Nahid
+ * @date 2020 -2-21 Project: ECE 492 Group 1
+ */
 public class SlideShowActivity extends AppCompatActivity {
 
+    /**
+     * The constant PHOTO_CONTENT.
+     */
     public static final String PHOTO_CONTENT = "ca.ualberta.dorsa.seccam.photos";
     private static ViewPager mPager;
 

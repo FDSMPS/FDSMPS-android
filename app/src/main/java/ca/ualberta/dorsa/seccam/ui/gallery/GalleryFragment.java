@@ -29,17 +29,42 @@ import ca.ualberta.dorsa.seccam.entities.GalleryItem;
 
 import static ca.ualberta.dorsa.seccam.activities.FullscreenIntroActivity.masterKeyAlias;
 
+/**
+ * The gallery fragment
+ * Executed UI tested yet to be unit tested
+ *
+ * @author Dorsa Nahid
+ * @date 2020 -2-21 Project: ECE 492 Group 1
+ */
 public class GalleryFragment extends Fragment {
 
+    /**
+     * The Photos.
+     */
     public static List<GalleryItem> photos;
+    /**
+     * The constant PHOTO_CONTENT.
+     */
     public static final String PHOTO_CONTENT = "ca.ualberta.dorsa.seccam.photos";
+    /**
+     * The constant FILE_NAME.
+     */
     public static final String FILE_NAME = "ca.ualberta.dorsa.seccam.file.name";
+    /**
+     * The constant GALLERY_MODE.
+     */
     public static final String GALLERY_MODE = "ca.ualberta.dorsa.seccam.gallerymode";
     private ImageAdapter imageAdapter;
     private GridView gridView;
+    /**
+     * The Slow loader.
+     */
     AsyncTask<Void, Void, Void> slowLoader;
 
 
+    /**
+     * Instantiates a new Gallery fragment.
+     */
     public GalleryFragment() {
         // Required empty public constructor
     }
@@ -119,6 +144,9 @@ public class GalleryFragment extends Fragment {
         }
     }
 
+    /**
+     * creates a bit map from a given string
+     */
     private Bitmap StringToBitMap(String image) {
         try {
             byte[] encodeByte = Base64.decode(image, Base64.DEFAULT);

@@ -11,12 +11,24 @@ import androidx.viewpager.widget.PagerAdapter;
 import ca.ualberta.dorsa.seccam.R;
 import ca.ualberta.dorsa.seccam.ui.gallery.GalleryFragment;
 
+/**
+ * The type Slide show activity. allows for scrolling through the images
+ * Executed UI tested yet to be unit tested
+ *
+ * @author Dorsa Nahid
+ * @date 2020 -2-21 Project: ECE 492 Group 1
+ */
 public class SlidingImageAdaptor extends PagerAdapter {
 
     private LayoutInflater inflater;
     private Context context;
 
 
+    /**
+     * Instantiates a new Sliding image adaptor.
+     *
+     * @param context the context
+     */
     public SlidingImageAdaptor(Context context) {
         this.context = context;
         inflater = LayoutInflater.from(context);

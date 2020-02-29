@@ -13,10 +13,24 @@ import java.util.List;
 import ca.ualberta.dorsa.seccam.R;
 import ca.ualberta.dorsa.seccam.entities.GalleryItem;
 
+/**
+ * The type is an image adapter for a single image in the gallery
+ * adapt data to visualization
+ * Executed UI tested yet to be unit tested
+ *
+ * @author Dorsa Nahid
+ * @date 2020 -2-21 Project: ECE 492 Group 1
+ */
 public class ImageAdapter extends BaseAdapter {
     private final Context mContext;
     private final List<GalleryItem> photos;
 
+    /**
+     * Instantiates a new Image adapter.
+     *
+     * @param context the context
+     * @param photos  the photos
+     */
     public ImageAdapter(Context context, List<GalleryItem> photos) {
         this.mContext = context;
         this.photos = photos;
