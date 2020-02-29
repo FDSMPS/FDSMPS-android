@@ -16,6 +16,8 @@ public class SecurityCamera {
     private String liveFeedImage;
     private Boolean registered;
     private String registeredUId;
+    private Float servoXPosition;
+    private Float servoYPosition;
     private List<String> users;
 
     public SecurityCamera(String cameraCode, Boolean cameraEnabled, String liveFeedImage, Boolean registered, String registeredUId) {
@@ -116,5 +118,21 @@ public class SecurityCamera {
 
     public void setCameraEnabled(Boolean cameraEnabled) {
         this.cameraEnabled = cameraEnabled;
+    }
+
+    public Float getServoXPosition() {
+        return servoXPosition;
+    }
+
+    public void setServoXPosition(Float servoXPosition) {
+        this.servoXPosition = servoXPosition;
+    }
+
+    public Float getServoYPosition() {
+        return servoYPosition;
+    }
+
+    public void setServoYPosition(Float servoYPosition) {
+        this.servoYPosition = servoYPosition;
     }
 }
