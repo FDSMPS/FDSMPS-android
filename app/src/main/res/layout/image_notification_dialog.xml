@@ -12,8 +12,10 @@
         android:id="@+id/log_notification_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:inputType="textPersonName">
+        android:textStyle="bold"
+        android:layout_marginBottom="5dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp">
 
     </TextView>
 
@@ -22,8 +24,9 @@
         android:id="@+id/log_notification_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:inputType="textPersonName">
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="5dp">
 
     </TextView>
 
@@ -31,9 +34,19 @@
         android:id="@+id/notification_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:contentDescription="TODO"
         android:padding="10dp"
         app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
+
+    <Button
+        android:id="@+id/saveImageNotification"
+        android:background="@drawable/round_button_blue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/save" />
 
 
 </LinearLayout>

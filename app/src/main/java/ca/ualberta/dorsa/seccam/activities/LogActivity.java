@@ -57,7 +57,6 @@ public class LogActivity extends AppCompatActivity {
     private String oldCameraCode = "empty";
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +65,7 @@ public class LogActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_alerts, R.id.navigation_feed, R.id.navigation_settings, R.id.navigation_next_steps)
+                R.id.navigation_alerts, R.id.navigation_feed, R.id.navigation_gallery, R.id.navigation_settings, R.id.navigation_next_steps)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
@@ -81,9 +80,9 @@ public class LogActivity extends AppCompatActivity {
         sharedPref = getApplicationContext().getSharedPreferences(
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         firebaseAuth = FirebaseAuth.getInstance();
-        isPreviouslyRegisteredCameraCode = sharedPref.getBoolean(getString(R.string.registered_camera),false);
+        isPreviouslyRegisteredCameraCode = sharedPref.getBoolean(getString(R.string.registered_camera), false);
 
-        if (isPreviouslyRegisteredCameraCode){
+        if (isPreviouslyRegisteredCameraCode) {
             notificationSubscription();
         }
 
@@ -98,7 +97,7 @@ public class LogActivity extends AppCompatActivity {
                 Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
             } else {
 
-                if (isPreviouslyRegisteredCameraCode){
+                if (isPreviouslyRegisteredCameraCode) {
                     notificationRemoveSubscription(oldCameraCode);
 
                 }
@@ -113,7 +112,7 @@ public class LogActivity extends AppCompatActivity {
                         .child("cameraCode")
                         .setValue(qrCodeScanned);
 
-                SecurityCamera securityCamera = new SecurityCamera(qrCodeScanned,false,null, true, FirebaseAuth.getInstance().getCurrentUser().getUid());
+                SecurityCamera securityCamera = new SecurityCamera(qrCodeScanned, false, null, true, FirebaseAuth.getInstance().getCurrentUser().getUid());
                 oldCameraCode = qrCodeScanned;
                 FirebaseDatabase.getInstance().getReference("SecurityCameras")
                         .child(qrCodeScanned)
@@ -155,7 +154,7 @@ public class LogActivity extends AppCompatActivity {
 
         //End of forget me logic
 
-        Intent logedInIntent = new Intent(getBaseContext(),   LoginActivity.class);
+        Intent logedInIntent = new Intent(getBaseContext(), LoginActivity.class);
         logedInIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(logedInIntent);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
@@ -185,7 +184,7 @@ public class LogActivity extends AppCompatActivity {
         editor.putBoolean(getString(R.string.saved_high_score_key), false);
         editor.apply();
         firebaseAuth.signOut();
-        Intent logedInIntent = new Intent(getBaseContext(),   LoginActivity.class);
+        Intent logedInIntent = new Intent(getBaseContext(), LoginActivity.class);
         logedInIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(logedInIntent);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
@@ -224,14 +223,14 @@ public class LogActivity extends AppCompatActivity {
         });
 
     }
+
     private void notificationRemoveSubscription(String oldCameraCode) {
         FirebaseMessaging.getInstance().unsubscribeFromTopic(oldCameraCode)
                 .addOnCompleteListener(task -> {
                     String msg = getString(R.string.msg_unsubscribed);
                     if (!task.isSuccessful()) {
                         msg = getString(R.string.msg_unsubscribe_failed);
-                    }
-                    else{
+                    } else {
                         FirebaseDatabase.getInstance().getReference("SecurityCameras/" + oldCameraCode)
                                 .removeValue();
                     }
@@ -252,7 +251,7 @@ public class LogActivity extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
-        }else{
+        } else {
             //Page not found
         }
     }

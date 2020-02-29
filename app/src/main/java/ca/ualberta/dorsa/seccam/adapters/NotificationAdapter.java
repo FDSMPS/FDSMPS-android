@@ -5,11 +5,13 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Environment;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,10 +21,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.security.crypto.EncryptedFile;
 import ca.ualberta.dorsa.seccam.R;
 import ca.ualberta.dorsa.seccam.entities.Notification;
 
@@ -33,6 +41,8 @@ import ca.ualberta.dorsa.seccam.entities.Notification;
  * @author Dorsa Nahid
  * @date 2020 -2-21 Project: ECE 492 Group 1
  */
+import static ca.ualberta.dorsa.seccam.activities.FullscreenIntroActivity.masterKeyAlias;
+
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.ViewHolder> {
 
     /**
@@ -63,6 +73,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         /**
          * The Notification item.
          */
+        public Button saveImageNotification;
         public View notificationItem;
         /**
          * The Add dialog builder.
@@ -72,6 +83,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
          * The Dialog view.
          */
         public View dialogView;
+        public Dialog addDialog;
+
 
         /**
          * Instantiates a new View holder.
@@ -83,6 +96,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             addDialogBuilder = new AlertDialog.Builder(context);
             dialogView = LayoutInflater.from(itemView.getContext()).inflate(R.layout.image_notification_dialog, null);
             addDialogBuilder.setView(dialogView);
+            addDialog = addDialogBuilder.create();
 
             notificationDate = (TextView) itemView.findViewById(R.id.notification_date);
             notificationTime = (TextView) itemView.findViewById(R.id.notification_time);
@@ -90,10 +104,10 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             logNotificationTime = (TextView) dialogView.findViewById(R.id.log_notification_time);
             notificationImage = (ImageView) dialogView.findViewById(R.id.notification_image);
 
+            saveImageNotification = (Button) dialogView.findViewById(R.id.saveImageNotification);
 
             notificationItem = (View) itemView.findViewById(R.id.notificationItem);
             notificationItem.setOnClickListener(this);
-
 
         }
 
@@ -112,12 +126,14 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                     try {
                         String imageData = (String) dataSnapshot.child("imageData").getValue();
                         Log.d("IMGIDS", imageData);
-                        Dialog addDialog = addDialogBuilder.create();
-//                        addDialog.setTitle(notification.getDate());
                         logNotificationDate.setText(notification.getDate());
                         logNotificationTime.setText(notification.getTime());
                         notificationImage.setImageBitmap(StringToBitMap(imageData));
 
+                        saveImageNotification.setOnClickListener(v -> {
+                            saveToInternalStorage(StringToBitMap(imageData), notification.getNotificationId());
+//                                Toast.makeText(context, notification.getNotificationId(), Toast.LENGTH_SHORT).show();
+                        });
 
                         addDialog.show();
 
@@ -133,8 +149,48 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
 
         }
+
+        private boolean saveToInternalStorage(Bitmap bitmapImage, String notificationId) {
+            File folder = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath());
+
+            folder.mkdir();
+            if (folder.exists()) {
+                try {
+                    EncryptedFile encryptedFile = new EncryptedFile.Builder(
+                            new File(folder.getAbsolutePath(), notificationId),
+                            context,
+                            masterKeyAlias,
+                            EncryptedFile.FileEncryptionScheme.AES256_GCM_HKDF_4KB
+                    ).build();
+
+                    // Write to a file.
+                    FileOutputStream encryptedOutputStream = encryptedFile.openFileOutput();
+                    byte[] contentInBytes = BitMapToString(bitmapImage).getBytes();
+
+                    encryptedOutputStream.write(contentInBytes);
+                    encryptedOutputStream.flush();
+                    encryptedOutputStream.close();
+                    addDialog.dismiss();
+                } catch (GeneralSecurityException gse) {
+                    gse.printStackTrace();
+                    // Error occurred getting or creating keyset.
+                } catch (IOException ex) {
+                    // Error occurred opening file for writing.
+                }
+                return false;
+            } else {
+                return false;
+            }
+        }
     }
 
+    private String BitMapToString(Bitmap bitmap){
+        ByteArrayOutputStream baos=new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
+        byte [] b=baos.toByteArray();
+        String temp=Base64.encodeToString(b, Base64.DEFAULT);
+        return temp;
+    }
 
     private Context context;
     private ArrayList<Notification> notifications;
@@ -189,7 +245,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
      * @param image the image
      * @return the bitmap
      */
-    public Bitmap StringToBitMap(String image) {
+    private Bitmap StringToBitMap(String image) {
+
         try {
             byte[] encodeByte = Base64.decode(image, Base64.DEFAULT);
             Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);

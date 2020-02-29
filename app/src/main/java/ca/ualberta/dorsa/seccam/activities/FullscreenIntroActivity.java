@@ -5,9 +5,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.security.keystore.KeyGenParameterSpec;
+
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.security.crypto.MasterKeys;
 import ca.ualberta.dorsa.seccam.R;
 
 /**
@@ -23,7 +28,8 @@ import ca.ualberta.dorsa.seccam.R;
 public class FullscreenIntroActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPref;
-
+    public static KeyGenParameterSpec keyGenParameterSpec = MasterKeys.AES256_GCM_SPEC;
+    public static String masterKeyAlias;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +41,17 @@ public class FullscreenIntroActivity extends AppCompatActivity {
         sharedPref = getApplicationContext().getSharedPreferences(
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         boolean sign_in = sharedPref.getBoolean(getString(R.string.saved_high_score_key),false);
+
+
+        try {
+            masterKeyAlias = MasterKeys.getOrCreate(keyGenParameterSpec);
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
         if (sign_in){
 
             new Handler().postDelayed(() -> {
