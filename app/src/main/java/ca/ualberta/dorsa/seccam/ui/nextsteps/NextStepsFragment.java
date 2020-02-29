@@ -205,7 +205,12 @@ public class NextStepsFragment extends Fragment implements RecyclerViewListener 
         // displaying the popup
         popup.show();
     }
-
+    /**
+     * Add contact.
+     *
+     * @param name the name
+     * @param phone the phone
+     */
     private void addContact(String name, String phone) {
         Contact c = new Contact(name, phone);
 

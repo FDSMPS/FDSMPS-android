@@ -183,7 +183,11 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             }
         }
     }
-
+    /**
+     * Turns Bitmap into a string
+     *
+     * @param bitmap       the bitmap
+     */
     private String BitMapToString(Bitmap bitmap){
         ByteArrayOutputStream baos=new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);

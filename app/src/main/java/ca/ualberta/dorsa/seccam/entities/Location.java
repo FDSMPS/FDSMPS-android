@@ -6,7 +6,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 /**
  * The type Location, it incldues latitude and longitude
- * Executed UI tested yet to be unit tested
+ * UI and unit tested
  * @author Dorsa Nahid
  * @date 2020-1-31
  * Project: ECE 492 Group 1

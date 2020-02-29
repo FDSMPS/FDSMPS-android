@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 /**
  * The type User settings.
- * Executed UI tested yet to be unit tested
+ * UI and unit tested
+ *
  * @author Jessica D'Cunha
  * @date 2020-1-31
  * Project: ECE 492 Group 1
