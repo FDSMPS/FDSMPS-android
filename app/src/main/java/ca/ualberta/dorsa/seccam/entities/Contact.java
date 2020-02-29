@@ -3,6 +3,7 @@ package ca.ualberta.dorsa.seccam.entities;
 /**
  * The type Contact extends the class person
  * UI and unit tested
+ *
  * @author Jessica D'Cunha
  * @date 2020-1-31
  * Project: ECE 492 Group 1

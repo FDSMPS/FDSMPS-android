@@ -20,6 +20,7 @@ import ca.ualberta.dorsa.seccam.R;
 /**
  * The type Login activity. This is activity handles the logic of logging in
  * Executed UI tested yet to be unit tested
+ *
  *  @author Dorsa Nahid
  *  @date 2020-1-31
  *  Project: ECE 492 Group 1
