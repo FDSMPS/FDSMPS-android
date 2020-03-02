@@ -12,10 +12,11 @@ Supported version:
 
 To dos:
 * Live Feed 
-* Logs of past notifications
 * Right to forget me 
 
 3rd Party Libraries used:
 * ZXing ("Zebra Crossing") barcode scanning library for Java, Android
+* androidx.security.crypto
+* Google Places API
 
 
