@@ -37,6 +37,10 @@ public class User extends Person {
         this.userSettings = userSettings;
     }
 
+    public User(){ }
+
+
+
     /**
      * Gets email.
      *

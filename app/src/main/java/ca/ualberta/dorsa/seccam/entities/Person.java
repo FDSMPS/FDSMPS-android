@@ -22,6 +22,8 @@ public abstract class Person {
         this.phone = phone;
     }
 
+    public Person(){};
+
     /**
      * Gets name.
      *

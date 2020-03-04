@@ -6,5 +6,15 @@
     android:background="@color/colorLightGrey"
     android:layout_height="match_parent"
     tools:context="ca.ualberta.dorsa.seccam.activities.FeedActivity">
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <Button
+        android:id="@+id/Button1"
+        android:layout_width="500px"
+        android:layout_height="100px"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="new image"/>
 
 </android.support.constraint.ConstraintLayout>
