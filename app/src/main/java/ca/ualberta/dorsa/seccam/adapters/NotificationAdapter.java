@@ -172,13 +172,16 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                     encryptedOutputStream.close();
                     addDialog.dismiss();
                 } catch (GeneralSecurityException gse) {
+                    addDialog.dismiss();
                     gse.printStackTrace();
                     // Error occurred getting or creating keyset.
                 } catch (IOException ex) {
+                    addDialog.dismiss();
                     // Error occurred opening file for writing.
                 }
                 return false;
             } else {
+                addDialog.dismiss();
                 return false;
             }
         }
