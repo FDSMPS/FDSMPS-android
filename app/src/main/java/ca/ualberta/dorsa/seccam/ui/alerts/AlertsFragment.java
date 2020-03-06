@@ -174,7 +174,7 @@ public class AlertsFragment extends Fragment {
     public class CustomComparator implements Comparator<Notification> {
         @Override
         public int compare(Notification o1, Notification o2) {
-            return o1.getDatetime().compareTo(o2.getDatetime());
+            return o2.getDatetime().compareTo(o1.getDatetime());
         }
     }
 

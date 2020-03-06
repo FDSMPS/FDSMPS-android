@@ -8,7 +8,7 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
-                  <entry key="gallery">
+                  <entry key="navigation_alerts">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
@@ -20,7 +20,7 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="navigation_alerts">
+                  <entry key="navigation_gallery">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">

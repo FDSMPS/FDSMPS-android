@@ -1,5 +1,10 @@
 package ca.ualberta.dorsa.seccam.entities;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+import android.widget.ImageView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +35,8 @@ public class SecurityCamera {
         users = new ArrayList<>();
         users.add(registeredUId);
     }
+
+    public SecurityCamera(){ }
 
     /**
      * Instantiates a new Security camera.
@@ -136,4 +143,21 @@ public class SecurityCamera {
     public void setServoYPosition(Float servoYPosition) {
         this.servoYPosition = servoYPosition;
     }
+
+    //decode base64 string to image for livefeed
+    public Bitmap getDecodedLiveFeedImage() {
+
+        Bitmap decodedImageBitMap = null;
+        byte[] imageBytes;
+
+        try {
+            imageBytes = Base64.decode(this.getLiveFeedImage(), Base64.DEFAULT);
+            decodedImageBitMap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return decodedImageBitMap;
+    }
+
 }
