@@ -31,6 +31,11 @@ import ca.ualberta.dorsa.seccam.entities.User;
 public class FeedActivity extends AppCompatActivity {
     public User cameraUser=null;
     public SecurityCamera camera= null;
+    protected int maxServoXPosition = 12;
+    protected int maxServoYPosition = 12;
+    protected int minServoXPosition = 2;
+    protected int minServoYPosition = 3;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,22 +112,88 @@ public class FeedActivity extends AppCompatActivity {
 
                 });
     }
+    private int[] loadPositiomFromFireBase() {
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("SecurityCameras/" + camera.getCameraCode());
 
+        int[] positions = new int[2];
+
+        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                try {
+
+                    int xPosition = (int) dataSnapshot.child("servoXPosition").getValue();
+                    positions[0] = xPosition;
+
+                    int yPosition = (int) dataSnapshot.child("servoYPosition").getValue();
+                    positions[1] = yPosition;
+
+
+                } catch (NullPointerException np) {
+                    throw np;
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        return positions;
+
+
+    }
+
+    private void writeToDatabase(int xPosition, int yPosition){
+
+        if (yPosition == -1) {
+            FirebaseDatabase.getInstance().getReference("SecurityCameras/" + camera.getCameraCode())
+                    .child("servoXPosition")
+                    .setValue(xPosition);
+        }
+        if(xPosition == -1) {
+            FirebaseDatabase.getInstance().getReference("SecurityCameras/" + camera.getCameraCode())
+                    .child("servoYPosition")
+                    .setValue(yPosition);
+        }
+
+    }
 
     public void moveUp(View view) {
-
+        int[] positions= loadPositiomFromFireBase();
+        int yPosition = positions[1];
+        while (yPosition<maxServoYPosition){
+            writeToDatabase(-1, yPosition+1);
+        }
 
     }
 
     public void moveLeft(View view) {
+        int[] positions= loadPositiomFromFireBase();
+        int xPosition = positions[0];
+        while (xPosition>minServoXPosition){
+            writeToDatabase(xPosition-1, -1);
+        }
 
     }
 
     public void moveRight(View view) {
+        int[] positions= loadPositiomFromFireBase();
+        int xPosition = positions[0];
+        while (xPosition<maxServoXPosition){
+            writeToDatabase(xPosition+1, -1);
+        }
 
     }
 
     public void moveDown(View view) {
+        int[] positions= loadPositiomFromFireBase();
+        int xPosition = positions[0];
+        int yPosition = positions[1];
+
+        while (yPosition>minServoYPosition){
+            writeToDatabase(-1, yPosition-1);
+        }
 
     }
 }
