@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.ActionBar;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -108,6 +109,20 @@ public class FeedActivity extends AppCompatActivity {
     }
 
 
+    public void moveUp(View view) {
 
 
+    }
+
+    public void moveLeft(View view) {
+
+    }
+
+    public void moveRight(View view) {
+
+    }
+
+    public void moveDown(View view) {
+
+    }
 }

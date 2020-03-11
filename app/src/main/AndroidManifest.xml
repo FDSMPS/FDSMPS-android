@@ -69,8 +69,7 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".activities.FeedActivity"
-            android:screenOrientation="portrait" />
+            android:name=".activities.FeedActivity" />
         <activity
             android:name=".activities.LogActivity"
             android:screenOrientation="portrait" />
