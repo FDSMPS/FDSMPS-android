@@ -14,7 +14,6 @@ import java.util.List;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import ca.ualberta.dorsa.seccam.R;
-import ca.ualberta.dorsa.seccam.activities.DeletePhoto;
 import ca.ualberta.dorsa.seccam.activities.SlideShowActivity;
 import ca.ualberta.dorsa.seccam.entities.GalleryItem;
 
@@ -69,13 +68,6 @@ public class GalleryAdapter extends Fragment {
             getActivity().startActivity(intent);
         });
 
-        gridView.setOnItemLongClickListener((parent, view12, position, id) -> {
-            Intent intent = new Intent(getActivity().getBaseContext(),
-                    DeletePhoto.class);
-            intent.putExtra(PHOTO_CONTENT, position);
-            getActivity().startActivity(intent);
-            return true;
-        });
 
         return view;
     }

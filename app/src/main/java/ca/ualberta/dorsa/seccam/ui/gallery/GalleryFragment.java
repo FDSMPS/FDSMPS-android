@@ -1,5 +1,6 @@
 package ca.ualberta.dorsa.seccam.ui.gallery;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.security.crypto.EncryptedFile;
 import ca.ualberta.dorsa.seccam.R;
@@ -100,13 +102,26 @@ public class GalleryFragment extends Fragment {
 
         gridView.setOnItemLongClickListener((parent, view12, position, id) -> {
             File file = new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath() + File.separator + photos.get(position).getImageIndex());
-            file.delete();
-            if (file.exists()) {
-                getActivity().deleteFile(file.getName());
-            } else {
-                photos.remove(position);
-                imageAdapter.notifyDataSetChanged();
-            }
+            DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+                switch (which){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        file.delete();
+                        if (file.exists()) {
+                            getActivity().deleteFile(file.getName());
+                        } else {
+                            photos.remove(position);
+                            imageAdapter.notifyDataSetChanged();
+                        }
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        dialog.dismiss();
+                        break;
+                }
+            };
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setMessage("Are you sure you want to delete?").setPositiveButton("Delete", dialogClickListener)
+                    .setNegativeButton("Cancel", dialogClickListener).show();
             return true;
         });
 
