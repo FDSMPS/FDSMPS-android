@@ -16,6 +16,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import ca.ualberta.dorsa.seccam.R;
+import ca.ualberta.dorsa.seccam.entities.Motor;
+import ca.ualberta.dorsa.seccam.entities.MotorPosition;
 import ca.ualberta.dorsa.seccam.entities.SecurityCamera;
 import ca.ualberta.dorsa.seccam.entities.User;
 
@@ -112,37 +114,7 @@ public class FeedActivity extends AppCompatActivity {
 
                 });
     }
-    private int[] loadPositiomFromFireBase() {
-        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("SecurityCameras/" + camera.getCameraCode());
 
-        int[] positions = new int[2];
-
-        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                try {
-
-                    int xPosition = (int) dataSnapshot.child("servoXPosition").getValue();
-                    positions[0] = xPosition;
-
-                    int yPosition = (int) dataSnapshot.child("servoYPosition").getValue();
-                    positions[1] = yPosition;
-
-
-                } catch (NullPointerException np) {
-                    throw np;
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        return positions;
-
-
-    }
 
     private void writeToDatabase(int xPosition, int yPosition){
 
@@ -160,8 +132,9 @@ public class FeedActivity extends AppCompatActivity {
     }
 
     public void moveUp(View view) {
-        int[] positions= loadPositiomFromFireBase();
-        int yPosition = positions[1];
+        Motor motor = new Motor(camera.getCameraCode());
+        MotorPosition motorPosition = motor.loadPositiomFromFireBase();
+        int yPosition = motorPosition.getyPosition();
         while (yPosition<maxServoYPosition){
             writeToDatabase(-1, yPosition+1);
         }
@@ -169,8 +142,9 @@ public class FeedActivity extends AppCompatActivity {
     }
 
     public void moveLeft(View view) {
-        int[] positions= loadPositiomFromFireBase();
-        int xPosition = positions[0];
+        Motor motor = new Motor(camera.getCameraCode());
+        MotorPosition motorPosition = motor.loadPositiomFromFireBase();
+        int xPosition = motorPosition.getxPosition();
         while (xPosition>minServoXPosition){
             writeToDatabase(xPosition-1, -1);
         }
@@ -178,8 +152,9 @@ public class FeedActivity extends AppCompatActivity {
     }
 
     public void moveRight(View view) {
-        int[] positions= loadPositiomFromFireBase();
-        int xPosition = positions[0];
+        Motor motor = new Motor(camera.getCameraCode());
+        MotorPosition motorPosition = motor.loadPositiomFromFireBase();
+        int xPosition = motorPosition.getxPosition();
         while (xPosition<maxServoXPosition){
             writeToDatabase(xPosition+1, -1);
         }
@@ -187,9 +162,9 @@ public class FeedActivity extends AppCompatActivity {
     }
 
     public void moveDown(View view) {
-        int[] positions= loadPositiomFromFireBase();
-        int xPosition = positions[0];
-        int yPosition = positions[1];
+        Motor motor = new Motor(camera.getCameraCode());
+        MotorPosition motorPosition = motor.loadPositiomFromFireBase();
+        int yPosition = motorPosition.getyPosition();
 
         while (yPosition>minServoYPosition){
             writeToDatabase(-1, yPosition-1);
