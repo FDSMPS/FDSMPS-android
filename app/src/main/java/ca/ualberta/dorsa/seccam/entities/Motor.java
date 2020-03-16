@@ -9,30 +9,30 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class Motor implements  MotorCoordinates{
-    private int maxServoXPosition;
-    private int maxServoYPosition;
-    private int minServoXPosition;
-    private int minServoYPosition;
+    private double maxServoXPosition;
+    private double maxServoYPosition;
+    private double minServoXPosition;
+    private double minServoYPosition;
     private String cameraCode;
 
 
     public Motor() {
-        maxServoXPosition = 12;
-        maxServoYPosition = 12;
-        minServoXPosition = 2;
-        minServoYPosition = 3;
+        maxServoXPosition = 12.0;
+        maxServoYPosition = 12.0;
+        minServoXPosition = 2.0;
+        minServoYPosition = 3.0;
 
     }
 
     public Motor(String cameraCode) {
-        maxServoXPosition = 12;
-        maxServoYPosition = 12;
-        minServoXPosition = 2;
-        minServoYPosition = 3;
+        maxServoXPosition = 12.0;
+        maxServoYPosition = 12.0;
+        minServoXPosition = 2.0;
+        minServoYPosition = 3.0;
         this.cameraCode = cameraCode;
     }
 
-    public int getMaxServoXPosition() {
+    public double getMaxServoXPosition() {
         return maxServoXPosition;
     }
 
@@ -40,7 +40,7 @@ public class Motor implements  MotorCoordinates{
         this.maxServoXPosition = maxServoXPosition;
     }
 
-    public int getMaxServoYPosition() {
+    public double getMaxServoYPosition() {
         return maxServoYPosition;
     }
 
@@ -48,7 +48,7 @@ public class Motor implements  MotorCoordinates{
         this.maxServoYPosition = maxServoYPosition;
     }
 
-    public int getMinServoXPosition() {
+    public double getMinServoXPosition() {
         return minServoXPosition;
     }
 
@@ -56,7 +56,7 @@ public class Motor implements  MotorCoordinates{
         this.minServoXPosition = minServoXPosition;
     }
 
-    public int getMinServoYPosition() {
+    public double getMinServoYPosition() {
         return minServoYPosition;
     }
 
@@ -73,32 +73,42 @@ public class Motor implements  MotorCoordinates{
             public void onDataChange(DataSnapshot dataSnapshot) {
                 try {
 
-                    int xPosition = (int) dataSnapshot.child("servoXPosition").getValue();
+                    double xPosition = dataSnapshot.child("servoXPosition").getValue(Double.class);
+//                    int xPosition = 3;
+//                    Log.d("MOTORPOsition",String.valueOf(dataSnapshot.child("servoXPosition").getValue()));
                     motorPosition.setxPosition(xPosition);
                     if (xPosition<minServoXPosition){
                         Log.d("MOTORPOsition", String.valueOf(xPosition));
                         FirebaseDatabase.getInstance().getReference("SecurityCameras/" + cameraCode)
                                 .child("servoXPosition")
                                 .setValue(minServoXPosition);
+                        motorPosition.setxPosition(minServoXPosition);
+
                     }
                     if (xPosition>maxServoXPosition){
                         FirebaseDatabase.getInstance().getReference("SecurityCameras/" + cameraCode)
                                 .child("servoXPosition")
                                 .setValue(maxServoXPosition);
+                        motorPosition.setxPosition(maxServoXPosition);
                     }
 
-                    int yPosition = (int) dataSnapshot.child("servoYPosition").getValue();
+                    double yPosition = dataSnapshot.child("servoYPosition").getValue(Double.class);
+                    Log.d("MOTORPOsition-y", String.valueOf(yPosition));
+                    Log.d("MOTORPOsition-y", String.valueOf(minServoYPosition));
                     motorPosition.setyPosition(yPosition);
-                    if (xPosition<minServoYPosition){
-                        Log.d("MOTORPOsition", String.valueOf(yPosition));
+                    if (yPosition<minServoYPosition){
+//                        Log.d("MOTORPOsition", String.valueOf(yPosition));
                         FirebaseDatabase.getInstance().getReference("SecurityCameras/" + cameraCode)
-                                .child("servoXPosition")
+                                .child("servoYPosition")
                                 .setValue(minServoYPosition);
+                        Log.d("MOTORPOsition-y", String.valueOf(minServoYPosition));
+                        motorPosition.setyPosition(minServoYPosition);
                     }
-                    if (xPosition>maxServoYPosition){
+                    if (yPosition>maxServoYPosition){
                         FirebaseDatabase.getInstance().getReference("SecurityCameras/" + cameraCode)
-                                .child("servoXPosition")
+                                .child("servoYPosition")
                                 .setValue(maxServoYPosition);
+                        motorPosition.setyPosition(maxServoYPosition);
                     }
 
 
@@ -112,6 +122,8 @@ public class Motor implements  MotorCoordinates{
 
             }
         });
+        Log.d("MOTORPOsition-motor", String.valueOf(motorPosition.getxPosition()));
+        Log.d("MOTORPOsition-motor", String.valueOf(motorPosition.getyPosition()));
         return motorPosition;
 
 

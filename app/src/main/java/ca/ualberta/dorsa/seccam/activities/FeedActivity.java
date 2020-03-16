@@ -1,5 +1,6 @@
 package ca.ualberta.dorsa.seccam.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.ActionBar;
 import android.os.Bundle;
@@ -7,6 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -115,13 +118,15 @@ public class FeedActivity extends AppCompatActivity {
                 });
     }
 
-
-    private void writeToDatabase(int xPosition, int yPosition){
+    private void writeToDatabase(double xPosition, double yPosition){
 
         if (yPosition == -1) {
             FirebaseDatabase.getInstance().getReference("SecurityCameras/" + camera.getCameraCode())
                     .child("servoXPosition")
-                    .setValue(xPosition);
+                    .setValue(xPosition).addOnCompleteListener(task -> {
+
+
+                    });
         }
         if(xPosition == -1) {
             FirebaseDatabase.getInstance().getReference("SecurityCameras/" + camera.getCameraCode())
@@ -134,8 +139,8 @@ public class FeedActivity extends AppCompatActivity {
     public void moveUp(View view) {
         Motor motor = new Motor(camera.getCameraCode());
         MotorPosition motorPosition = motor.loadPositiomFromFireBase();
-        int yPosition = motorPosition.getyPosition();
-        while (yPosition<maxServoYPosition){
+        double yPosition = motorPosition.getyPosition();
+        if (yPosition<maxServoYPosition){
             writeToDatabase(-1, yPosition+1);
         }
 
@@ -144,8 +149,9 @@ public class FeedActivity extends AppCompatActivity {
     public void moveLeft(View view) {
         Motor motor = new Motor(camera.getCameraCode());
         MotorPosition motorPosition = motor.loadPositiomFromFireBase();
-        int xPosition = motorPosition.getxPosition();
-        while (xPosition>minServoXPosition){
+        double xPosition = motorPosition.getxPosition();
+        Log.d("MOTORPOsition",String.valueOf(xPosition));
+        if (xPosition>minServoXPosition){
             writeToDatabase(xPosition-1, -1);
         }
 
@@ -154,8 +160,9 @@ public class FeedActivity extends AppCompatActivity {
     public void moveRight(View view) {
         Motor motor = new Motor(camera.getCameraCode());
         MotorPosition motorPosition = motor.loadPositiomFromFireBase();
-        int xPosition = motorPosition.getxPosition();
-        while (xPosition<maxServoXPosition){
+        double xPosition = motorPosition.getxPosition();
+        Log.d("MOTORPOsition",String.valueOf(xPosition));
+        if (xPosition<maxServoXPosition){
             writeToDatabase(xPosition+1, -1);
         }
 
@@ -164,9 +171,9 @@ public class FeedActivity extends AppCompatActivity {
     public void moveDown(View view) {
         Motor motor = new Motor(camera.getCameraCode());
         MotorPosition motorPosition = motor.loadPositiomFromFireBase();
-        int yPosition = motorPosition.getyPosition();
+        double yPosition = motorPosition.getyPosition();
 
-        while (yPosition>minServoYPosition){
+        if (yPosition>minServoYPosition){
             writeToDatabase(-1, yPosition-1);
         }
 

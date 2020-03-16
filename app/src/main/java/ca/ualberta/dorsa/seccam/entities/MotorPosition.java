@@ -1,29 +1,32 @@
 package ca.ualberta.dorsa.seccam.entities;
 
+import android.util.Log;
+
 public class MotorPosition {
-    int xPosition;
-    int yPosition;
+    double xPosition;
+    double yPosition;
 
     public MotorPosition() {
     }
 
-    public int getxPosition() {
+    public double getxPosition() {
         return xPosition;
     }
 
-    public void setxPosition(int xPosition) {
+    public void setxPosition(double xPosition) {
         this.xPosition = xPosition;
     }
 
-    public int getyPosition() {
+    public double getyPosition() {
         return yPosition;
     }
 
-    public void setyPosition(int yPosition) {
+    public void setyPosition(double yPosition) {
+        Log.d("setyposition",String.valueOf(yPosition));
         this.yPosition = yPosition;
     }
 
-    public MotorPosition(int xPosition, int yPosition) {
+    public MotorPosition(double xPosition, double yPosition) {
         this.xPosition = xPosition;
         this.yPosition = yPosition;
     }

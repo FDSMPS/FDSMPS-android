@@ -4,16 +4,16 @@ package ca.ualberta.dorsa.seccam.entities;
 public interface MotorCoordinates {
     
 
-    int getMaxServoXPosition();
+    double getMaxServoXPosition();
     void setMaxServoXPosition(int maxServoXPosition);
 
-    int getMaxServoYPosition();
+    double getMaxServoYPosition();
     void setMaxServoYPosition(int maxServoYPosition);
 
-    int getMinServoXPosition();
+    double getMinServoXPosition();
     void setMinServoXPosition(int minServoXPosition);
 
-    int getMinServoYPosition();
+    double getMinServoYPosition();
     void setMinServoYPosition(int minServoYPosition);
 
     MotorPosition loadPositiomFromFireBase();
