@@ -67,7 +67,8 @@ public class Motor implements  MotorCoordinates{
 
                     double xPosition = dataSnapshot.child("servoXPosition").getValue(Double.class);
                     double yPosition = dataSnapshot.child("servoYPosition").getValue(Double.class);
-                    writeToDatabase((x+xPosition> maxServoXPosition)? maxServoXPosition: x+xPosition,(y+yPosition>maxServoYPosition)? maxServoYPosition:y+yPosition);
+                    writeToDatabase((x+xPosition> maxServoXPosition)? maxServoXPosition: x+xPosition,
+                            (y+yPosition>maxServoYPosition)? maxServoYPosition:y+yPosition);
 
                 } catch (NullPointerException np) {
                     throw np;
