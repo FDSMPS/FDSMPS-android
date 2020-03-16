@@ -6,6 +6,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+/**
+ * The type motor
+ * Executed UI tested yet to be unit tested
+ *
+ * @author Dorsa Nahid
+ * @date 2020 -3-15 Project: ECE 492 Group 1
+ */
 public class Motor implements  MotorCoordinates{
     private double maxServoXPosition = 12.0;
     private double maxServoYPosition = 12.0;
@@ -14,10 +21,18 @@ public class Motor implements  MotorCoordinates{
     private String cameraCode;
 
 
+    /**
+     * Instantiates a new Motor.
+     */
     public Motor() {
 
     }
 
+    /**
+     * Instantiates a new Motor.
+     *
+     * @param cameraCode the camera code
+     */
     public Motor(String cameraCode) {
         maxServoXPosition = 12.0;
         maxServoYPosition = 12.0;
