@@ -16,6 +16,6 @@ public interface MotorCoordinates {
     double getMinServoYPosition();
     void setMinServoYPosition(int minServoYPosition);
 
-    MotorPosition loadPositiomFromFireBase();
+    void loadAndChange(double x, double y);
 
-}
+    }

@@ -1,6 +1,5 @@
 package ca.ualberta.dorsa.seccam.activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.ActionBar;
 import android.os.Bundle;
@@ -8,8 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -20,7 +17,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import ca.ualberta.dorsa.seccam.R;
 import ca.ualberta.dorsa.seccam.entities.Motor;
-import ca.ualberta.dorsa.seccam.entities.MotorPosition;
 import ca.ualberta.dorsa.seccam.entities.SecurityCamera;
 import ca.ualberta.dorsa.seccam.entities.User;
 
@@ -36,11 +32,6 @@ import ca.ualberta.dorsa.seccam.entities.User;
 public class FeedActivity extends AppCompatActivity {
     public User cameraUser=null;
     public SecurityCamera camera= null;
-    protected int maxServoXPosition = 12;
-    protected int maxServoYPosition = 12;
-    protected int minServoXPosition = 2;
-    protected int minServoYPosition = 3;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,64 +109,28 @@ public class FeedActivity extends AppCompatActivity {
                 });
     }
 
-    private void writeToDatabase(double xPosition, double yPosition){
-
-        if (yPosition == -1) {
-            FirebaseDatabase.getInstance().getReference("SecurityCameras/" + camera.getCameraCode())
-                    .child("servoXPosition")
-                    .setValue(xPosition).addOnCompleteListener(task -> {
-
-
-                    });
-        }
-        if(xPosition == -1) {
-            FirebaseDatabase.getInstance().getReference("SecurityCameras/" + camera.getCameraCode())
-                    .child("servoYPosition")
-                    .setValue(yPosition);
-        }
-
-    }
 
     public void moveUp(View view) {
         Motor motor = new Motor(camera.getCameraCode());
-        MotorPosition motorPosition = motor.loadPositiomFromFireBase();
-        double yPosition = motorPosition.getyPosition();
-        if (yPosition<maxServoYPosition){
-            writeToDatabase(-1, yPosition+1);
-        }
+        motor.loadAndChange(0,.5);
 
     }
 
     public void moveLeft(View view) {
         Motor motor = new Motor(camera.getCameraCode());
-        MotorPosition motorPosition = motor.loadPositiomFromFireBase();
-        double xPosition = motorPosition.getxPosition();
-        Log.d("MOTORPOsition",String.valueOf(xPosition));
-        if (xPosition>minServoXPosition){
-            writeToDatabase(xPosition-1, -1);
-        }
+        motor.loadAndChange(-.5,0);
 
     }
 
     public void moveRight(View view) {
         Motor motor = new Motor(camera.getCameraCode());
-        MotorPosition motorPosition = motor.loadPositiomFromFireBase();
-        double xPosition = motorPosition.getxPosition();
-        Log.d("MOTORPOsition",String.valueOf(xPosition));
-        if (xPosition<maxServoXPosition){
-            writeToDatabase(xPosition+1, -1);
-        }
+        motor.loadAndChange(.5,0);
 
     }
 
     public void moveDown(View view) {
         Motor motor = new Motor(camera.getCameraCode());
-        MotorPosition motorPosition = motor.loadPositiomFromFireBase();
-        double yPosition = motorPosition.getyPosition();
-
-        if (yPosition>minServoYPosition){
-            writeToDatabase(-1, yPosition-1);
-        }
+        motor.loadAndChange(0,-.5);
 
     }
 }

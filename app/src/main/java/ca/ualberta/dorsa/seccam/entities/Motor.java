@@ -1,7 +1,5 @@
 package ca.ualberta.dorsa.seccam.entities;
 
-import android.util.Log;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -9,18 +7,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class Motor implements  MotorCoordinates{
-    private double maxServoXPosition;
-    private double maxServoYPosition;
-    private double minServoXPosition;
-    private double minServoYPosition;
+    private double maxServoXPosition = 12.0;
+    private double maxServoYPosition = 12.0;
+    private double minServoXPosition = 2.0;
+    private double minServoYPosition = 3.0;
     private String cameraCode;
 
 
     public Motor() {
-        maxServoXPosition = 12.0;
-        maxServoYPosition = 12.0;
-        minServoXPosition = 2.0;
-        minServoYPosition = 3.0;
 
     }
 
@@ -63,54 +57,17 @@ public class Motor implements  MotorCoordinates{
     public void setMinServoYPosition(int minServoYPosition) {
         this.minServoYPosition = minServoYPosition;
     }
-    public MotorPosition loadPositiomFromFireBase() {
+
+    public void loadAndChange(double x, double y) {
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("SecurityCameras/" + cameraCode);
-
-        MotorPosition motorPosition = new MotorPosition();
-
         dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 try {
 
                     double xPosition = dataSnapshot.child("servoXPosition").getValue(Double.class);
-//                    int xPosition = 3;
-//                    Log.d("MOTORPOsition",String.valueOf(dataSnapshot.child("servoXPosition").getValue()));
-                    motorPosition.setxPosition(xPosition);
-                    if (xPosition<minServoXPosition){
-                        Log.d("MOTORPOsition", String.valueOf(xPosition));
-                        FirebaseDatabase.getInstance().getReference("SecurityCameras/" + cameraCode)
-                                .child("servoXPosition")
-                                .setValue(minServoXPosition);
-                        motorPosition.setxPosition(minServoXPosition);
-
-                    }
-                    if (xPosition>maxServoXPosition){
-                        FirebaseDatabase.getInstance().getReference("SecurityCameras/" + cameraCode)
-                                .child("servoXPosition")
-                                .setValue(maxServoXPosition);
-                        motorPosition.setxPosition(maxServoXPosition);
-                    }
-
                     double yPosition = dataSnapshot.child("servoYPosition").getValue(Double.class);
-                    Log.d("MOTORPOsition-y", String.valueOf(yPosition));
-                    Log.d("MOTORPOsition-y", String.valueOf(minServoYPosition));
-                    motorPosition.setyPosition(yPosition);
-                    if (yPosition<minServoYPosition){
-//                        Log.d("MOTORPOsition", String.valueOf(yPosition));
-                        FirebaseDatabase.getInstance().getReference("SecurityCameras/" + cameraCode)
-                                .child("servoYPosition")
-                                .setValue(minServoYPosition);
-                        Log.d("MOTORPOsition-y", String.valueOf(minServoYPosition));
-                        motorPosition.setyPosition(minServoYPosition);
-                    }
-                    if (yPosition>maxServoYPosition){
-                        FirebaseDatabase.getInstance().getReference("SecurityCameras/" + cameraCode)
-                                .child("servoYPosition")
-                                .setValue(maxServoYPosition);
-                        motorPosition.setyPosition(maxServoYPosition);
-                    }
-
+                    writeToDatabase((x+xPosition> maxServoXPosition)? maxServoXPosition: x+xPosition,(y+yPosition>maxServoYPosition)? maxServoYPosition:y+yPosition);
 
                 } catch (NullPointerException np) {
                     throw np;
@@ -122,10 +79,17 @@ public class Motor implements  MotorCoordinates{
 
             }
         });
-        Log.d("MOTORPOsition-motor", String.valueOf(motorPosition.getxPosition()));
-        Log.d("MOTORPOsition-motor", String.valueOf(motorPosition.getyPosition()));
-        return motorPosition;
+    }
 
+
+    private void writeToDatabase(double xPosition, double yPosition){
+
+            FirebaseDatabase.getInstance().getReference("SecurityCameras/" + cameraCode)
+                    .child("servoXPosition")
+                    .setValue((xPosition>=minServoXPosition)? xPosition : minServoXPosition);
+            FirebaseDatabase.getInstance().getReference("SecurityCameras/" + cameraCode)
+                    .child("servoYPosition")
+                    .setValue((yPosition>=minServoYPosition)? yPosition : minServoYPosition);
 
     }
 }
