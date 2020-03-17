@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.ActionBar;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -15,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import ca.ualberta.dorsa.seccam.R;
+import ca.ualberta.dorsa.seccam.entities.Motor;
 import ca.ualberta.dorsa.seccam.entities.SecurityCamera;
 import ca.ualberta.dorsa.seccam.entities.User;
 
@@ -26,6 +28,9 @@ import ca.ualberta.dorsa.seccam.entities.User;
  * @author Jessica D'Cunha
  * @date 2020-1-31
  * Project: ECE 492 Group 1
+ *
+ * Modified by Dorsa Nahid
+ * @date 2020-03-15
  */
 public class FeedActivity extends AppCompatActivity {
     public User cameraUser=null;
@@ -46,7 +51,12 @@ public class FeedActivity extends AppCompatActivity {
 
     }
 
-    /*
+    /**
+     * Get camera and update feed image.
+     *
+     * @param cameraCode the camera code
+     */
+/*
      Grabs the camera from the database based on the current user. Uses the valueEventLinstener
      to
      */
@@ -75,14 +85,18 @@ public class FeedActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Update live feed image.
+     */
     public void updateLiveFeedImage(){
         ImageView imageView = findViewById(R.id.imageView1);
         imageView.setImageBitmap(camera.getDecodedLiveFeedImage());
     }
 
 
-
-
+    /**
+     * Get current user.
+     */
     public void getCurrentUser(){
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -108,6 +122,47 @@ public class FeedActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Move up.
+     *
+     * @param view the view
+     */
+    public void moveUp(View view) {
+        Motor motor = new Motor(camera.getCameraCode());
+        motor.loadAndChange(0,.5);
 
+    }
 
+    /**
+     * Move left.
+     *
+     * @param view the view
+     */
+    public void moveLeft(View view) {
+        Motor motor = new Motor(camera.getCameraCode());
+        motor.loadAndChange(-.5,0);
+
+    }
+
+    /**
+     * Move right.
+     *
+     * @param view the view
+     */
+    public void moveRight(View view) {
+        Motor motor = new Motor(camera.getCameraCode());
+        motor.loadAndChange(.5,0);
+
+    }
+
+    /**
+     * Move down.
+     *
+     * @param view the view
+     */
+    public void moveDown(View view) {
+        Motor motor = new Motor(camera.getCameraCode());
+        motor.loadAndChange(0,-.5);
+
+    }
 }
