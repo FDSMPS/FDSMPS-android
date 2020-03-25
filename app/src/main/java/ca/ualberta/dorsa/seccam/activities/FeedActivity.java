@@ -2,10 +2,13 @@ package ca.ualberta.dorsa.seccam.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.ActionBar;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -70,9 +73,15 @@ public class FeedActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 camera = dataSnapshot.getValue(SecurityCamera.class);
-                Log.v("FeedActivity", "Got User. CameraCode:" + camera.getCameraCode());
 
-                updateLiveFeedImage();
+                if (camera != null) {
+                    Log.v("FeedActivity", "Got User. CameraCode:" + camera.getCameraCode());
+                    updateLiveFeedImage();
+                }
+                else {
+                    Toast.makeText(FeedActivity.this, "Please go to Settings and set up a camera with your account.",
+                            Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -128,9 +137,10 @@ public class FeedActivity extends AppCompatActivity {
      * @param view the view
      */
     public void moveUp(View view) {
-        Motor motor = new Motor(camera.getCameraCode());
-        motor.loadAndChange(0,.5);
-
+        if (camera != null) {
+            Motor motor = new Motor(camera.getCameraCode());
+            motor.loadAndChange(0,.5);
+        }
     }
 
     /**
@@ -139,9 +149,10 @@ public class FeedActivity extends AppCompatActivity {
      * @param view the view
      */
     public void moveLeft(View view) {
-        Motor motor = new Motor(camera.getCameraCode());
-        motor.loadAndChange(-.5,0);
-
+        if (camera != null) {
+            Motor motor = new Motor(camera.getCameraCode());
+            motor.loadAndChange(-.5,0);
+        }
     }
 
     /**
@@ -150,9 +161,10 @@ public class FeedActivity extends AppCompatActivity {
      * @param view the view
      */
     public void moveRight(View view) {
-        Motor motor = new Motor(camera.getCameraCode());
-        motor.loadAndChange(.5,0);
-
+        if (camera != null) {
+            Motor motor = new Motor(camera.getCameraCode());
+            motor.loadAndChange(.5,0);
+        }
     }
 
     /**
@@ -161,8 +173,9 @@ public class FeedActivity extends AppCompatActivity {
      * @param view the view
      */
     public void moveDown(View view) {
-        Motor motor = new Motor(camera.getCameraCode());
-        motor.loadAndChange(0,-.5);
-
+        if (camera != null) {
+            Motor motor = new Motor(camera.getCameraCode());
+            motor.loadAndChange(0,-.5);
+        }
     }
 }
