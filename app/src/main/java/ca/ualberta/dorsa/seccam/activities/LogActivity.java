@@ -115,6 +115,9 @@ public class LogActivity extends AppCompatActivity {
                 isPreviouslyRegisteredCameraCode = true;
                 notificationSubscription();
 
+                Intent intent = new Intent(getBaseContext(), LogActivity.class);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                startActivity(intent);
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
