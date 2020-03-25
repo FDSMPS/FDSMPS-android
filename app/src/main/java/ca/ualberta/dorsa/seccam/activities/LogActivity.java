@@ -178,8 +178,7 @@ public class LogActivity extends AppCompatActivity {
      */
     public void logOut(View view) {
         editor = sharedPref.edit();
-        editor.putBoolean(getString(R.string.saved_high_score_key), false);
-        editor.apply();
+        editor.clear().commit();
         firebaseAuth.signOut();
         Intent logedInIntent = new Intent(getBaseContext(), LoginActivity.class);
         logedInIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
