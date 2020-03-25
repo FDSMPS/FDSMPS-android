@@ -72,9 +72,9 @@ public class LogActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
         BottomNavigationItemView feedButton = findViewById(R.id.navigation_feed);
         feedButton.setOnClickListener(view -> {
-                    Intent i = new Intent(LogActivity.this, FeedActivity.class);
-                    startActivity(i);
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            Intent i = new Intent(LogActivity.this, FeedActivity.class);
+            startActivity(i);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 }
         );
         sharedPref = getApplicationContext().getSharedPreferences(
@@ -178,8 +178,8 @@ public class LogActivity extends AppCompatActivity {
      */
     public void logOut(View view) {
         editor = sharedPref.edit();
-        editor.clear().commit();
-//        editor.apply();
+        editor.putBoolean(getString(R.string.saved_high_score_key), false);
+        editor.apply();
         firebaseAuth.signOut();
         Intent logedInIntent = new Intent(getBaseContext(), LoginActivity.class);
         logedInIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
