@@ -9,9 +9,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -143,17 +145,23 @@ public class LogActivity extends AppCompatActivity {
      */
     public void forgetMe(View view) {
         editor = sharedPref.edit();
-        editor.putBoolean(getString(R.string.saved_high_score_key), false);
-        editor.apply();
+        editor.clear().commit();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        //TODO handle forget me logic
+        if (user != null) {
+            user.delete()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(this,"Your account was successfully deleted", Toast.LENGTH_SHORT).show();
 
-
-        //End of forget me logic
+                        }
+                    });
+        }
 
         Intent logedInIntent = new Intent(getBaseContext(), LoginActivity.class);
         logedInIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(logedInIntent);
+
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         finish();
 
