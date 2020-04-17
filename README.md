@@ -9,11 +9,6 @@ Supported version:
 (Android Application)
    * SDK 24+, Android Nougat (7.0)  and Above
 
-
-To dos:
-* Live Feed 
-* Right to forget me 
-
 3rd Party Libraries used:
 * ZXing ("Zebra Crossing") barcode scanning library for Java, Android
 * androidx.security.crypto
